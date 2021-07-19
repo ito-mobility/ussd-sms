@@ -24,7 +24,7 @@ module.exports = {
                     global.sayText(translate('serial_numbers',{'$serialNumbers': serialNumbers},state.vars.shsLang));
                     global.promptDigits(requestCodeHandler.handlerName);
                 }
-                else if(serialNumberDetails != null){
+                else if(serialNumberDetails === null){
                     var message = translate('no_code_message',{},state.vars.shsLang);
                     if(state.vars.unitForOther == 'true')
                         message = translate('no_code_message_client',{},state.vars.shsLang);
@@ -40,7 +40,7 @@ module.exports = {
                     global.sayText(translate('view_recent_code',{'$serialNumbers': serialNumbers},state.vars.shsLang));
                     global.promptDigits(getCodeSerialHandler.handlerName);
                 }
-                else if(serialNumberDetails != null){
+                else if(serialNumberDetails === null){
                     message = translate('no_code_message',{},state.vars.shsLang);
                     if(state.vars.unitForOther == 'true')
                         message = translate('no_code_message_client',{},state.vars.shsLang);

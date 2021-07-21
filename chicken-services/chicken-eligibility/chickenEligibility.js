@@ -6,8 +6,9 @@ module.exports = function(chicken_table, acc_nber, client_json){
     var prepRequired = 0;
     var totalCredit = 0;
     
+    var row;
     if(chickenCursor.hasNext()){
-        var row = chickenCursor.next();
+        row = chickenCursor.next();
         //prepRequired = row.vars.prep_required; //Replaced by percentage healthpath from november
         state.vars.chcken_nber = 15;
         state.vars.farmer_name  = JSON.parse(state.vars.client_json).FirstName;
@@ -19,6 +20,9 @@ module.exports = function(chicken_table, acc_nber, client_json){
         //var logMessage = 'Client ' + client_json.FirstName + ' not found in chicken table';
         //logger.log(logMessage);
     }  
+    client_json.SectorName = row.vars.sector;
+    client_json.DistrictName = row.vars.district;
+    state.vars.client_json = JSON.stringify(client_json);
     //calculate the prepayment
     if(client_json.BalanceHistory.length>0){
         client_json.BalanceHistory = client_json.BalanceHistory[0];

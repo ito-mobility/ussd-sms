@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## New Version
 
+## v2.1.1
+### Changed
+* [ESWFA-192](https://oneacrefund.atlassian.net/browse/THD-7875) USSD services: Correcting Spelling-TZ
+
 ### Changed
 * [ESWFA-192](https://oneacrefund.atlassian.net/browse/ESWFA-192) B22A USSD change request_Tester pack
 ### Added

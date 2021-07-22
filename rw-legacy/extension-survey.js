@@ -589,6 +589,22 @@ addInputHandler('crop_demo_question', function(input){
         console.log('step is ' + state.vars.step + ', survey is ' + state.vars.survey_type);
         var question_cursor = demo_table.queryRows({'vars' : {  'question_id' : state.vars.survey_type + state.vars.step}});
         // if entering for the first time, save the crop
+        var min, max;
+        if(state.vars.survey_type == 'crop') {
+            if(state.vars.step == 1) {
+                max = 9;
+                min = 1;
+            } else if(state.vars.step == 2) {
+                max = 100;
+                min = 1;
+            }else if(state.vars.step == 3) {
+                max = 100;
+                min = 1;
+            }
+        }
+        if((min & max) && (input < min || input > max)) {
+            within = false;
+        }
         if(state.vars.step === 1){
             state.vars.crop = get_menu_option(input, 'crop_menu');
             call.vars['crop'] = state.vars.crop;
@@ -602,6 +618,9 @@ addInputHandler('crop_demo_question', function(input){
                 within = false;
             }
             call.vars[prev_question.vars.msg_name] = input;
+        }
+        if((min & max) && (input < min || input > max)) {
+            within = false;
         }
         if(within){
             console.log('input was within' + within);

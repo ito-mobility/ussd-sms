@@ -60,8 +60,8 @@ if(env === 'prod'){
 const inputHandlers = {};
 
 
-var extensionTable =  project.initDataTableById(service.vars.extensionTableId);
-var surveyTable = project.getOrCreateDataTable('SurveyQuestions');
+var extensionTable =  project.initDataTableById(service.vars.extensionTableId);;
+var surveyTable;
 // display welcome message and prompt user to choose their survey (AMA1, AMA2, GUS)
 global.main = function(){
     var menu = populate_menu(extension_main_menu_table, lang);
@@ -116,6 +116,8 @@ addInputHandler('ext_main_splash', function(input){
 
     var selection = get_menu_option(input, extension_main_menu_table);
     if(selection === 'fp_training'){
+        state.vars.questions_table = 'SurveyQuestions';
+        surveyTable = project.getOrCreateDataTable('SurveyQuestions');
         var menu = populate_menu('extension_fp_menu', lang);
         sayText(menu);
         promptDigits('fp_menu_handler', {   'submitOnHash' : false,
@@ -124,7 +126,9 @@ addInputHandler('ext_main_splash', function(input){
 
     }
     else if(selection === 'gus'){
+        state.vars.questions_table = 'SurveyQuestionsGus';
         surveyTable = project.getOrCreateDataTable('SurveyQuestionsGus');
+        state.vars.gus_active = '1';
         sayText(msgs('sedo_enter_id'));
         promptDigits('sedo_enter_id',  {'submitOnHash'  : false,
                                         'maxDigits'     : max_digits_for_sedo_id,
@@ -132,6 +136,8 @@ addInputHandler('ext_main_splash', function(input){
                                         });
     }
     else if(selection === 'tester_pack') {
+        state.vars.questions_table = 'SurveyQuestions';
+        surveyTable = project.getOrCreateDataTable('SurveyQuestions');
         testerPack.startTesterPack({lang: lang});
     }
     else{
@@ -522,16 +528,28 @@ addInputHandler('sedo_enter_vid', function(input){
 
 // input handler for demographic questions
 addInputHandler('demo_question', function(input){
-    input = parseInt(input.replace(/\s/g,''));
     if(checkstop(input)){
         return null;
     }
-    call.vars.status = state.vars.survey_type + state.vars.step;
+    
+    
+    if(input === '0000') {
+        var demo_table = project.getOrCreateDataTable('demo_table');
+        state.vars.step = state.vars.step > 1 ?  state.vars.step - 1 : state.vars.step;
+        // var question = question_cursor.next();
+        var prev_question = demo_table.queryRows({'vars' : {'question_id' : state.vars.survey_type + state.vars.step}}).next();
+        sayText(msgs(prev_question.vars.msg_name, {}, lang));
+        promptDigits('demo_question', {'submitOnHash' : false, 
+        'maxDigits'    : project.vars.max_digits_for_input,
+        'timeout'      : timeout_length});
+        return;
+    }
+    input = parseInt(input.replace(/\s/g,''));
     if(input || input === 0){
         // save input in session data
         var demo_table = project.getOrCreateDataTable('demo_table');
         var prev_question = demo_table.queryRows({'vars' : {'question_id' : state.vars.survey_type + state.vars.step}}).next();
-        call.vars[prev_question.vars.msg_name] = input;
+        // call.vars[prev_question.vars.msg_name && prev_question.vars.msg_name] = input; 
         // check if input falls within criteria
         var max = prev_question.vars.answer_max;
         var min = prev_question.vars.answer_min || 0;
@@ -544,6 +562,7 @@ addInputHandler('demo_question', function(input){
             if(question_cursor.hasNext()){
                 var question = question_cursor.next();
                 // display text and prompt user to select their choice
+                state.vars.current_msg_name = question.vars.msg_name;
                 sayText(msgs(question.vars.msg_name, {}, lang));
                 promptDigits('demo_question', {     'submitOnHash' : false, 
                                                     'maxDigits'    : project.vars.max_digits_for_input,
@@ -578,11 +597,21 @@ addInputHandler('demo_question', function(input){
 
 // input handler for crop demographic questions
 addInputHandler('crop_demo_question', function(input){
-    input = parseInt(input.replace(/\s/g,''));
     if(checkstop(input)){
         return null;
     }
-    call.vars.status = state.vars.survey_type + state.vars.step;
+    if(input === '0000') {
+        var demo_table = project.getOrCreateDataTable('demo_table');
+        state.vars.step = state.vars.step > 1 ?  state.vars.step - 1 : state.vars.step;
+        var question_cursor = demo_table.queryRows({'vars' : {  'question_id' : state.vars.survey_type + state.vars.step}});
+        var question = question_cursor.next();
+        sayText(msgs(question.vars.msg_name, {}, lang));
+        promptDigits('crop_demo_question', {'submitOnHash' : false, 
+        'maxDigits'    : project.vars.max_digits_for_input,
+        'timeout'      : timeout_length});
+        return;
+    }
+    input = parseInt(input.replace(/\s/g,''));
     if(input || input === 0){
         var demo_table = project.getOrCreateDataTable('demo_table');
         var within = true;
@@ -628,6 +657,7 @@ addInputHandler('crop_demo_question', function(input){
             if(question_cursor.hasNext()){
                 var question = question_cursor.next();
                 state.vars.step = state.vars.step + 1;
+                state.vars.current_msg_name = question.vars.msg_name
                 sayText(msgs(question.vars.msg_name, {}, lang));
                 promptDigits('crop_demo_question', {'submitOnHash' : false, 
                                                     'maxDigits'    : project.vars.max_digits_for_input,
@@ -660,10 +690,16 @@ addInputHandler('crop_demo_question', function(input){
 // input handler for survey questions
 addInputHandler('survey_response', function(input){
     console.log('4 q is ' + state.vars.question_number + ' id is ' + state.vars.question_id);
-    input = parseInt(input.replace(/\s/g,''));
     if(checkstop(input)){
         return null;
     }
+
+    if(input === '0000') {
+        state.vars.question_number = state.vars.question_number > 1 ? state.vars.question_number - 1 : state.vars.question_number;
+        ask();
+        return null;
+    }
+    input = parseInt(input.replace(/\s/g,''));
     call.vars.status = String('Q' + state.vars.question_number);
     call.vars[call.vars.status] = input; 
     console.log('question number is: ' + state.vars.question_number);
@@ -684,7 +720,7 @@ addInputHandler('survey_response', function(input){
             call.vars[prev_question.vars.msg_name] = input;
         }
         // say closing message and end survey if all questions are complete
-        // var surveyTable = project.getOrCreateDataTable('SurveyQuestions');
+        surveyTable = project.getOrCreateDataTable(state.vars.questions_table);
         var cursor = surveyTable.queryRows({'vars': {'crop': state.vars.crop}});
         var survey_length = cursor.count();
         console.log('question number: ' + state.vars.question_number + ' of type ' + typeof(state.vars.question_number));

@@ -116,8 +116,8 @@ module.exports = {
         'ki': 'Hitamo igihingwa:~B'
     },
     'survey_question': {
-        'en': '$FEEDBACK~B$TEXT~B$OPT1~B$OPT2~B$OPT3~B$OPT4~B5) Ntabyo nzi',
-        'ki': '$FEEDBACK~B$TEXT~B$OPT1~B$OPT2~B$OPT3~B$OPT4~B5) Ntabyo nzi'
+        'en': '$FEEDBACK~B$TEXT~B$OPT1~B$OPT2~B$OPT3~B$OPT4~B$OPT5~B',
+        'ki': '$FEEDBACK~B$TEXT~B$OPT1~B$OPT2~B$OPT3~B$OPT4~B$OPT5~B'
     },
     'invalid_input': {
         'en': 'Please try again',

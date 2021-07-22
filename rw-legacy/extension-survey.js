@@ -61,7 +61,7 @@ const inputHandlers = {};
 
 
 var extensionTable =  project.initDataTableById(service.vars.extensionTableId);
-
+var surveyTable = project.getOrCreateDataTable('SurveyQuestions');
 // display welcome message and prompt user to choose their survey (AMA1, AMA2, GUS)
 global.main = function(){
     var menu = populate_menu(extension_main_menu_table, lang);
@@ -108,7 +108,7 @@ addInputHandler('ext_main_splash', function(input){
             return null;
         }
         else if (input == 44 && state.vars.input_menu_loc == 0) {
-            sayText(msgs('invalid_input', {}, lang));
+            sayText(msgs('invalid_input_ext', {}, lang));
             promptDigits('invalid_input', { 'submitOnHash': false, 'maxDigits': max_digits_for_input, 'timeout': timeout_length });
             return null;
         }
@@ -124,6 +124,7 @@ addInputHandler('ext_main_splash', function(input){
 
     }
     else if(selection === 'gus'){
+        surveyTable = project.getOrCreateDataTable('SurveyQuestionsGus');
         sayText(msgs('sedo_enter_id'));
         promptDigits('sedo_enter_id',  {'submitOnHash'  : false,
                                         'maxDigits'     : max_digits_for_sedo_id,
@@ -134,7 +135,7 @@ addInputHandler('ext_main_splash', function(input){
         testerPack.startTesterPack({lang: lang});
     }
     else{
-        sayText(msgs('invalid_input', {}, lang));
+        sayText(msgs('invalid_input_ext', {}, lang));
         promptDigits('ext_main_splash', { 'submitOnHash'   : false, 
                                             'maxDigits'    : max_digits_for_input,
                                             'timeout'      : timeout_length});
@@ -204,7 +205,7 @@ inputHandlers['fp_enter_id'] =  function(input){
     }
     }
     else{
-        sayText(msgs('invalid_input', {}, lang));
+        sayText(msgs('invalid_input_ext', {}, lang));
         promptDigits('fp_enter_id', {   'submitOnHash' : false,
                                         'maxDigits'    : max_digits_for_vid,
                                         'timeout'      : timeout_length 
@@ -482,7 +483,7 @@ addInputHandler('sedo_enter_id', function(input){
                                             'timeout'      : timeout_length});
     }
     else{
-        sayText(msgs('invalid_input', {}, lang));
+        sayText(msgs('invalid_input_ext', {}, lang));
         promptDigits('sedo_enter_id', {     'submitOnHash' : false, 
                                             'maxDigits'    : max_digits_for_sedo_id,
                                             'timeout'      : timeout_length});
@@ -512,7 +513,7 @@ addInputHandler('sedo_enter_vid', function(input){
         }
     }
     else{
-        sayText(msgs('invalid_input', {}, lang));
+        sayText(msgs('invalid_input_ext', {}, lang));
         promptDigits('sedo_enter_vid', {    'submitOnHash' : false, 
                                             'maxDigits'    : max_digits_for_vid,
                                             'timeout'      : timeout_length});
@@ -561,14 +562,14 @@ addInputHandler('demo_question', function(input){
             }
         }
         else{
-            sayText(msgs('invalid_input', {}, lang));
+            sayText(msgs('invalid_input_ext', {}, lang));
             promptDigits('demo_question', {   'submitOnHash' : false, 
                                                     'maxDigits'    : project.vars.max_digits_for_input,
                                                     'timeout'      : timeout_length});
         }
     }
     else{
-        sayText(msgs('invalid_input', {}, lang));
+        sayText(msgs('invalid_input_ext', {}, lang));
         promptDigits('demo_question', {   'submitOnHash' : false, 
                                             'maxDigits'    : project.vars.max_digits_for_input,
                                             'timeout'      : timeout_length});
@@ -623,14 +624,14 @@ addInputHandler('crop_demo_question', function(input){
             }
         }
         else{
-            sayText(msgs('invalid_input', {}, lang));
+            sayText(msgs('invalid_input_ext', {}, lang));
             promptDigits('crop_demo_question', {   'submitOnHash' : false, 
                                                     'maxDigits'    : project.vars.max_digits_for_input,
                                                     'timeout'      : timeout_length});
         }
     }
     else{
-        sayText(msgs('invalid_input', {}, lang));
+        sayText(msgs('invalid_input_ext', {}, lang));
         promptDigits('crop_demo_question', {   'submitOnHash' : false, 
                                                 'maxDigits'    : project.vars.max_digits_for_input,
                                                 'timeout'      : timeout_length});
@@ -664,7 +665,7 @@ addInputHandler('survey_response', function(input){
             call.vars[prev_question.vars.msg_name] = input;
         }
         // say closing message and end survey if all questions are complete
-        var surveyTable = project.getOrCreateDataTable('SurveyQuestions');
+        // var surveyTable = project.getOrCreateDataTable('SurveyQuestions');
         var cursor = surveyTable.queryRows({'vars': {'crop': state.vars.crop}});
         var survey_length = cursor.count();
         console.log('question number: ' + state.vars.question_number + ' of type ' + typeof(state.vars.question_number));

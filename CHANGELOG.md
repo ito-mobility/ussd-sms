@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 ## New Version
 
 ### Changed
+* [ESWFA-197](https://oneacrefund.atlassian.net/browse/ESWFA-197) USSD Services-Special Request - USSD Request for Avocado-RW
+### Changed
 * [ESWFA-192](https://oneacrefund.atlassian.net/browse/ESWFA-192) B22A USSD change request_Tester pack
 ### Added
 * [ESWFA-186](https://oneacrefund.atlassian.net/browse/ESWFA-186) BU Enrollment UAT Requested changes

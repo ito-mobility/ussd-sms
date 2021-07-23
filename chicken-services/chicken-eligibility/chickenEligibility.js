@@ -10,7 +10,7 @@ module.exports = function(chicken_table, acc_nber, client_json){
     if(chickenCursor.hasNext()){
         row = chickenCursor.next();
         //prepRequired = row.vars.prep_required; //Replaced by percentage healthpath from november
-        state.vars.chcken_nber = 15;
+        state.vars.chcken_nber = row.vars.ordered_chickens || 15;
         state.vars.farmer_name  = JSON.parse(state.vars.client_json).FirstName;
     }
     else{
@@ -21,7 +21,6 @@ module.exports = function(chicken_table, acc_nber, client_json){
         //logger.log(logMessage);
     }  
     client_json.SectorName = row.vars.sector;
-    client_json.DistrictName = row.vars.district;
     state.vars.client_json = JSON.stringify(client_json);
     //calculate the prepayment
     if(client_json.BalanceHistory.length>0){

@@ -141,7 +141,7 @@ addInputHandler('ext_main_splash', function(input){
         testerPack.startTesterPack({lang: lang});
     }
     else{
-        sayText(msgs('invalid_input_ext', {}, lang));
+        sayText(msgs('invalid_input', {}, lang));
         promptDigits('ext_main_splash', { 'submitOnHash'   : false, 
                                             'maxDigits'    : max_digits_for_input,
                                             'timeout'      : timeout_length});
@@ -211,7 +211,7 @@ inputHandlers['fp_enter_id'] =  function(input){
     }
     }
     else{
-        sayText(msgs('invalid_input_ext', {}, lang));
+        sayText(msgs('invalid_input', {}, lang));
         promptDigits('fp_enter_id', {   'submitOnHash' : false,
                                         'maxDigits'    : max_digits_for_vid,
                                         'timeout'      : timeout_length 
@@ -489,7 +489,7 @@ addInputHandler('sedo_enter_id', function(input){
                                             'timeout'      : timeout_length});
     }
     else{
-        sayText(msgs('invalid_input_ext', {}, lang));
+        sayText(msgs('invalid_input', {}, lang));
         promptDigits('sedo_enter_id', {     'submitOnHash' : false, 
                                             'maxDigits'    : max_digits_for_sedo_id,
                                             'timeout'      : timeout_length});
@@ -519,7 +519,7 @@ addInputHandler('sedo_enter_vid', function(input){
         }
     }
     else{
-        sayText(msgs('invalid_input_ext', {}, lang));
+        sayText(msgs('invalid_input', {}, lang));
         promptDigits('sedo_enter_vid', {    'submitOnHash' : false, 
                                             'maxDigits'    : max_digits_for_vid,
                                             'timeout'      : timeout_length});
@@ -581,14 +581,14 @@ addInputHandler('demo_question', function(input){
             }
         }
         else{
-            sayText(msgs('invalid_input_ext', {}, lang));
+            sayText(msgs('invalid_input', {}, lang));
             promptDigits('demo_question', {   'submitOnHash' : false, 
                                                     'maxDigits'    : project.vars.max_digits_for_input,
                                                     'timeout'      : timeout_length});
         }
     }
     else{
-        sayText(msgs('invalid_input_ext', {}, lang));
+        sayText(msgs('invalid_input', {}, lang));
         promptDigits('demo_question', {   'submitOnHash' : false, 
                                             'maxDigits'    : project.vars.max_digits_for_input,
                                             'timeout'      : timeout_length});
@@ -673,14 +673,14 @@ addInputHandler('crop_demo_question', function(input){
             }
         }
         else{
-            sayText(msgs('invalid_input_ext', {}, lang));
+            sayText(msgs('invalid_input', {}, lang));
             promptDigits('crop_demo_question', {   'submitOnHash' : false, 
                                                     'maxDigits'    : project.vars.max_digits_for_input,
                                                     'timeout'      : timeout_length});
         }
     }
     else{
-        sayText(msgs('invalid_input_ext', {}, lang));
+        sayText(msgs('invalid_input', {}, lang));
         promptDigits('crop_demo_question', {   'submitOnHash' : false, 
                                                 'maxDigits'    : project.vars.max_digits_for_input,
                                                 'timeout'      : timeout_length});

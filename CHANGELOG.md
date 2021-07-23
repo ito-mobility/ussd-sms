@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 ## New Version
 
 ### Changed
+* [THD-6616](https://oneacrefund.atlassian.net/browse/THD-6616) Re: Urgent - Government Services USSD Survey Update
+### Changed
 * [ESWFA-192](https://oneacrefund.atlassian.net/browse/ESWFA-192) B22A USSD change request_Tester pack
 ### Added
 * [ESWFA-186](https://oneacrefund.atlassian.net/browse/ESWFA-186) BU Enrollment UAT Requested changes

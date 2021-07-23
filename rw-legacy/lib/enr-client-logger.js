@@ -3,7 +3,7 @@ module for logging client data collected through the USSD enr system
 */
 
 module.exports = function (nid, name1, name2, pn, glus, geo, an_table_name, claimsGl, lang) {
-    var an_table = project.getOrCreateDataTable(an_table_name);
+    var an_table = typeof(an_table_name) == 'string' ? project.getOrCreateDataTable(an_table_name) : an_table_name;
     var cursor = an_table.queryRows({ 'vars': { 'registered': { exists: 1 }, 'nid': nid } });
     if(! cursor.hasNext()){
         var client_row = null;

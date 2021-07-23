@@ -46,9 +46,9 @@ function onOrderConfirmed(){
 
     //enroll order
     var requestBundles = [{
-        'bundleId': '-3217',
+        'bundleId': '-5620',
         'bundleQuantity': state.vars.orderedNumber,
-        'inputChoices': [-13392]
+        'inputChoices': [-16824]
     }];
     var client = JSON.parse(state.vars.client_json);
     var groupId = client.GroupId;

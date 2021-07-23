@@ -15,7 +15,7 @@ global options - feel free to refactor someday
 edited to use project vars as of 14 nov 2019 due to emergency api overage
 */
 const lang = project.vars.enr_lang;
-const an_pool = project.vars.enr_client_pool;
+const an_pool = project.getOrCreateDataTable(project.vars.enr_client_pool);
 const glus_pool = project.vars.glus_pool;
 const geo_menu_map = project.vars.geo_menu_map;
 const enr_splash = project.vars.enr_splash;

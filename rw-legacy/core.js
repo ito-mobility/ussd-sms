@@ -1276,7 +1276,11 @@ addInputHandler('reg_end_ordering_redirect',function(input){
         return null;
     }
     else if(input == 1){
-        
+        // currently ordering is not supported since enrollment for season 22A ended. stopRules.
+        global.sayText(msgs('enr_order_period_finished', {}, lang));
+        global.stopRules();
+        return;
+        // the above two lines should be uncommented when the new season starts
         state.vars.multiple_input_menus = 1;
         var client = get_client(state.vars.account_number, an_pool, true);
         var isDistrictClosed = require('./lib/isDistrictClosed');
@@ -1340,8 +1344,26 @@ addInputHandler('reg_end_ordering_redirect',function(input){
             contact.vars.account_failures = contact.vars.account_failures + 1;
             promptDigits('invalid_input', { 'submitOnHash': false, 'maxDigits': max_digits_for_input, 'timeout': timeout_length })
         }
-    }
-    else{
+    } else if(input == 2) {
+        // start avocado ordering.  this block shoule be commented if the new season starts.
+         var new_client_table = project.initDataTableById(service.vars.rw_reg_client_table_id);
+        var group_details = JSON.parse(state.vars.group_details || '{}')
+        var newClientRow = new_client_table.createRow({vars: {
+            account_number: state.vars.account_number,
+            client_phone_number: state.vars.reg_pn,
+            district: group_details.districtId,
+            first_name: state.vars.reg_name_1,
+            groupId: group_details.groupId,
+            last_name: state.vars.reg_name_2,
+            national_id: state.vars.reg_nid,
+            new_client: '1',
+            registering_phone_number: contact.phone_number,
+            site: group_details.siteId
+        }});
+        newClientRow.save();
+        avocadoTreesOrdering.start(state.vars.account_number,'rw',lang);
+        return;
+    } else{
         sayText(msgs('invalid_input', {}, lang));
         promptDigits('invalid_input', { 'submitOnHash': false, 'maxDigits': max_digits_for_input, 'timeout': timeout_length })
     }

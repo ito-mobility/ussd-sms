@@ -340,8 +340,8 @@ module.exports = {
         'ki': 'Nomero iranga umuyobozi w\'itsinda wanditse siyo. Ongera ugerageze',
     },
     'enr_reg_complete': {
-        'en': 'Thank you for enrolling with TUBURA! Your account number is $ACCOUNT_NUMBER. Please save this! 1) Continue Ordering',
-        'ki': 'Murakoze kwiyandikisha, $NAME. Bwira umuhinzi nimero ya konti ya TUBURA: $ACCOUNT_NUMBER. Subiza 1) Gutumiza',
+        'en': 'Thank you for enrolling with TUBURA! Your account number is $ACCOUNT_NUMBER. Please save this! 1) Continue Ordering\n2) Order avocadoes',
+        'ki': 'Murakoze kwiyandikisha, $NAME. Bwira umuhinzi nimero ya konti ya TUBURA: $ACCOUNT_NUMBER. Subiza 1) Gutumiza\n2 Gutumiza avoka',
     },
     'enr_bad_input_increment': {
         'en': 'invalid increment~B1)Continue~B99)Exit',
@@ -440,8 +440,8 @@ module.exports = {
         'ki': 'Niwatenze ubwishyu busabwa kugirango utumize. Urasaba kubutanga kugirango kugirango ubashe gutumiza',
     },
     'enr_order_period_finished': {
-        'en': 'order period finished',
-        'ki': 'enr_order_period_finished',
+        'en': 'order period finished. try again next season',
+        'ki': 'gutumiza byararangiye. uzagerageze igihembwe gitaha',
     },
     'chx_confirm': {
         'en': 'enter number of chickens to confirm',

@@ -4,6 +4,7 @@ var translate =  createTranslator(translations, service.vars.lang);
 var notifyELK = require('../notifications/elk-notification/elkNotification');
 var placeOrderHandler = require('./place-order-handler/placeOrderHandler');
 var confirmOrderHandler = require('./confirm-order-handler/confirmOrderHandler');
+var getClient = require('../shared/rosterApi/getClient');
 
 module.exports = {
     registerHandlers: function (){
@@ -16,6 +17,7 @@ module.exports = {
         state.vars.account = account;
         state.vars.country = country;
         state.vars.lang = lang;
+        state.vars.client_json = state.vars.client_json || JSON.stringify(getClient(account, country));
         var avocadoEligibility = require('./avocado-eligibility/avocadoEligibility');
         var avocado_table = project.initDataTableById(service.vars.avocado_table_id);
         var possibleTrees = avocadoEligibility(avocado_table, state.vars.account,JSON.parse(state.vars.client_json));

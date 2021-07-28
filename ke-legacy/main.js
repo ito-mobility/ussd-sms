@@ -55,6 +55,10 @@ service.vars.seedQualityIssuesEnd = env + '_seedQualityIssuesEnd';
 
 var checkGroupLeader = require('../shared/rosterApi/checkForGroupLeader');
 const nonClientMainMenu = require('./utils/menus/populate-menu/nonClientMainMenu');
+
+//Require - Google USSD Integration
+var ussd_google_handler = require('../regions_handler/ussd_google_message_script');
+
 service.vars.credit_officers_table = 'credit_officers_table';
 service.vars.duka_clients_table = env + '_duka_client_registration';
 service.vars.maizeEnrollmentTableId  = project.vars[env + '_maize_enr_table_id'];
@@ -605,7 +609,9 @@ var JITUpdateWarehouse = function (warehousename,bundlename,variety){
         StockRow.vars.quanityordered = JITEOrderCount+ JITTUOrderCount;
         StockRow.save();
     }
-    else {sendEmail('charles.lipeyah@oneacrefund.org ', 'JIT Data error', 'No stock record found for '+ bundlename+ 'in warehouse '+ warehousename+ 'Check here to verify https://telerivet.com/p/0c6396c9/data/JIT_20Warehouse_20stock' );}
+    else {
+        sendEmail('charles.lipeyah@oneacrefund.org ', 'JIT Data error', 'No stock record found for '+ bundlename+ 'in warehouse '+ warehousename+ 'Check here to verify https://telerivet.com/p/0c6396c9/data/JIT_20Warehouse_20stock' );
+    }
     for (var i = 0; i < JITBundleOptions.length; i++) {
         console.log(JITBundleOptions[i].bundlename);
         if (JITBundleOptions[i].bundlename == bundlename && JITBundleOptions[i].variety === true){
@@ -778,6 +784,11 @@ var StaffCallBackCreate = function(phonenumberCB,type,Body){
     var CEEmail = 'support@oneacrefund-ke.zendesk.com';
     var Subject = 'Call back requested for: '+type+ ' From '+ phonenumberCB;
     sendEmail(CEEmail, Subject, Body);
+};
+
+var Ussd_Google_func_init = function(phone_number,issuelevel1,issuelevel2,issuelevel3,payroll_id,creation_date){
+    console.log("USSD GOOGLE");
+    ussd_google_handler.send_ussd_response(phone_number,issuelevel1,issuelevel2,issuelevel3,payroll_id,creation_date)
 };
 var LocationNext = function (){
     LocArray = JSON.parse(state.vars.LocArray);
@@ -1495,27 +1506,69 @@ var StaffPayrollText = function(){
     sayText('Please enter you 5 digit payroll ID');
 };
 var StaffTabletIssueText = function(){
-    var Text = 'Affected part?\n1) FS App\n2) ME App\n3) G suite\n4)Tablet hardware\n5) Tablet system down CE support';
+    var Text = 'Affected part?\n1) Field Tech App\n2) ME App\n3) G suite\n4)Tablet hardware\n5)Tablet Software\n6)Bundles\n7)Device Policy\n8)Power Bank\n9)Charger\n10)SIM card\n11)CPSS(Performance Portal App)\n12)Commcare App\n13) Tablet system down CE support';
     state.vars.IssueLevel2Ques = Text;
     sayText(Text);
 };
-var StaffFSAppIssueText = function(){
-    var Text = '1) Log in Issue\n2)Wrong/Missing Clients/Payments\n3) CRPR Data Not Updating\n4)Configure with google\n5)Displays error message';
+
+var StaffTabletSoftwareIssueText = function(){
+    var Text = '1) Tablet screen unable to unlock\n2)Tablet Unable to connect to internet\n3) Tablet memory pop up error(Storage Full)\n4) Tablet Play store missing\n5) Network stuck on 2G\n6) Poor Network connection\n7) Camera not opening\8)Camera not taking photos\9)Staff Promotion Google account change(FO-FM/FC)';
+    state.vars.IssueLevel3Ques = Text;
+    sayText(Text);
+};
+var StaffBundlesIssueText = function(){
+    var Text = '1) No data bundles\n2)Bundles run out/Expire';
+    state.vars.IssueLevel3Ques = Text;
+    sayText(Text);
+};
+var StaffDevicePolicyText = function(){
+    var Text = '1) Network Error/Unable to sync\n2)Gmail Account deactivated\n3) Security Error\n4)App missing in tablet';
+    state.vars.IssueLevel3Ques = Text;
+    sayText(Text);
+};
+var StaffPowerBankText = function(){
+    var Text = '1) Damaged charging port\n2) Faulty Charging cable\n3) Lost Powerbank\n4) Broken Powerbank\n5) Powerbank not charging';
+    state.vars.IssueLevel3Ques = Text;
+    sayText(Text);
+};
+var StaffChargerText = function(){
+    var Text = '1) Faulty Cable\n2)Faulty Adaptor\n3) Lost cable/adaptor';
+    state.vars.IssueLevel3Ques = Text;
+    sayText(Text);
+};
+var StaffSimCardText = function(){
+    var Text = '1) Lost Sim Card\n2)Stolen Sim Card\n3)Faulty Sim Card\n4) Internet Connectivity';
+    state.vars.IssueLevel3Ques = Text;
+    sayText(Text);
+};
+var StaffCPSSText = function(){
+    var Text = '1) Unable to log in\n2)Unable to view reports\n3) App missing in tablet';
+    state.vars.IssueLevel3Ques = Text;
+    sayText(Text);
+};
+var StaffCommcareAppText = function(){
+    var Text = '1)  App Missing in Tablet';
+    state.vars.IssueLevel3Ques = Text;
+    sayText(Text);
+};
+//change fsapp name to field tech app
+var StaffFieldTechAppIssueText = function(){
+    var Text = '1) Showing Zero data on site description\n2)Payments Missing\n3) Unable to log in\n4) Missing groups\n5) Missing in Tablet\n6) Staff scope not allocated\n7) Missing in Tablet';
     state.vars.IssueLevel3Ques = Text;
     sayText(Text);
 };
 var StaffMEAppIssueText = function(){
-    var Text = '1) Incorrect Input Bundles/Pricing\n2) App missing\n3) Displays error message\n4)Cannot select site/district)\n5)Cannot Sync/no Button';
+    var Text = '1) Unable to Log In\n2) Unable to add client\n3) Unresponsive\n4) Displaying duplicate client\n5)Displaying Incorrect Bundle Details\n6)Grayed Client\n7)Invalid Client Details\n8)Displaying Errors in client information\n9)Unable to download\n10)Missing in Tablet\n11)Unable to open ME App\n12)Displaying wrong site\n13)Upload Sync error\n14)Sync groups cannot be edited\n15)FO configured in the wrong district and site\n16)Missing clients from client search\n17)Banned Clients are incorrect\n18)Returning client enrolled and sysnced as new\n19)Clients not appearing';
     state.vars.IssueLevel3Ques = Text;
     sayText(Text);
 };
 var StaffGSuiteIssueText = function(){
-    var Text = '1) G Suite Gmail/Chrome/Google play services stopping\n2) Forms requiring permission to open\n3) Gmail password reset\n4) Not receiving emails';
+    var Text = '1) Unable to make google sheet available offline\n2) Google play services have stopped\n3) G-mail has stopped\n4)Chrome has stopped\n5)Google forms require permission to open\n6)Gmail Password reset\n7)Unable to receive e-mails\n8)Google drive version too old\n9)Unable to upload Document in Drive\n10)Google Account Deactivated\n11)Google account signed out\n12)Google Account Deletion\n13)Google calendar disabled';
     state.vars.IssueLevel3Ques = Text;
     sayText(Text);
 };
 var StaffTabletHardwareIssueText = function(){
-    var Text = '1) Tablet/accessory physical Damage\n2) Tablet Won\'t Charge or power\n3) Stolen tablet/tablet accessory';
+    var Text = '1) Broken Screen\n2) Tablet unresponsive screen\n3) Tablet not charging\n4)Unable to power on\n5)Faulty charging port\n6)Faulty Battery\n7)Lost Tablet\n8)Faulty Sim Slot';
     state.vars.IssueLevel3Ques = Text;
     sayText(Text);
 };
@@ -1550,7 +1603,7 @@ var StaffTabletRosterText = function(){
 };
 
 var StaffIssueSuccessText = function(){
-    sayText('Thank you for reaching out, you will be contacted by our customer representative via this phone number, be available on call.');
+    sayText('Thank you for contacting ITO Mobile team. You will receive an email from our zendesk support desk, please follow the instructions to fix the issue. ITO service team will contact you through 0800301100 after your response to the email.');
 };
 var StaffDaySelectText = function(){
     sayText('For which day are you reporting your first day of absense?\n1) Today\n2) Tomorrow\n3) Yesterday\n0) Cancel');
@@ -3028,7 +3081,7 @@ addInputHandler('StaffMenu', function(input) {
         promptDigits('DaySelect', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
     else if (input == 2){
-        state.vars.MaxAnswer = 5;
+        state.vars.MaxAnswer = 13;
         StaffTabletIssueText();
         promptDigits('StaffTabletIssue', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
@@ -3089,26 +3142,66 @@ addInputHandler('DayAmount', function(input) {
 addInputHandler('StaffTabletIssue', function(input) {
     LogSessionID();
     InteractionCounter('StaffTabIssue');
-    if (input>0 && input<= state.vars.MaxAnswer){
+    if (input>0 && input <= state.vars.MaxAnswer){
         state.vars.IssueLevel1 = 'Tablet Issue';
         state.vars.IssueLevel2Ans = input;
         if (input == 1){
-            state.vars.MaxAnswer = 5;
-            StaffFSAppIssueText();
+            state.vars.MaxAnswer = 6;
+            StaffFieldTechAppIssueText();
         }
         else if (input == 2){
-            state.vars.MaxAnswer = 5;
+            state.vars.MaxAnswer = 19;
             StaffMEAppIssueText();
         }
         else if (input == 3){
-            state.vars.MaxAnswer = 4;
+            state.vars.MaxAnswer = 14;
             StaffGSuiteIssueText();
         }
         else if (input == 4){
-            state.vars.MaxAnswer = 3;
+            state.vars.MaxAnswer = 8;
             StaffTabletHardwareIssueText();
         }
         else if (input == 5){
+            //tablet software
+            state.vars.MaxAnswer = 9;
+            StaffTabletSoftwareIssueText();
+        }
+        else if (input == 6){
+            //bundles
+            state.vars.MaxAnswer = 2;
+            StaffBundlesIssueText();
+        }
+        else if (input == 7){
+            //device policy
+            state.vars.MaxAnswer = 4;
+            StaffDevicePolicyText();
+        }
+        else if (input == 8){
+            //power bank
+            state.vars.MaxAnswer = 5;
+            StaffPowerBankText();
+        }
+        else if (input == 9){
+            //charger
+            state.vars.MaxAnswer = 3;
+            StaffChargerText();
+        }
+        else if (input == 10){
+            //sim card
+            state.vars.MaxAnswer = 4;
+            StaffSimCardText();
+        }
+        else if (input == 11){
+            //cpss
+            state.vars.MaxAnswer = 3;
+            StaffCPSSText();
+        }
+        else if (input == 12){
+            //commcare
+            state.vars.MaxAnswer = 1;
+            StaffCommcareAppText();
+        }
+        else if (input == 13){
             state.vars.MaxAnswer = 6;
             StaffTabletDownIssueText();
         }
@@ -3156,6 +3249,9 @@ addInputHandler('StaffIssueLowlevel', function(input) {
         console.log(state.vars.IssueLevel1);
         console.log(Body);
         StaffCallBackCreate(contact.phone_number,state.vars.IssueLevel1,Body);
+
+        //ussd-google handler
+        Ussd_Google_func_init(contact.phone_number,state.vars.IssueLevel1,state.vars.IssueLevel2Ans,state.vars.IssueLevel3Ans,state.vars.payrollid,state.time_created)
         hangUp();
     }
     else{

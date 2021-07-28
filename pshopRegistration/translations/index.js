@@ -34,5 +34,9 @@ module.exports = {
     'show_account_number': {
         'en': 'New client registration is complete!\nThe provided account number is $accountNumber',
         'ki': 'Ibarura ry\'umukiriya mushya ryarangiye!\nNimero ya konti y\'umuhinzi yatanzwe  ni: $accountNumber'
+    },
+    'next_screen': {
+        'en': '99) Next',
+        'ki': '99) komeza'
     }
 };

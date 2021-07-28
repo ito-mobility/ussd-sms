@@ -68,7 +68,10 @@ addInputHandler('account_number_splash', function(accnum){
     notiFYELK();
     try{
     // if account number is valid, save it as a state variable and display main menu
-        if(accnum.toString().trim() == 0) {
+        if(input == 1) {
+            // start pshops client registration
+            pshopRegistration.start();
+        }if(accnum.toString().trim() == 0) {
             agrodealerLocator.start(lang);
         }
         else if(check_account_no(accnum)){ 

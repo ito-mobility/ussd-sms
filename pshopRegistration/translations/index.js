@@ -8,12 +8,12 @@ module.exports = {
         'ki': 'Shyiramo nimero yawe ya Telefone'
     },
     'enter_first_name': {
-        'en': 'Insert phone number',
+        'en': 'Andika Amazina yawe abanza',
         'ki': 'Shyiramo nimero yawe ya Telefone'
     },
     'enter_last_name': {
-        'en': 'Insert phone number',
-        'ki': 'Shyiramo nimero yawe ya Telefone'
+        'en': 'Insert Last name',
+        'ki': 'Andika amazina yawe ahera'
     },
     'enter_district': {
         'en': 'Choose District\n$districtsMenu',
@@ -28,7 +28,7 @@ module.exports = {
         'ki': 'Hitamo Akagari/site\n$sitesMenu'
     },
     'enter_group': {
-        'en': 'Choose Villahe/Group\n$groupsMenu',
+        'en': 'Choose Village/Group\n$groupsMenu',
         'ki': 'Hitamo Umudugudu/group\n$groupsMenu'
     },
     'show_account_number': {

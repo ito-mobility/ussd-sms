@@ -1,3 +1,4 @@
+state.vars.reg_lang = service.vars.lang || project.vars.cor_lang;
 var translations = require('./translations/index.js');
 var translator = require('../utils/translator/translator');
 var nationalIdHandler = require('../client-registration/national-id-handler/nationalIdHandler');
@@ -12,29 +13,35 @@ var groupHandler = require('./inputHandlers/groupHandler');
 
 var getMessage = translator(translations, state.vars.reg_lang);
 
-function start(lang, country) {
+function start(lang) {
+    state.vars.reg_lang = lang;
     global.sayText(getMessage('enter_nid', {}, lang));
     global.promptDigits(nationalIdHandler.handlerName);
 }
 
 function OnValidatedFactory(messageName, nextHandler, previousHandlerStateVariableName, messageOptions) {
     return function(input) {
+        var messageOption = Object.keys(messageOptions)[0];
         state.vars[previousHandlerStateVariableName] = input;
-        global.sayText(getMessage(messageName, messageOptions, state.vars.reg_lang));
+        var dataGenerator = messageOptions[messageOption];
+        var message = {};
+        message[messageOption] = typeof(dataGenerator) === 'function' && dataGenerator();
+        global.sayText(getMessage(messageName, message, state.vars.reg_lang));
         nextHandler && global.promptDigits(nextHandler.handlerName);
     };
 }
 
+// find a way to make a factory function for getMenus
 function getDistrictsMenu() {
     var createMenu = require('../shared/createMenu');
     var uniqueDistricts = {};
-    var pshopLocationsTable = project.initTableById(service.vars.pshopLocationTableId); // table contains multiple entries of districts hence need to be filetered out to get unique districts
+    var pshopLocationsTable = project.initDataTableById(service.vars.pshopLocationTableId); // table contains multiple entries of districts hence need to be filetered out to get unique districts
     var cursor = pshopLocationsTable.queryRows({vars: {}});
     
 
     while(cursor.hasNext()) {
         var row = cursor.next();
-        uniqueDistricts[row.vars.district_name] = row.vars.district_id;
+        // uniqueDistricts[row.vars.district_name] = row.vars.district_id;
         uniqueDistricts[row.vars.district_id] = row.vars.district_name;
     }
     state.vars.pshop_districts = JSON.stringify(uniqueDistricts);
@@ -47,12 +54,12 @@ function getDistrictsMenu() {
 
 function getSectorsMenu() {
     var createMenu = require('../shared/createMenu');
-    var pshopLocationsTable = project.initTableById(service.vars.pshopLocationTableId);
+    var pshopLocationsTable = project.initDataTableById(service.vars.pshopLocationTableId);
     var cursor = pshopLocationsTable.queryRows({vars: {district_id: state.vars.district_id}});
     var uniqueSectors = {};
     while(cursor.hasNext()) {
         var row = cursor.next();
-        uniqueSectors[row.vars.sector_name] = row.vars.sector_id;
+        // uniqueSectors[row.vars.sector_name] = row.vars.sector_id;
         uniqueSectors[row.vars.sector_id] = row.vars.sector_name;
     }
     state.vars.pshop_sectors = JSON.stringify(uniqueSectors);
@@ -65,12 +72,12 @@ function getSectorsMenu() {
 
 function getSitesMenu() {
     var createMenu = require('../shared/createMenu');
-    var pshopLocationsTable = project.initTableById(service.vars.pshopLocationTableId);
+    var pshopLocationsTable = project.initDataTableById(service.vars.pshopLocationTableId);
     var cursor = pshopLocationsTable.queryRows({vars: {sector_id: state.vars.sector_id, district_id: state.vars.district_id}});
     var uniqueSites = {};
     while(cursor.hasNext()) {
         var row = cursor.next();
-        uniqueSites[row.vars.site_name] = row.vars.site_id;
+        // uniqueSites[row.vars.site_name] = row.vars.site_id;
         uniqueSites[row.vars.site_id] = row.vars.site_name;
     }
     state.vars.pshop_sites = JSON.stringify(uniqueSites);
@@ -83,12 +90,12 @@ function getSitesMenu() {
 
 function getGroupsMenu() {
     var createMenu = require('../shared/createMenu');
-    var pshopLocationsTable = project.initTableById(service.vars.pshopLocationTableId);
+    var pshopLocationsTable = project.initDataTableById(service.vars.pshopLocationTableId);
     var cursor = pshopLocationsTable.queryRows({vars: {site_id: state.vars.site_id, sector_id: state.vars.sector_id, district_id: state.vars.district_id}});
     var uniqueGroups = {};
     while(cursor.hasNext()) {
         var row = cursor.next();
-        uniqueGroups[row.vars.group_name] = row.vars.group_id;
+        // uniqueGroups[row.vars.group_name] = row.vars.group_id;
         uniqueGroups[row.vars.group_id] = row.vars.group_name;
     }
     state.vars.pshop_groups = JSON.stringify(uniqueGroups);
@@ -112,34 +119,36 @@ function registerClient() {
     };
     var registeredClient = registerClientApi(registrationData);
     // get the account number
-    var accountNumber =  registeredClient.AccountNumber;
+    var accountNumber =  registeredClient && registeredClient.AccountNumber;
     // save the client in the data table
-    var pshopsClientsTable = project.initTableById(service.vars.pshopsClientsTableId);
-    pshopsClientsTable.createRow({
+    var pshopsClientsTable = project.initDataTableById(service.vars.pshopsClientsTableId);
+    var row = pshopsClientsTable.createRow({
         vars: {
             'first_name': state.vars.reg_first_name,
             'last_name': state.vars.reg_last_name,
             'national_id': state.vars.reg_nid,
             'phone_number': state.vars.reg_phone,
             'account_number': accountNumber,
-            district_name: state.vars.selected_district_name,
-            sector_name: state.vars.sector_name,
-            group_name: state.vars.selected_district_name,
-            site_name: state.vars.selected_site_name
+            'district_name': state.vars.selected_district_name,
+            'sector_name': state.vars.sector_name,
+            'group_name': state.vars.selected_district_name,
+            'site_name': state.vars.selected_site_name
         }
     });
+    row.save();
     // return the account number
     return accountNumber;
 }
-function registerInputHandlers() {
-    var onNationalIdValidated = OnValidatedFactory('enter_phone', phoneNumberHandler, 'reg_nid', {});
+function registerInputHandlers(lang) {
+    state.vars.reg_lang = lang;
+    var onNationalIdValidated = OnValidatedFactory('enter_phone', phoneNumberHandler,  'reg_nid', {});
     var onPhoneNumberValidated = OnValidatedFactory('enter_first_name', firstNameHandler, 'reg_phone', {});
     var onFirstNameValidated = OnValidatedFactory('enter_last_name', lastNameHandler, 'reg_first_name', {});
-    var onLastNameValidated = OnValidatedFactory('enter_district', districtHandler, 'reg_last_name', {'$districtsMenu': getDistrictsMenu()});
-    var onDistrictValidated = OnValidatedFactory('enter_sector', sectorHandler, 'district_id', {'$sectorsMenu': getSectorsMenu()});
-    var onSectorValidated = OnValidatedFactory('enter_site', sitesHandler, 'sector_name', {'$sitesMenu': getSitesMenu()});
-    var onSiteValidated = OnValidatedFactory('enter_group', groupHandler, 'site_id', {'$groupsMenu': getGroupsMenu()});
-    var onGroupValidated = OnValidatedFactory('show_account_number', null, 'group_id', {'$accountNumber': registerClient()});
+    var onLastNameValidated = OnValidatedFactory('enter_district', districtHandler, 'reg_last_name', {'$districtsMenu': getDistrictsMenu});
+    var onDistrictValidated = OnValidatedFactory('enter_sector', sectorHandler, 'district_id', {'$sectorsMenu': getSectorsMenu});
+    var onSectorValidated = OnValidatedFactory('enter_site', sitesHandler, 'sector_name', {'$sitesMenu': getSitesMenu});
+    var onSiteValidated = OnValidatedFactory('enter_group', groupHandler, 'site_id', {'$groupsMenu': getGroupsMenu});
+    var onGroupValidated = OnValidatedFactory('show_account_number', null, 'group_id', {'$accountNumber': registerClient});
     
     global.addInputHandler(nationalIdHandler.handlerName, nationalIdHandler.getHandler(onNationalIdValidated));
     global.addInputHandler(phoneNumberHandler.handlerName, phoneNumberHandler.getHandler(onPhoneNumberValidated));

@@ -3,7 +3,7 @@ var translations = require('../translations/index.js');
 var translator = require('../../utils/translator/translator');
 
 var getMessage = translator(translations, state.vars.reg_lang);
-var handlerName = 'pshps_enr_dist_handler';
+var handlerName = 'pshps_enr_grp_handler';
 
 module.exports = {
     handlerName: handlerName,

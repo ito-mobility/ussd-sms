@@ -16,7 +16,7 @@ module.exports = {
 
             if(sectorsMenuOptionValues[input]) {
                 var choosen_sector_id = sectorsMenuOptionValues[input];
-                state.vars.selected_sector_id = choosen_sector_id;
+                state.vars.sector_id = choosen_sector_id;
                 onSectorValidated(pshop_sectors[choosen_sector_id]);
             } else if(input == 99 && sectorsMenuScreens[parseInt(state.vars.current_sectors_screen) + 1]) {
                 state.vars.current_sectors_screen = parseInt(state.vars.current_sectors_screen) + 1;

@@ -81,16 +81,65 @@ function getSitesMenu() {
     return sitesMenu.screens['1'];
 }
 
-function registerInputHandlers() {
+function getGroupsMenu() {
+    var createMenu = require('../shared/createMenu');
+    var pshopLocationsTable = project.initTableById(service.vars.pshopLocationTableId);
+    var cursor = pshopLocationsTable.queryRows({vars: {site_id: state.vars.site_id, sector_id: state.vars.sector_id, district_id: state.vars.district_id}});
+    var uniqueGroups = {};
+    while(cursor.hasNext()) {
+        var row = cursor.next();
+        uniqueGroups[row.vars.group_name] = row.vars.group_id;
+        uniqueGroups[row.vars.group_id] = row.vars.group_name;
+    }
+    state.vars.pshop_groups = JSON.stringify(uniqueGroups);
+    var groupsMenu = createMenu(uniqueGroups, getMessage('next_screen', {}, state.vars.reg_lang));
+    state.vars.current_groups_screen = '1';
+    state.vars.groupsMenuScreens = JSON.stringify(groupsMenu.screens);
+    state.vars.groupsMenuOptionValues = JSON.stringify(groupsMenu.optionValues);
+    return groupsMenu.screens['1'];
+}
 
+function registerClient() {
+    var registerClientApi = require('../shared/rosterApi/registerClient');
+    // do the final registration of the user
+    var registrationData = {
+        'districtId': state.vars.district_id,
+        'siteId': state.vars.site_id,
+        'firstName': state.vars.reg_first_name,
+        'lastName': state.vars.reg_last_name,
+        'nationalIdNumber': state.vars.reg_nid,
+        'phoneNumber': state.vars.reg_phone
+    };
+    var registeredClient = registerClientApi(registrationData);
+    // get the account number
+    var accountNumber =  registeredClient.AccountNumber;
+    // save the client in the data table
+    var pshopsClientsTable = project.initTableById(service.vars.pshopsClientsTableId);
+    pshopsClientsTable.createRow({
+        vars: {
+            'first_name': state.vars.reg_first_name,
+            'last_name': state.vars.reg_last_name,
+            'national_id': state.vars.reg_nid,
+            'phone_number': state.vars.reg_phone,
+            'account_number': accountNumber,
+            district_name: state.vars.selected_district_name,
+            sector_name: state.vars.sector_name,
+            group_name: state.vars.selected_district_name,
+            site_name: state.vars.selected_site_name
+        }
+    });
+    // return the account number
+    return accountNumber;
+}
+function registerInputHandlers() {
     var onNationalIdValidated = OnValidatedFactory('enter_phone', phoneNumberHandler, 'reg_nid', {});
     var onPhoneNumberValidated = OnValidatedFactory('enter_first_name', firstNameHandler, 'reg_phone', {});
     var onFirstNameValidated = OnValidatedFactory('enter_last_name', lastNameHandler, 'reg_first_name', {});
-    var onLastNameValidated = OnValidatedFactory('enter_district', districtHandler, 'district_id', {'$districtsMenu': getDistrictsMenu()});
-    var onDistrictValidated = OnValidatedFactory('enter_sector', sectorHandler, 'sector_name', {'$sectorsMenu': getSectorsMenu()});
-    var onSectorValidated = OnValidatedFactory('enter_site', sitesHandler, 'site_id', {'$sitesMenu': getSitesMenu()});
-    var onSiteValidated = OnValidatedFactory('enter_group', groupHandler, 'group_id', {'$groupsMenu': getGroupsMenu()});
-    var onGroupValidated = OnValidatedFactory('show_account_number', null, 'account_number', {'$accountNumber': getAccountNumber()});
+    var onLastNameValidated = OnValidatedFactory('enter_district', districtHandler, 'reg_last_name', {'$districtsMenu': getDistrictsMenu()});
+    var onDistrictValidated = OnValidatedFactory('enter_sector', sectorHandler, 'district_id', {'$sectorsMenu': getSectorsMenu()});
+    var onSectorValidated = OnValidatedFactory('enter_site', sitesHandler, 'sector_name', {'$sitesMenu': getSitesMenu()});
+    var onSiteValidated = OnValidatedFactory('enter_group', groupHandler, 'site_id', {'$groupsMenu': getGroupsMenu()});
+    var onGroupValidated = OnValidatedFactory('show_account_number', null, 'group_id', {'$accountNumber': registerClient()});
     
     global.addInputHandler(nationalIdHandler.handlerName, nationalIdHandler.getHandler(onNationalIdValidated));
     global.addInputHandler(phoneNumberHandler.handlerName, phoneNumberHandler.getHandler(onPhoneNumberValidated));

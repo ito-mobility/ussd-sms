@@ -12,7 +12,7 @@ function kenyan_send_ussd_response(phone_number,IssueLevel1,IssueLevel2Ans,Issue
 
     //construct the final data to be passed to the google sheet and make a post request to google spreedsheet.
     var JSONdata = JSON.stringify({
-        'phone_number' : phone_number,
+        'phone_number': phone_number,
         'email_address': '',
         'issue_level1': IssueLevel1,
         'issue_level2': IssueLevel2Ans,

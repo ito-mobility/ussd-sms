@@ -35,7 +35,7 @@ service.vars.agrodealers_address_table = 'agrodealers_address_table'
 service.vars.server_name = project.vars[env+'_server_name'];
 service.vars.roster_api_key = project.vars[env+'_roster_api_key'];
 service.vars.bundles_table = 'DTe5c918280e193dc0';
- 
+service.vars.roster_read_key = project.vars.roster_read_key;
 state.vars.country = project.vars.country;
 // load in necessary functions
 var msgs = require('./lib/msg-retrieve'); // global message handler
@@ -63,7 +63,7 @@ var serial_number_table = service.vars.serial_number_table ;
 // display welcome message and prompt user to enter account number
 global.main = function() {
     notiFYELK();
-    sayText(msgs('pshops_main_splash'));
+    sayText(msgs('pshops_main_splash', {}, lang));
     promptDigits('account_number_splash', { 'submitOnHash' : false,
                                             'maxDigits'    : max_digits_for_account_number,
                                             'timeout'      : timeout_length });
@@ -92,7 +92,7 @@ addInputHandler('account_number_splash', function(accnum){
         }
         // if account is invalid, print incorrect account msg and prompt digits for account # again
         else{
-            sayText(msgs('incorrect_account_number'));
+            sayText(msgs('incorrect_account_number', {}, lang));
             promptDigits('account_number_splash', { 'submitOnHash' : false,
                                                     'maxDigits'    : max_digits_for_account_number,
                                                     'timeout'      : timeout_length });
@@ -100,7 +100,7 @@ addInputHandler('account_number_splash', function(accnum){
     }
     catch(error){
         // if error occurs, print client error message, log error, and alert the admin
-        sayText(msgs('client_alert'));
+        sayText(msgs('client_alert', {}, lang));
         console.log(error);
         slack.log('Error on USSD test integration' +error + '\n Account number:' + accnum, "Error, ERROR, ERROR" )
         admin_alert('Error on USSD test integration : '+ error + '\nAccount number: ' + accnum, "ERROR, ERROR, ERROR")
@@ -252,7 +252,7 @@ addInputHandler('serial_no_reg', function(input){
                                             'timeout'      : timeout_length });
         }
         else if(state.vars.SerialStatus == 'failed_getting_serial_number'){
-            sayText(msgs('client_alert'));
+            sayText(msgs('client_alert', {}, lang));
         }
         else{
             sayText(msgs('serial_not_found', {}, lang));

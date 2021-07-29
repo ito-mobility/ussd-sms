@@ -24,7 +24,7 @@ module.exports = function (optionNames, nextScreenOption, title, maxCharacters) 
     } else {
         optionKeys = Object.keys(optionNames);
     }
-    
+    console.log(JSON.stringify({optionKeys: optionKeys}));
     optionKeys.forEach(function(allowedOption, index) {
         var label = index + 1 + ') ';
         if((message + label + optionNames[allowedOption]  + '\n' + nextScreenOption).length <= maxCharacters) {
@@ -42,6 +42,7 @@ module.exports = function (optionNames, nextScreenOption, title, maxCharacters) 
             }
         }
     });
+    console.log(JSON.stringify({screens: screens}));
     return {screens: screens, optionValues: optionValues};
 };
 

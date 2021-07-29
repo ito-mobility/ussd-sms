@@ -38,5 +38,13 @@ module.exports = {
     'next_screen': {
         'en': '99) Next',
         'ki': '99) komeza'
+    },
+    'client_already_registered': {
+        'en': 'Farmer with NID $nid is already registered.\nNames: $client_name\nAccount number: $account_number',
+        'ki': 'Umuhinzi ufite NID $nid yariyandikishije.\nAmazina: $client_name\nNimero ya konti: $account_number'
+    },
+    'error_try_again': {
+        'en': 'There was a system error. Try again later',
+        'ki': 'Habayemo ikibazo. Mwongere mugerageze'
     }
 };

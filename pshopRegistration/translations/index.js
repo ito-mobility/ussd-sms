@@ -8,8 +8,8 @@ module.exports = {
         'ki': 'Shyiramo nimero yawe ya Telefone'
     },
     'enter_first_name': {
-        'en': 'Andika Amazina yawe abanza',
-        'ki': 'Shyiramo nimero yawe ya Telefone'
+        'en': 'Insert First name',
+        'ki': 'Andika Amazina yawe abanza'
     },
     'enter_last_name': {
         'en': 'Insert Last name',

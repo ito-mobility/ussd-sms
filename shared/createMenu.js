@@ -4,7 +4,7 @@
  * @param {Array} optionNames an object of key value pairs (option_key: option value)
  * @param {String} nextScreenOption option for next screen -- 44) next screen --
  * @param {String} title title that goes on the first screen
- * @param {Number} maxCharacters max characters per screen (fall back to 140)
+ * @param {Number} maxCharacters | sorting max characters per screen (fall back to 140) send true to use sorting
  */
 module.exports = function (optionNames, nextScreenOption, title, maxCharacters) {
     var screen = 1;
@@ -13,7 +13,19 @@ module.exports = function (optionNames, nextScreenOption, title, maxCharacters) 
     maxCharacters = maxCharacters || 140;
     nextScreenOption = nextScreenOption || '';
     var optionValues = {};
-    Object.keys(optionNames).forEach(function(allowedOption, index) {
+    var optionKeys = [];
+    if(typeof maxCharacters === 'object') {
+        maxCharacters = maxCharacters.max || 140;
+        optionKeys = Object.keys(optionNames).sort(function(optA, optB){
+            if(optionNames[optA] < optionNames[optB]) { return -1; }
+            if(optionNames[optA] > optionNames[optB]) { return 1; }
+            return 0;
+        });
+    } else {
+        optionKeys = Object.keys(optionNames);
+    }
+    
+    optionKeys.forEach(function(allowedOption, index) {
         var label = index + 1 + ') ';
         if((message + label + optionNames[allowedOption]  + '\n' + nextScreenOption).length <= maxCharacters) {
             message += label + optionNames[allowedOption] + '\n';

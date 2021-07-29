@@ -12,7 +12,7 @@ function kenyan_send_ussd_response(phone_number,IssueLevel1,IssueLevel2Ans,Issue
 
     //construct the final data to be passed to the google sheet and make a post request to google spreedsheet.
     var JSONdata = JSON.stringify({
-        'phone_number': phone_number,
+        'phone_number' : phone_number,
         'email_address': '',
         'issue_level1': IssueLevel1,
         'issue_level2': IssueLevel2Ans,
@@ -20,12 +20,12 @@ function kenyan_send_ussd_response(phone_number,IssueLevel1,IssueLevel2Ans,Issue
         'payroll_id': payroll_id,
         'creation_date': creation_date,
         'platform_name': 'USSD'
-    })
+    });
 
     //post request to google sheet
     httpClient.request(kenyan_appscript_url, {
-        method:'POST',
-        data:JSONdata
+        method : 'POST',
+        data : JSONdata
     });
 }
 

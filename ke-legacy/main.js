@@ -1506,7 +1506,7 @@ var StaffPayrollText = function(){
     sayText('Please enter you 5 digit payroll ID');
 };
 var StaffTabletIssueText = function(){
-    var Text = 'Affected part?\n1) Field Tech App\n2) ME App\n3) G suite\n4)Tablet hardware\n5)Tablet Software\n6)Bundles\n7)Device Policy\n8)Power Bank\n9)Charger\n10)SIM card\n11)CPSS(Performance Portal App)\n12)Commcare App\n13) Tablet system down CE support';
+    var Text = 'Affected part?\n1) Field Tech App\n2) ME App\n3) G suite\n4)Tablet hardware\n5)Tablet Software\n6)Bundles\n7)Device Policy\n8)Power Bank\n9)Charger\n10)SIM card\n11)CPSS(Performance Portal App)\n12)Commcare App';
     state.vars.IssueLevel2Ques = Text;
     sayText(Text);
 };
@@ -1569,11 +1569,6 @@ var StaffGSuiteIssueText = function(){
 };
 var StaffTabletHardwareIssueText = function(){
     var Text = '1) Broken Screen\n2) Tablet unresponsive screen\n3) Tablet not charging\n4)Unable to power on\n5)Faulty charging port\n6)Faulty Battery\n7)Lost Tablet\n8)Faulty Sim Slot';
-    state.vars.IssueLevel3Ques = Text;
-    sayText(Text);
-};
-var StaffTabletDownIssueText = function(){
-    var Text = '1) Need report via email\n2) FO/FM Promoted \n3) Data bundle Expired/Runs Out\n4) Tablet Network Issues\n5) FO/FM Transferring\n6) Have no tablet';
     state.vars.IssueLevel3Ques = Text;
     sayText(Text);
 };
@@ -3081,7 +3076,7 @@ addInputHandler('StaffMenu', function(input) {
         promptDigits('DaySelect', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
     else if (input == 2){
-        state.vars.MaxAnswer = 13;
+        state.vars.MaxAnswer = 12;
         StaffTabletIssueText();
         promptDigits('StaffTabletIssue', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
@@ -3200,10 +3195,6 @@ addInputHandler('StaffTabletIssue', function(input) {
             //commcare
             state.vars.MaxAnswer = 1;
             StaffCommcareAppText();
-        }
-        else if (input == 13){
-            state.vars.MaxAnswer = 6;
-            StaffTabletDownIssueText();
         }
         promptDigits('StaffIssueLowlevel', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }

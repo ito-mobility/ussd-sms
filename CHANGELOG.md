@@ -3,22 +3,23 @@ All notable changes to this project will be documented in this file.
 
 ## New Version
 ### Added
-USSD Integration with Google AppScript
+USSD Integration with Google AppScript<br>
  -This is a feature that allows communication, a POST request, from Telerivet to 
   Google AppsScript with relevant data such as the main category issue and it's children<br>
-  ---TESTING--
+  ---TESTING--<br>
   -For this feature, once a ussd request is complete it also sends the required json data
-   to a running instance on google sheet. 
-   --Steps to Reproduce
-     -Login to Telerivet Platform.
+   to a running instance on google sheet. <br>
+   --Steps to Reproduce<br>
+     -Login to Telerivet Platform.<br>
 
-        if the merge has been done then visit this link (https://telerivet.com/p/0c6396c9/service/SV59d10a657b3e5119/edit)
+    if the merge has been done then visit this link (https://telerivet.com/p/0c6396c9/service/SV59d10a657b3e5119/edit)
 
-        relse if the merge has not yet been done, visit this link (https://telerivet.com/p/0c6396c9/service/SVb2c27e1e7dbadb5b/edit)
+    if the merge has not yet been done, visit this link (https://telerivet.com/p/0c6396c9/service/SVb2c27e1e7dbadb5b/edit)
 
-     -Once on the service page, click on "Test Service" and proceed with the Staff Menu USSD Journey.
-     -At the end of this Journey, the code in the file path "regions_handler/ussd_google_message_script.js" will send a POST 
-     request to the app_script url highlighted on that file.
+   -Once on the service page, click on "Test Service" and proceed with the Staff Menu USSD Journey.<br>
+   -At the end of this Journey, the code in the file path "regions_handler/ussd_google_message_script.js" will send a POST 
+     request to the app_script url highlighted on that file.<br>
+     
 ### Changed
 USSD menu has been updated with the latest Issue Categories
  -This change consists of the menu update to the latest categories and their children

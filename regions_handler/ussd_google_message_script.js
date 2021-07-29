@@ -24,8 +24,8 @@ function kenyan_send_ussd_response(phone_number,IssueLevel1,IssueLevel2Ans,Issue
 
     //post request to google sheet
     httpClient.request(kenyan_appscript_url, {
-        method : 'POST',
-        data : JSONdata
+        method: 'POST',
+        data: JSONdata
     });
 }
 

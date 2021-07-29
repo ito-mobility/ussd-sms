@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file. 
 
 ## New Version
+## v2.1.1
+### Added
+USSD Integration with Google AppScript
+### Changed
+USSD menu has been updated with the latest Issue Categories
 
 ### Changed
 * [ESWFA-192](https://oneacrefund.atlassian.net/browse/ESWFA-192) B22A USSD change request_Tester pack

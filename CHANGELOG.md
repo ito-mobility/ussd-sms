@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 USSD Integration with Google AppScript
  -This is a feature that allows communication, a POST request, from Telerivet to 
-  Google AppsScript with relevant data such as the main category issue and it's children
+  Google AppsScript with relevant data such as the main category issue and it's children<br>
   ---TESTING--
   -For this feature, once a ussd request is complete it also sends the required json data
    to a running instance on google sheet. 

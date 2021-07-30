@@ -1,5 +1,5 @@
 var translations = require('../translations/index');
-var translator = require('../../utils/translator/translator');
+var translator = require('../../../utils/translator/translator');
 
 module.exports = function(TraineeName, lang) {
     var getMessage = translator(translations, lang);

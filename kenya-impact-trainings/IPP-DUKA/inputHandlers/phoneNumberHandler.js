@@ -1,5 +1,5 @@
 var translations = require('../translations/index');
-var translator = require('../../utils/translator/translator');
+var translator = require('../../../utils/translator/translator');
 var makePhones = require('../utils/makePhones');
 var handlerName = 'kenya_training_input_handler';
 module.exports = {

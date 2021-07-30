@@ -1,5 +1,5 @@
 var translations = require('./translations/index');
-var translator = require('../utils/translator/translator');
+var translator = require('../../utils/translator/translator');
 var phoneHandler = require('./inputHandlers/phoneNumberHandler');
 
 function start(lang, trainingsHandler) {

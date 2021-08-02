@@ -9,6 +9,7 @@ var slack = {
         //     }
         // );
         console.log(message);
+
     }
 };
 module.exports = slack;

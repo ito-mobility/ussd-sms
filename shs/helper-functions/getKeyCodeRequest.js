@@ -8,7 +8,7 @@ module.exports = function getkeyCodeForRequest(client) {
     // the only way to distinguish initial registration with update is presense of state.vars.unit_to_update
     var serialTobeUpdated = JSON.parse(state.vars.unit_to_update); // {...,createdAt: unix.Date}
     var initialRegistrationTime = new Date(parseInt(serialTobeUpdated.createdAt));
-    var registrationMonth = parseInt(initialRegistrationTime.getMonth()); // returns a month in which client initially registered their unit (started using it)
+    var registrationMonth = parseInt(initialRegistrationTime.getMonth()) + 1; // returns a month in which client initially registered their unit (started using it)
     var registrationYear = parseInt(initialRegistrationTime.getFullYear());
     var currentTime = getCurrentDate();
     var currentMonth = parseInt(currentTime.getMonth()) + 1;
@@ -96,7 +96,7 @@ module.exports = function getkeyCodeForRequest(client) {
                 }
             }
         }
-    } else if(allSeasons.length === 2){
+    } else {
         expectedCreditCycle = (parseInt(expectedCreditCycle.slice(0, 4)) + 1) + 'A';
         // means  client has alasready used theunit for a year (2 creedit cycles)
         creditInA = parseInt(allSeasons[0].TotalCreditPerCycle[expectedCreditCycle]);
@@ -128,16 +128,6 @@ module.exports = function getkeyCodeForRequest(client) {
                 // less no activation
                 return NOCODE;
             }
-        }
-
-    } else {
-        // 3+ check if they completed the payment in second season (they have used the unit for more than 2 years hence index 1 has the last season) OR LESS seasons
-        if(allSeasons[1].TotalRepayment_IncludingOverpayments >= allSeasons[1].TotalCredit) {
-            // paid in full
-            return UNLOCKCODE;
-        } else {
-            // PAID in full  and added the overpayment for UNLOCK CODE
-            return NOCODE;
         }
 
     }

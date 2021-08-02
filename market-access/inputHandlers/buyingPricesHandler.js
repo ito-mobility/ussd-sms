@@ -11,7 +11,7 @@ module.exports  = {
             var lang =state.vars.marketLang;
             if(input == 1) {
                 //
-                global.sayText(translate('oaf_maize_price', {'$maize_price': project.vars.maize_price || service.vars.maize_price}, lang));
+                global.sayText(translate('oaf_maize_price', {'$maize_price': service.vars.maize_price || project.vars.maize_price}, lang));
                 global.stopRules();
             } else if(input == 0){
                 // go back to the previous state ()

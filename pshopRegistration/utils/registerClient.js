@@ -39,14 +39,14 @@ module.exports = function registerClient() {
         return null;
     }
     // get the account number
-    var accountNumber =  registeredClient && registeredClient.AccountNumber;
+    var accountNumber =  registeredClient.AccountNumber;
     // save the client in the data table
     var pshopsClientsTable = project.initDataTableById(service.vars.pshopsClientsTableId);
     var row = pshopsClientsTable.createRow({
         vars: {
             'first_name': state.vars.reg_first_name,
             'last_name': state.vars.reg_last_name,
-            'national_id': 'RW-PSHOP-' + state.vars.reg_nid,
+            'national_id': 'RWPSHOP' + state.vars.reg_nid,
             'phone_number': state.vars.reg_phone,
             'account_number': accountNumber,
             'district_name': state.vars.selected_district_name,

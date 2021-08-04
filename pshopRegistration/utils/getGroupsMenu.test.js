@@ -18,8 +18,8 @@ describe('get groups menu', () => {
         getGroupsMenu();
         expect(tableMock.queryRows).toHaveBeenCalledWith({'vars': {
             district_id: 'district_id',
-            sector_id: undefined,
-            site_id: undefined
+            sector_id: 'sector_id',
+            site_id: 'site_id'
         }});
         expect(project.initDataTableById).toHaveBeenCalledWith('pshopLocationTableId');
         expect(state.vars.pshop_groups).toEqual('{"g-1":"group 1"}');

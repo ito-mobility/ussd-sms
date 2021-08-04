@@ -1,4 +1,3 @@
-state.vars.reg_lang = service.vars.lang || project.vars.cor_lang;
 var translations = require('./translations/index.js');
 var translator = require('../utils/translator/translator');
 var nationalIdHandler = require('../client-registration/national-id-handler/nationalIdHandler');
@@ -19,9 +18,8 @@ var getSitesMenu = require('./utils/getSitesMenu');
 var getGroupsMenu = require('./utils/getGroupsMenu');
 var registerClient = require('./utils/registerClient');
 
-var getMessage = translator(translations, state.vars.reg_lang);
-
 function start(lang) {
+    var getMessage = translator(translations, lang);
     state.vars.reg_lang = lang;
     global.sayText(getMessage('enter_nid', {}, lang));
     global.promptDigits(nationalIdHandler.handlerName);

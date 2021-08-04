@@ -1,3 +1,4 @@
+state.vars.reg_lang = service.vars.lang || project.vars.cor_lang;
 var translations = require('./translations/index.js');
 var translator = require('../utils/translator/translator');
 var nationalIdHandler = require('../client-registration/national-id-handler/nationalIdHandler');

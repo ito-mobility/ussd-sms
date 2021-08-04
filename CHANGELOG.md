@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file. 
 
 ## New Version
+### Changed
+* [THD-8085](https://oneacrefund.atlassian.net/browse/THD-8085)Updating Kenya Field Staff USSD menu
 
 ### Changed
 * [ESWFA-192](https://oneacrefund.atlassian.net/browse/ESWFA-192) B22A USSD change request_Tester pack

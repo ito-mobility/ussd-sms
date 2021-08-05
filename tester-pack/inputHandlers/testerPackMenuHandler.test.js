@@ -24,8 +24,7 @@ describe('tester pack menu handler', () => {
         testerPackMenuHandler('@');
         expect(sayText).toHaveBeenCalledWith('Invalid input try again\n' + 
             '1) Registration\n' + 
-            '2) Confirmation\n' +
-            '3) Status');
+            '2) Status');
 
         expect(promptDigits).toHaveBeenCalledWith('tester_pack_menu', {'maxDigits': 2, 'submitOnHash': false, 'timeout': 5});
     });

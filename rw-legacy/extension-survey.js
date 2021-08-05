@@ -60,7 +60,7 @@ if(env === 'prod'){
 const inputHandlers = {};
 
 
-var extensionTable =  project.initDataTableById(service.vars.extensionTableId);;
+var extensionTable =  project.initDataTableById(service.vars.extensionTableId);
 var surveyTable;
 // display welcome message and prompt user to choose their survey (AMA1, AMA2, GUS)
 global.main = function(){

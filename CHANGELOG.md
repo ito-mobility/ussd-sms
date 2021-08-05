@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 ## New Version
 
 ### Changed
+* [ESWFA-199](https://oneacrefund.atlassian.net/browse/ESWFA-199) USSD Services-Upgrade USSD for PShop farmers to get OAFIDs and Account Numbers at the shop-RW
+### Changed
+* [THD-8085](https://oneacrefund.atlassian.net/browse/THD-8085)Updating Kenya Field Staff USSD menu
+
+### Changed
 * [ESWFA-192](https://oneacrefund.atlassian.net/browse/ESWFA-192) B22A USSD change request_Tester pack
 ### Added
 * [ESWFA-186](https://oneacrefund.atlassian.net/browse/ESWFA-186) BU Enrollment UAT Requested changes

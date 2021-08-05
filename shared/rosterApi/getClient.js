@@ -4,10 +4,12 @@
  * @param {String} country
  */
 module.exports = function getClient(accountNumber, country) {
+    console.log('account: ' + accountNumber + '\n country' + country);
     var fullUrl = service.vars.server_name + '/api/sms/Client?' + 'account=' + accountNumber + '&country=' + country;
     var opts = { headers: {} };
     opts.headers['Authorization'] = 'Token ' + service.vars.roster_read_key;
     opts.method = 'GET';
+    console.log('client fetch request: '  + JSON.stringify(opts));
     try {
         var response = httpClient.request(fullUrl, opts);
         if (response.status == 200) {

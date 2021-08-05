@@ -8,17 +8,17 @@ describe('tester pack menu handler', () => {
     beforeEach(() => {
         jest.resetModules();
     });
-    it('should prompt a user to choose a province once they select option (2)  for confirmation', () => {
-        testerPackMenuHandler(2);
-        expect(sayText).toHaveBeenCalledWith('Province\n' + 
-            '1) EASTERN ZONE\n' + 
-            '2) KIGALI CITY\n' +
-            '3) SOUTHERN ZONE\n' +
-            '4) WESTERN ZONE\n' +
-            '5) NORTHERN ZONE');
+    // it('should prompt a user to choose a province once they select option (2)  for confirmation', () => {
+    //     testerPackMenuHandler(2);
+    //     expect(sayText).toHaveBeenCalledWith('Province\n' + 
+    //         '1) EASTERN ZONE\n' + 
+    //         '2) KIGALI CITY\n' +
+    //         '3) SOUTHERN ZONE\n' +
+    //         '4) WESTERN ZONE\n' +
+    //         '5) NORTHERN ZONE');
 
-        expect(promptDigits).toHaveBeenCalledWith('select_province', {'maxDigits': 2, 'submitOnHash': false, 'timeout': 5});
-    });
+    //     expect(promptDigits).toHaveBeenCalledWith('select_province', {'maxDigits': 2, 'submitOnHash': false, 'timeout': 5});
+    // });
 
     it('should prompt a user to choose a province again once there is no province match for their input', () => {
         testerPackMenuHandler('@');
@@ -30,7 +30,7 @@ describe('tester pack menu handler', () => {
     });
 
     it('should prompt a user to enter village id once they select option (3)  for status', () => {
-        testerPackMenuHandler(3);
+        testerPackMenuHandler(2);
         expect(sayText).toHaveBeenCalledWith('Enter village ID');
 
         expect(promptDigits).toHaveBeenCalledWith('village_id', {'maxDigits': 10, 'submitOnHash': false, 'timeout': 5});

@@ -759,8 +759,8 @@ module.exports = {
         'ki': 'Imifuka y\'ibigori bidahunguye ugurisha(hakoreshwa umufuka munini w\'ibiro 100)'
     },
     'pshops_main_splash': {
-        'en': 'Welcome to the PShop Client portal. Please enter your Account Number\n0: to locate your Agrodealer partner',
-        'ki': 'Murakaza neza ku iduka. Injizamo konti yawe y\'umuhinzi\n0: Kubona umufatanyabikorwa ukwegereye',
+        'en': 'Welcome to the PShop Client portal. Please enter your Account Number\n0: to locate your Agrodealer partner\n1. Register new client',
+        'ki': 'Murakaza neza ku iduka. Injizamo konti yawe y\'umuhinzi\n0: Kubona umufatanyabikorwa ukwegereye\n1. Iyandikishe nk\'umukiriya mushya',
     },
     'incorrect_account_number': {
         'en': 'Incorrect input. Please enter your Account Number',

@@ -20,18 +20,23 @@ if(env === 'prod'){
     service.vars.activation_code_table = 'ActivationCodes';
     service.vars.serial_number_table = 'SerialNumberTable';
     service.vars.pShop_main_menu = 'pshop_main_menu';
+    service.vars.pshopLocationTableId = 'DT36fed49375e091b4';
+    service.vars.pshopsClientsTableId = 'DTa40ff6716a261c3c'
 }
 else{
     service.vars.activation_code_table = 'dev_ActivationCodes';
     service.vars.serial_number_table = 'dev_SerialNumberTable';
     service.vars.pShop_main_menu = 'dev_pshop_main_menu';
+    service.vars.pshopLocationTableId = 'DT2ef13a17146daf5d',
+    service.vars.pshopsClientsTableId = 'DT3db6478bbdd00f8e'
 }
 
 service.vars.agrodealers_address_table = 'agrodealers_address_table'
 service.vars.server_name = project.vars[env+'_server_name'];
 service.vars.roster_api_key = project.vars[env+'_roster_api_key'];
 service.vars.bundles_table = 'DTe5c918280e193dc0';
- 
+service.vars.roster_read_key = project.vars.roster_read_key;
+state.vars.country = project.vars.country;
 // load in necessary functions
 var msgs = require('./lib/msg-retrieve'); // global message handler
 var admin_alert = require('./lib/admin-alert'); // global admin alerter
@@ -44,31 +49,36 @@ var serial_no_check = require('./lib/psh-serial-verify');
 var slack = require('../slack-logger/index');
 var notiFYELK = require('../notifications/elk-notification/elkNotification');
 var agrodealerLocator = require('../agrodealer-locator/agrodealerLocator');
+var pshopRegistration = require('../pshopRegistration/pshopRegistration');
+
 // set various constants
 var settings_table = project.getOrCreateDataTable('ussd_settings');
 const max_digits_for_account_number = parseInt(settings_table.queryRows({'vars' : {'settings' : 'max_digits_an'}}).next().vars.value);
 const max_digits = parseInt(settings_table.queryRows({'vars' : {'settings' : 'max_digits'}}).next().vars.value);
 const timeout_length = 180; // this doesn't appear to work. data type error?
-const lang = project.vars.cor_lang;
+const lang = service.vars.lang || project.vars.cor_lang;
 var menuTable = service.vars.pShop_main_menu;
 var activation_code_table = service.vars.activation_code_table;
 var serial_number_table = service.vars.serial_number_table ;
-
 // display welcome message and prompt user to enter account number
 global.main = function() {
     notiFYELK();
-    sayText(msgs('pshops_main_splash'));
+    sayText(msgs('pshops_main_splash', {}, lang));
     promptDigits('account_number_splash', { 'submitOnHash' : false,
                                             'maxDigits'    : max_digits_for_account_number,
                                             'timeout'      : timeout_length });
 }
 agrodealerLocator.registerInputHandlers(lang, service.vars.agrodealers_address_table);
+pshopRegistration.registerInputHandlers(lang)
 // input handler for account number
 addInputHandler('account_number_splash', function(accnum){
     notiFYELK();
     try{
     // if account number is valid, save it as a state variable and display main menu
-        if(accnum.toString().trim() == 0) {
+        if(accnum == 1) {
+            // start pshops client registration
+            pshopRegistration.start(lang);
+        } else if(accnum.toString().trim() == 0) {
             agrodealerLocator.start(lang);
         }
         else if(check_account_no(accnum)){ 
@@ -82,7 +92,7 @@ addInputHandler('account_number_splash', function(accnum){
         }
         // if account is invalid, print incorrect account msg and prompt digits for account # again
         else{
-            sayText(msgs('incorrect_account_number'));
+            sayText(msgs('incorrect_account_number', {}, lang));
             promptDigits('account_number_splash', { 'submitOnHash' : false,
                                                     'maxDigits'    : max_digits_for_account_number,
                                                     'timeout'      : timeout_length });
@@ -90,7 +100,7 @@ addInputHandler('account_number_splash', function(accnum){
     }
     catch(error){
         // if error occurs, print client error message, log error, and alert the admin
-        sayText(msgs('client_alert'));
+        sayText(msgs('client_alert', {}, lang));
         console.log(error);
         slack.log('Error on USSD test integration' +error + '\n Account number:' + accnum, "Error, ERROR, ERROR" )
         admin_alert('Error on USSD test integration : '+ error + '\nAccount number: ' + accnum, "ERROR, ERROR, ERROR")
@@ -242,7 +252,7 @@ addInputHandler('serial_no_reg', function(input){
                                             'timeout'      : timeout_length });
         }
         else if(state.vars.SerialStatus == 'failed_getting_serial_number'){
-            sayText(msgs('client_alert'));
+            sayText(msgs('client_alert', {}, lang));
         }
         else{
             sayText(msgs('serial_not_found', {}, lang));

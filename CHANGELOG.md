@@ -8,6 +8,26 @@ All notable changes to this project will be documented in this file.
 * [ESWFA-192](https://oneacrefund.atlassian.net/browse/THD-7875) USSD services: Correcting Spelling-TZ
 
 ### Changed
+<<<<<<< HEAD
+### Added
+* [ESWFA-125](https://oneacrefund.atlassian.net/browse/ESWFA-125) As a GL, I want to be able to request and view activation/unlock codes for clients in my group
+for an activation code when the one I have is about to expire or unlock code when I am eligible for it
+* [ESWFA-124](https://oneacrefund.atlassian.net/browse/ESWFA-124) As a GL, I want to be able to register a new SHS unit for clients in my group
+* [ESWFA-123](https://oneacrefund.atlassian.net/browse/ESWFA-123) As a Client, I want to receive a reminder to request
+* [ESWFA-122](https://oneacrefund.atlassian.net/browse/ESWFA-122) As a Client, I want to be able to request for an SHS activation/unlock code via USSD
+* [ESWFA-121](https://oneacrefund.atlassian.net/browse/ESWFA-121) As a Client, I want to be able to register a new SHS unit if the previous one was returned to OAF and have the new serial number as my primary serial number if I have one unit or part of list of if I have multiple units
+* [ESWFA-120](https://oneacrefund.atlassian.net/browse/ESWFA-120) As a Client , I want to receive an SMS with my activation /unlock code when I first register my unit and when I later request for another activation code or the unlock code
+* [ESWFA-119](https://oneacrefund.atlassian.net/browse/ESWFA-119) As a Client, I want to be able to register my new SHS serial number on USSD
+### Changed
+* [ESWFA-199](https://oneacrefund.atlassian.net/browse/ESWFA-199) USSD Services-Upgrade USSD for PShop farmers to get OAFIDs and Account Numbers at the shop-RW
+### Changed
+* [THD-8085](https://oneacrefund.atlassian.net/browse/THD-8085)Updating Kenya Field Staff USSD menu
+
+### Changed
+* [THD-6616](https://oneacrefund.atlassian.net/browse/THD-6616) Re: Urgent - Government Services USSD Survey Update
+### Changed
+=======
+>>>>>>> master
 * [ESWFA-192](https://oneacrefund.atlassian.net/browse/ESWFA-192) B22A USSD change request_Tester pack
 ### Added
 * [ESWFA-186](https://oneacrefund.atlassian.net/browse/ESWFA-186) BU Enrollment UAT Requested changes

@@ -35,6 +35,7 @@ service.vars.agrodealers_address_table = 'agrodealers_address_table'
 service.vars.server_name = project.vars[env+'_server_name'];
 service.vars.roster_api_key = project.vars[env+'_roster_api_key'];
 service.vars.bundles_table = 'DTe5c918280e193dc0';
+ 
 service.vars.roster_read_key = project.vars.roster_read_key;
 state.vars.country = project.vars.country;
 // load in necessary functions

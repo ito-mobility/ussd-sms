@@ -4,8 +4,8 @@ var translations = {
         'ki': 'Ibyo mwinjije ntago bishoboka, ongera ugerageze\n$Menu'
     },
     'tester_pack_menu': {
-        'en': '1) Registration\n2) Confirmation\n3) Status',
-        'ki': '1) Kwandika\n2)Kwemeza\n3)Aho ngeze'
+        'en': '1) Registration\n2) Status',
+        'ki': '1) Kwandika\n2) Aho ngeze'
     },
     'next_page': {
         'en': '77) Next',

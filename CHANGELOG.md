@@ -18,6 +18,8 @@ for an activation code when the one I have is about to expire or unlock code whe
 * [THD-8085](https://oneacrefund.atlassian.net/browse/THD-8085)Updating Kenya Field Staff USSD menu
 
 ### Changed
+* [THD-6616](https://oneacrefund.atlassian.net/browse/THD-6616) Re: Urgent - Government Services USSD Survey Update
+### Changed
 * [ESWFA-192](https://oneacrefund.atlassian.net/browse/ESWFA-192) B22A USSD change request_Tester pack
 ### Added
 * [ESWFA-186](https://oneacrefund.atlassian.net/browse/ESWFA-186) BU Enrollment UAT Requested changes

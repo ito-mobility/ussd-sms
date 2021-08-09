@@ -1506,7 +1506,7 @@ var StaffPayrollText = function(){
     sayText('Please enter you 5 digit payroll ID');
 };
 var StaffTabletIssueText = function(){
-    var Text = 'Affected part?\n1) Field Tech App\n2) ME App\n3) G suite\n4)Tablet hardware\n5)Tablet Software\n6)Bundles\n7)Device Policy\n8)Power Bank\n9)Charger\n10)SIM card\n11)CPSS(Performance Portal App)\n12)Commcare App';
+    var Text = 'Affected part?\n1) Field Tech App\n2) ME App\n3) G suite\n4)Tablet hardware\n5)Tablet Software\n6)Bundles\n7)Device Policy\n8)Power Bank\n9)Charger\n10)SIM card\n11)CPSS(Performance\n Portal\n App)\n12)Commcare App';
     state.vars.IssueLevel2Ques = Text;
     sayText(Text);
 };

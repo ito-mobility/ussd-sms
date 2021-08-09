@@ -8,7 +8,6 @@ All notable changes to this project will be documented in this file.
 * [ESWFA-192](https://oneacrefund.atlassian.net/browse/THD-7875) USSD services: Correcting Spelling-TZ
 
 ### Changed
-<<<<<<< HEAD
 ### Added
 * [ESWFA-125](https://oneacrefund.atlassian.net/browse/ESWFA-125) As a GL, I want to be able to request and view activation/unlock codes for clients in my group
 for an activation code when the one I have is about to expire or unlock code when I am eligible for it
@@ -26,8 +25,6 @@ for an activation code when the one I have is about to expire or unlock code whe
 ### Changed
 * [THD-6616](https://oneacrefund.atlassian.net/browse/THD-6616) Re: Urgent - Government Services USSD Survey Update
 ### Changed
-=======
->>>>>>> master
 * [ESWFA-192](https://oneacrefund.atlassian.net/browse/ESWFA-192) B22A USSD change request_Tester pack
 ### Added
 * [ESWFA-186](https://oneacrefund.atlassian.net/browse/ESWFA-186) BU Enrollment UAT Requested changes

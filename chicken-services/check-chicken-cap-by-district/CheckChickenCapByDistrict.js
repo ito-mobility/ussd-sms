@@ -3,18 +3,19 @@ module.exports = function (client){
     var districtName, sectorName;
     console.log('d'+ client.DistrictName);
     var clientTable = project.initDataTableById(service.vars.chicken_table_id);
-    var clientCursor = clientTable.queryRows({'vars': {'account_number': client.AccountNumber, 'district': client.DistrictName}});
+    var clientCursor = clientTable.queryRows({'vars': {'account_number': client.AccountNumber}});
     if(!clientCursor.hasNext()){
         state.vars.client_notfound = true;
         return false;
     }
     else{
         var clientRow = clientCursor.next();
-        districtName = clientRow.vars.district; 
+        districtName = client.DistrictName; 
         sectorName = clientRow.vars.sector;
     }
     var getCapsBySector = require('./getCapsBySector');
     var capsDetails = getCapsBySector(districtName, sectorName);
+    console.log('sector: ' + sectorName + 'district: ' + districtName + 'caps: ' + JSON.stringify(capsDetails));
     var caps;
     if(capsDetails){ caps = capsDetails.chicken_cap;}
     var month = new Date().getMonth()+1;

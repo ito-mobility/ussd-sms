@@ -12,7 +12,7 @@ describe('Tester pack', () => {
     it('should start the tester pack confirmation', () => {
         testerPack.startTesterPack({lang: 'en'});
         expect(state.vars.lang).toBe('en');
-        expect(sayText).toHaveBeenCalledWith('1) Registration\n2) Confirmation\n3) Status');
+        expect(sayText).toHaveBeenCalledWith('1) Registration\n2) Status');
         expect(promptDigits).toHaveBeenCalledWith('tester_pack_menu', {'maxDigits': 2, 'submitOnHash': false, 'timeout': 5});
     });
 

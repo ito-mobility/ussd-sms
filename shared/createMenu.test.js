@@ -48,14 +48,13 @@ describe('create menu', () => {
 });
 
 it('should return the menu screens with options values', () => {
-    const options = createMenu(optionsList);
-    expect(options.screens).toEqual({'1': '1) one number menu\n' +
-    '2) two number menu\n' +
-    '3) three number menu\n' +
-    '4) four number menu\n' +
-    '5) five number menu\n' +
-    '6) six number menu\n' +
-    '7) seven number menu\n',
-    '2': '8) eight number menu\n' 
+    const options = createMenu(optionsList, null, null, {});
+    expect(options.screens).toEqual({'1': '1) eight number menu\n' +
+    '2) five number menu\n' +
+    '3) four number menu\n' +
+    '4) one number menu\n' +
+    '5) seven number menu\n' +
+    '6) six number menu\n',
+    '2': '8) two number menu\n'
     });
 });

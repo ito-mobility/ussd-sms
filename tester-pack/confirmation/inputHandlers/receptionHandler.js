@@ -1,3 +1,4 @@
+var getCurrentDate = require('../../../shared/getCurrentDate');
 
 module.exports = function receptionHandler(input) {
     var lang = state.vars.lang;
@@ -24,9 +25,9 @@ module.exports = function receptionHandler(input) {
             allFarmersTablerow = farmer_row_in_all_farmers_table.next();
             allFarmersTablerow.vars.client_received_tester_pack = 'yes';
             if(allFarmersTablerow.vars.time_created_confirmation == null || allFarmersTablerow.vars.time_created_confirmation == undefined){
-                allFarmersTablerow.vars.time_created_confirmation = new Date().toString();
+                allFarmersTablerow.vars.time_created_confirmation = getCurrentDate().toString();
             }
-            allFarmersTablerow.vars.last_updated_confirmation = new Date().toString();
+            allFarmersTablerow.vars.last_updated_confirmation = getCurrentDate().toString();
             allFarmersTablerow.save();
         } 
     } else if(input == 2) {
@@ -39,9 +40,9 @@ module.exports = function receptionHandler(input) {
             allFarmersTablerow = farmer_row_in_all_farmers_table.next();
             allFarmersTablerow.vars.client_received_tester_pack = 'no';
             if(allFarmersTablerow.vars.time_created_confirmation == null || allFarmersTablerow.vars.time_created_confirmation == undefined ){
-                allFarmersTablerow.vars.time_created_confirmation = new Date().toString();
+                allFarmersTablerow.vars.time_created_confirmation = getCurrentDate().toString();
             }
-            allFarmersTablerow.vars.last_updated_confirmation = new Date().toString();
+            allFarmersTablerow.vars.last_updated_confirmation = getCurrentDate().toString();
             allFarmersTablerow.save();
         }
         sayText(getMessage('farmer_received', {}, lang));

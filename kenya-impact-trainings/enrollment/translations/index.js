@@ -16,5 +16,9 @@ module.exports = {
     'thanks_for_enrolling': {
         'en': 'Congratulations $name for enrolling for the $training! You will receive communication from your Field Officer on the next steps.',
         'sw': 'Hongera $name kwa kujiandikisha kwa $training! Utapokea mawasiliano kutoka kwa Afisa wako kwa hatua zifuatazo.'
+    },
+    'enrollment_msg_to_fo': {
+        'en': 'Hi $fo_name. $farmer_first_name $farmer_last_name, a farmer in your site of phone number $farmer_phone has enrolled for the $training_name training. Add them to the list of farmers attending your next ExpoFarm training.',
+        'sw': 'Habari $fo_name. $farmer_first_name $farmer_last_name, mkulima katika tovuti yako wa nambari ya simu $farmer_phone amejiandikisha kwa mafunzo ya $training_name. Mwongeze kwenye orodha ya wakulima wanaohudhuria mafunzo yako ya ExpoFarm ijayo.'
     }
 };

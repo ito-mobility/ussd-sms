@@ -1,15 +1,12 @@
 var translations = require('./translations/index');
 var translator = require('../../utils/translator/translator');
 var enrollmentTrainingsHandler = require('./inputHandlers/enrollmentTrainingsHandler');
+var checkIfIPPClient = require('./utils/checkIfIPPClient');
 
 function registerInputHandlers(lang) {
     global.addInputHandler(enrollmentTrainingsHandler.handlerName, enrollmentTrainingsHandler.getHandler(lang));
 }
 
-function checkIfIPPClient(phoneNumber) {
-    console.log('phone: ' + phoneNumber);
-    return phoneNumber.length > 7;
-}
 
 function start(lang) {
     var getMessage = translator(translations,lang);

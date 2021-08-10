@@ -1,12 +1,14 @@
 
 var receptionHandler = require('./receptionHandler');
+var getCurrentDate = require('../../../shared/getCurrentDate');
 
-
+jest.mock('../../../shared/getCurrentDate');
 var mockedTable = { queryRows: jest.fn()};
 var mockedRow = {save: jest.fn(),hasNext: jest.fn(), next: jest.fn(),vars: {'client_received_tester_pack': null,'received_tester_pack': null,'time_created_confirmation': null}}; 
 describe('reception Handler', () => {
     beforeAll(() => {
         global.state = { vars: {lang: 'en'} };
+        getCurrentDate.mockReturnValue(new Date());
     });
     beforeEach(() => {
         jest.resetModules();
@@ -68,39 +70,39 @@ describe('reception Handler', () => {
         receptionHandler(1);
         expect(mockedRow.save).toHaveBeenCalledTimes(2);
         expect(mockedRow.vars.client_received_tester_pack).toEqual('yes');
-        expect(mockedRow.vars.time_created_confirmation).toEqual(new Date().toString());
+        expect(mockedRow.vars.time_created_confirmation).toEqual(getCurrentDate().toString());
     });
     it('should change the time created for confirmation and last updated to now if the client chooses 1 and it\'s the first time', () => {
         receptionHandler(1);
-        expect(mockedRow.vars.time_created_confirmation).toEqual(new Date().toString());
-        expect(mockedRow.vars.last_updated_confirmation).toEqual(new Date().toString());
+        expect(mockedRow.vars.time_created_confirmation).toEqual(getCurrentDate().toString());
+        expect(mockedRow.vars.last_updated_confirmation).toEqual(getCurrentDate().toString());
     });
     it('should change set the time created for confirmation and last updated to now if the client chooses 2 and it\'s the first time', () => {
         receptionHandler(2);
-        expect(mockedRow.vars.time_created_confirmation).toEqual(new Date().toString());
-        expect(mockedRow.vars.last_updated_confirmation).toEqual(new Date().toString());
+        expect(mockedRow.vars.time_created_confirmation).toEqual(getCurrentDate().toString());
+        expect(mockedRow.vars.last_updated_confirmation).toEqual(getCurrentDate().toString());
     });
     it('should change the time updated for confirmation to now if the client chooses 1 and it\'s not the first time', () => {
-        mockedRow.vars.time_created_confirmation = new Date().toString();
+        mockedRow.vars.time_created_confirmation = getCurrentDate().toString();
         receptionHandler(1);
-        expect(mockedRow.vars.last_updated_confirmation).toEqual(new Date().toString());
+        expect(mockedRow.vars.last_updated_confirmation).toEqual(getCurrentDate().toString());
     });
     it('should change the time updated for confirmation to now if the client chooses 2 and it\'s not the first time', () => {
-        mockedRow.vars.time_created_confirmation = new Date().toString();
+        mockedRow.vars.time_created_confirmation = getCurrentDate().toString();
         receptionHandler(2);
-        expect(mockedRow.vars.last_updated_confirmation).toEqual(new Date().toString());
+        expect(mockedRow.vars.last_updated_confirmation).toEqual(getCurrentDate().toString());
     });
     
     it('should change the time created and last updated for confirmation to now if the client chooses 2 and it\'s not the first time(undefined)', () => {
         mockedRow.vars.time_created_confirmation = undefined;
         receptionHandler(2);
-        expect(mockedRow.vars.time_created_confirmation).toEqual(new Date().toString());
-        expect(mockedRow.vars.last_updated_confirmation).toEqual(new Date().toString());
+        expect(mockedRow.vars.time_created_confirmation).toEqual(getCurrentDate().toString());
+        expect(mockedRow.vars.last_updated_confirmation).toEqual(getCurrentDate().toString());
     });
     it('should change the time created and last updated for confirmation to now if the client chooses 2 and it\'s not the first time(undefined)', () => {
         mockedRow.vars.time_created_confirmation = undefined;
         receptionHandler(1);
-        expect(mockedRow.vars.time_created_confirmation).toEqual(new Date().toString());
-        expect(mockedRow.vars.last_updated_confirmation).toEqual(new Date().toString());
+        expect(mockedRow.vars.time_created_confirmation).toEqual(getCurrentDate().toString());
+        expect(mockedRow.vars.last_updated_confirmation).toEqual(getCurrentDate().toString());
     });
 });

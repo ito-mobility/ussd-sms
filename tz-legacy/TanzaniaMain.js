@@ -170,7 +170,7 @@ var SendPushSMStoContact = function(content, label){
 // TEXT functions
 
 var SplashMenuText = function (){
-    sayText('Karibu One Acre Fund.\n\nBoneyeza\n1. Kuweka namba ya akaunti\n2. Jinsi ya kufanya marejesho\n3. Kuomba upigiwe\nPiga 0800713888 bure kwa maelezo\n');
+    sayText('Karibu One Acre Fund.\n\nChagua\n1. Kuweka namba ya akaunti\n2. Jinsi ya kufanya marejesho\n3. Kuomba upigiwe\nPiga 0800713888 bure kwa maelezo\n');
 };
 var CallCentreInfoPlusBackText = function (){
     sayText('Tafadhali piga 0800713888 bure, Jumatatu hadi Ijumaa kuanzia saa 2 asubuhi hadi saa 11 jioni. Asante\n9. Rudi mwanzo');

@@ -1620,6 +1620,15 @@ var StaffTabletRosterText = function(){
 var StaffIssueSuccessText = function(){
     sayText('Thank you for contacting ITO Mobile team. You will receive an email from our zendesk support desk, please follow the instructions to fix the issue. ITO service team will contact you through 0800301100 after your response to the email.');
 };
+
+var StaffDirectSuccessText = function(){
+    sayText('Thank you for contacting ITO Mobile team. We will contact you through 0800301100 ');
+};
+
+var StaffFDSuccessText = function(){
+    sayText('Thank you for contacting ITO Mobile team.  Kindly notify your FD to fill the tablet incident form for the device to be fixed.');
+}
+
 var StaffDaySelectText = function(){
     sayText('For which day are you reporting your first day of absense?\n1) Today\n2) Tomorrow\n3) Yesterday\n0) Cancel');
 };
@@ -3212,12 +3221,12 @@ addInputHandler('StaffTabletIssue', function(input) {
             StaffCPSSText();
         }
         else if (input == 12){
-            //commcare
+            //comcare
             state.vars.MaxAnswer = 1;
             StaffCommcareAppText();
         }
         else if (input == 13){
-            //commcare
+            //paygops
             state.vars.MaxAnswer = 3;
             StaffPaygopsText();
         }
@@ -3227,7 +3236,7 @@ addInputHandler('StaffTabletIssue', function(input) {
             StaffFieldProText();
         }
         else if (input == 15){
-            //commcare
+            //power bi
             state.vars.MaxAnswer = 1;
             StaffPowerBiText();
         }
@@ -3274,12 +3283,55 @@ addInputHandler('StaffIssueLowlevel', function(input) {
     InteractionCounter('StaffTabLowIssue');
     if (input>0 && input<= state.vars.MaxAnswer){
         state.vars.IssueLevel3Ans = input;
-        StaffIssueSuccessText();
+
+        //custom responses
+        if(state.vars.IssueLevel2Ans == 3){
+            if(state.vars.IssueLevel3Ans == 1 || state.vars.IssueLevel3Ans == 2 || state.vars.IssueLevel3Ans == 5 || state.vars.IssueLevel3Ans == 6 || state.vars.IssueLevel3Ans == 9){
+                StaffDirectSuccessText();
+            }else{
+                StaffIssueSuccessText();
+            }
+        }else if(state.vars.IssueLevel2Ans == 4){
+            if(state.vars.IssueLevel3Ans == 1 || state.vars.IssueLevel3Ans == 2){
+                StaffDirectSuccessText();
+            }else{
+                StaffIssueSuccessText();
+            }
+        }else if(state.vars.IssueLevel2Ans == 5){
+            if(state.vars.IssueLevel3Ans == 1 || state.vars.IssueLevel3Ans == 3 || state.vars.IssueLevel3Ans == 4){
+                StaffDirectSuccessText();
+            }else{
+                StaffIssueSuccessText();
+            }
+        }else if(state.vars.IssueLevel2Ans == 6){
+            StaffFDSuccessText();
+        }else if(state.vars.IssueLevel2Ans == 7){
+            if(state.vars.IssueLevel3Ans == 1 || state.vars.IssueLevel3Ans == 3 || state.vars.IssueLevel3Ans == 4 || state.vars.IssueLevel3Ans == 5){
+                StaffFDSuccessText();
+            }else{
+                StaffIssueSuccessText();
+            }
+        }else if(state.vars.IssueLevel2Ans == 9){
+            if(state.vars.IssueLevel3Ans == 4){
+                StaffFDSuccessText();
+            }else{
+                StaffIssueSuccessText();
+            }
+        }else if(state.vars.IssueLevel2Ans == 10){
+            if(state.vars.IssueLevel3Ans == 1){
+                StaffDirectSuccessText();
+            }else{
+                StaffIssueSuccessText();
+            }
+        }else{
+            StaffIssueSuccessText();
+        }
+
         var Body = 'Staff call back request on phonenumber: '+contact.phone_number+': \nIssue type: '+state.vars.IssueLevel1+'\n\n'+state.vars.IssueLevel2Ques+ '\n Answer: '+state.vars.IssueLevel2Ans+'\n\n'+state.vars.IssueLevel3Ques+ '\n Answer: '+state.vars.IssueLevel3Ans;
         console.log(contact.phone_number);
         console.log(state.vars.IssueLevel1);
         console.log(Body);
-        StaffCallBackCreate(contact.phone_number,state.vars.IssueLevel1,Body);
+        //StaffCallBackCreate(contact.phone_number,state.vars.IssueLevel1,Body);
 
         //ussd-google handler
         Ussd_Google_func_init(contact.phone_number,state.vars.IssueLevel1,state.vars.IssueLevel2Ans,state.vars.IssueLevel3Ans,state.vars.payrollid,state.time_created)

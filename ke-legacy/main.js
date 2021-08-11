@@ -1507,7 +1507,7 @@ var StaffPayrollText = function(){
     sayText('Please enter you 5 digit payroll ID');
 };
 var StaffTabletIssueText = function(){
-    var Text = 'Affected part?\n1) Field Tech App\n2) ME App\n3) G suite\n4)Tablet hardware\n5)Tablet Software\n6)Bundles\n7)Device Policy\n8)Power Bank\n9)Charger\n10)SIM card\n11)CPSS(Performance Portal App)\n12)Commcare App';
+    var Text = 'Affected part?\n1) Field Tech App\n2) ME App\n3) G suite\n4)Tablet hardware\n5)Tablet Software\n6)Bundles\n7)Device Policy\n8)Power Bank\n9)Charger\n10)SIM card\n11)CPSS\n(Performance\n Portal App)\n12)Commcare App\n13)Paygops App\n14)Field Pro\n15)PowerBi\n16)Erply POS';
     state.vars.IssueLevel2Ques = Text;
     sayText(Text);
 };
@@ -1549,6 +1549,26 @@ var StaffCPSSText = function(){
 };
 var StaffCommcareAppText = function(){
     var Text = '1)  App Missing in Tablet';
+    state.vars.IssueLevel3Ques = Text;
+    sayText(Text);
+};
+var StaffPaygopsText = function(){
+    var Text = '1) Not Connecting to Internet\n2)Not Picking location\n3)Forgot Password';
+    state.vars.IssueLevel3Ques = Text;
+    sayText(Text);
+};
+var StaffFieldProText = function(){
+    var Text = '1) Not Connecting to Internet';
+    state.vars.IssueLevel3Ques = Text;
+    sayText(Text);
+};
+var StaffPowerBiText = function(){
+    var Text = '1) Not Picking Location';
+    state.vars.IssueLevel3Ques = Text;
+    sayText(Text);
+};
+var StaffErplyPOSText = function(){
+    var Text = '1) Forgot Password';
     state.vars.IssueLevel3Ques = Text;
     sayText(Text);
 };
@@ -1601,6 +1621,15 @@ var StaffTabletRosterText = function(){
 var StaffIssueSuccessText = function(){
     sayText('Thank you for contacting ITO Mobile team. You will receive an email from our zendesk support desk, please follow the instructions to fix the issue. ITO service team will contact you through 0800301100 after your response to the email.');
 };
+
+var StaffDirectSuccessText = function(){
+    sayText('Thank you for contacting ITO Mobile team. We will contact you through 0800301100 ');
+};
+
+var StaffFDSuccessText = function(){
+    sayText('Thank you for contacting ITO Mobile team.  Kindly notify your FD to fill the tablet incident form for the device to be fixed.');
+}
+
 var StaffDaySelectText = function(){
     sayText('For which day are you reporting your first day of absense?\n1) Today\n2) Tomorrow\n3) Yesterday\n0) Cancel');
 };
@@ -3077,7 +3106,7 @@ addInputHandler('StaffMenu', function(input) {
         promptDigits('DaySelect', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
     else if (input == 2){
-        state.vars.MaxAnswer = 12;
+        state.vars.MaxAnswer = 16;
         StaffTabletIssueText();
         promptDigits('StaffTabletIssue', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
@@ -3193,9 +3222,29 @@ addInputHandler('StaffTabletIssue', function(input) {
             StaffCPSSText();
         }
         else if (input == 12){
-            //commcare
+            //comcare
             state.vars.MaxAnswer = 1;
             StaffCommcareAppText();
+        }
+        else if (input == 13){
+            //paygops
+            state.vars.MaxAnswer = 3;
+            StaffPaygopsText();
+        }
+        else if (input == 14){
+            //commcare
+            state.vars.MaxAnswer = 1;
+            StaffFieldProText();
+        }
+        else if (input == 15){
+            //power bi
+            state.vars.MaxAnswer = 1;
+            StaffPowerBiText();
+        }
+        else if (input == 16){
+            //commcare
+            state.vars.MaxAnswer = 1;
+            StaffErplyPOSText();
         }
         promptDigits('StaffIssueLowlevel', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
@@ -3235,12 +3284,55 @@ addInputHandler('StaffIssueLowlevel', function(input) {
     InteractionCounter('StaffTabLowIssue');
     if (input>0 && input<= state.vars.MaxAnswer){
         state.vars.IssueLevel3Ans = input;
-        StaffIssueSuccessText();
+
+        //custom responses
+        if(state.vars.IssueLevel2Ans == 3){
+            if(state.vars.IssueLevel3Ans == 1 || state.vars.IssueLevel3Ans == 2 || state.vars.IssueLevel3Ans == 5 || state.vars.IssueLevel3Ans == 6 || state.vars.IssueLevel3Ans == 9){
+                StaffDirectSuccessText();
+            }else{
+                StaffIssueSuccessText();
+            }
+        }else if(state.vars.IssueLevel2Ans == 4){
+            if(state.vars.IssueLevel3Ans == 1 || state.vars.IssueLevel3Ans == 2){
+                StaffDirectSuccessText();
+            }else{
+                StaffIssueSuccessText();
+            }
+        }else if(state.vars.IssueLevel2Ans == 5){
+            if(state.vars.IssueLevel3Ans == 1 || state.vars.IssueLevel3Ans == 3 || state.vars.IssueLevel3Ans == 4){
+                StaffDirectSuccessText();
+            }else{
+                StaffIssueSuccessText();
+            }
+        }else if(state.vars.IssueLevel2Ans == 6){
+            StaffFDSuccessText();
+        }else if(state.vars.IssueLevel2Ans == 7){
+            if(state.vars.IssueLevel3Ans == 1 || state.vars.IssueLevel3Ans == 3 || state.vars.IssueLevel3Ans == 4 || state.vars.IssueLevel3Ans == 5){
+                StaffFDSuccessText();
+            }else{
+                StaffIssueSuccessText();
+            }
+        }else if(state.vars.IssueLevel2Ans == 9){
+            if(state.vars.IssueLevel3Ans == 4){
+                StaffFDSuccessText();
+            }else{
+                StaffIssueSuccessText();
+            }
+        }else if(state.vars.IssueLevel2Ans == 10){
+            if(state.vars.IssueLevel3Ans == 1){
+                StaffDirectSuccessText();
+            }else{
+                StaffIssueSuccessText();
+            }
+        }else{
+            StaffIssueSuccessText();
+        }
+
         var Body = 'Staff call back request on phonenumber: '+contact.phone_number+': \nIssue type: '+state.vars.IssueLevel1+'\n\n'+state.vars.IssueLevel2Ques+ '\n Answer: '+state.vars.IssueLevel2Ans+'\n\n'+state.vars.IssueLevel3Ques+ '\n Answer: '+state.vars.IssueLevel3Ans;
         console.log(contact.phone_number);
         console.log(state.vars.IssueLevel1);
         console.log(Body);
-        StaffCallBackCreate(contact.phone_number,state.vars.IssueLevel1,Body);
+        //StaffCallBackCreate(contact.phone_number,state.vars.IssueLevel1,Body);
 
         //ussd-google handler
         Ussd_Google_func_init(contact.phone_number,state.vars.IssueLevel1,state.vars.IssueLevel2Ans,state.vars.IssueLevel3Ans,state.vars.payrollid,state.time_created)

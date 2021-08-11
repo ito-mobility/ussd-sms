@@ -212,12 +212,12 @@ module.exports = {
         'ki': 'Nomero ya konti yakiriwe',
     },
     'cor_get_balance': {
-        'en': 'Hello $CLIENT_NAME~BCredit:$CREDIT~BPaid:$PAID~BBalance:$BALANCE~B$HEALTHY_PATHAccurate as of $DAY_NAME $DAYNR $MONTH',
-        'ki': 'Muraho $CLIENT_NAME~BIdeni ryose:$CREDIT~BAyishyuwe:$PAID~BIdeni risigaye:$BALANCE~B$HEALTHY_PATHAmakuru yafashwe $DAY_NAME $DAYNR $MONTH',
+        'en': 'Hello $CLIENT_NAME~BCredit:$CREDIT~BPaid:$PAID~BBalance:$BALANCE~BLast season outstanding balance:$LAST_BALANCE~B$HEALTHY_PATHAccurate as of $DAY_NAME $DAYNR $MONTH',
+        'ki': 'Muraho $CLIENT_NAME~BIdeni ryose:$CREDIT~BAyishyuwe:$PAID~BIdeni risigaye:$BALANCE~BIdeni risigaye mu gihembwe gishize:$LAST_BALANCE~B$HEALTHY_PATHAmakuru yafashwe $DAY_NAME $DAYNR $MONTH',
     },
     'cor_get_balance_overpaid': {
-        'en': 'Hello $CLIENT_NAME~BCredit:$CREDIT~BPaid:$PAID~BBalance:$BALANCE~BOverpaid amount: $OVERPAID~B$HEALTHY_PATHAccurate as of $DAY_NAME $DAYNR $MONTH',
-        'ki': 'Muraho $CLIENT_NAME~BIdeni ryose:$CREDIT~BAyishyuwe:$PAID~BIdeni risigaye:$BALANCE~BAmafaranga arenga: $OVERPAID~B$HEALTHY_PATHAmakuru yafashwe $DAY_NAME $DAYNR $MONTH',
+        'en': 'Hello $CLIENT_NAME~BCredit:$CREDIT~BPaid:$PAID~BBalance:$BALANCE~BOverpaid amount: $OVERPAID~BLast season outstanding balance:$LAST_BALANCE~B$HEALTHY_PATHAccurate as of $DAY_NAME $DAYNR $MONTH',
+        'ki': 'Muraho $CLIENT_NAME~BIdeni ryose:$CREDIT~BAyishyuwe:$PAID~BIdeni risigaye:$BALANCE~BAmafaranga arenga: $OVERPAID~BIdeni risigaye mu gihembwe gishize:$LAST_BALANCE~B$HEALTHY_PATHAmakuru yafashwe $DAY_NAME $DAYNR $MONTH',
     },
     'external_splash': {
         'en': 'Welcome to TUBURA. Please select your region:~B$GEO_MENU',

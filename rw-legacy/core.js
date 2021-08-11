@@ -299,7 +299,6 @@ addInputHandler('cor_menu_select', function (input) {
     else if (selection === 'cor_get_balance') { //inelegant
         var get_balance = require('./lib/cor-get-balance');
         var balance_data = get_balance(JSON.parse(state.vars.client_json), lang);
-        console.log(">>>>> balance reached" + JSON.stringify(balance_data));
         if(balance_data['$PAID'] > balance_data['$CREDIT']){
             balance_data['$OVERPAID'] = parseInt(balance_data['$PAID']) - parseInt(balance_data['$CREDIT']);
             sayText(msgs('cor_get_balance_overpaid', balance_data, lang));

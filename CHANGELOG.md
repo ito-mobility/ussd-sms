@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## New Version
 ### Changed
+* [THD-7443](https://oneacrefund.atlassian.net/browse/THD-7443)Mobile Enrollment-Request change on Account Number SMS Feature-TZ
+### Changed
 * [THD-8264](https://oneacrefund.atlassian.net/browse/THD-8264)USSD Repayment Balance check Issue
 ### Changed
 * [THD-8085](https://oneacrefund.atlassian.net/browse/THD-8085)Updating Kenya Field Staff USSD menu

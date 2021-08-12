@@ -1,6 +1,6 @@
 module.exports = {
     'eligible_repayment_message': {
-        'en': 'You have paid $amount, so you are qualified to order up to $number trees.  Please remember, new avocado clients must order at least 3 trees. How many would you like to order? Reply with the number of trees you want to order\n99) Return to main menu',
+        'en': 'You have paid $amount, and you are qualified to order up to $number trees.  Please remember, new avocado clients must order at least 3 trees. How many would you like to order? Reply with the number of trees you want to order\n99) Return to main menu',
         'ki': 'Umaze kwishyura amafaranga $amount Rwf, ubu wemerewe gutumiza avoka zigera kuri $number. Twibukiranye ko ku bahinzi bashya, umubare wa avoka utajya munsi ni avoka 3. Urifuza gutumiza avoka zingahe? (subiza ukoresheje umubare wa avoka ushaka gutumiza)\n99) Subira ku ntangiriro'
     },
     'order_not_eligible': {

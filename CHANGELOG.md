@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## New Version
 ### Changed
+* [ESWFA-197](https://oneacrefund.atlassian.net/browse/ESWFA-197) USSD Services-Special Request - USSD Request for Avocado-RW
 * [THD-7443](https://oneacrefund.atlassian.net/browse/THD-7443)Mobile Enrollment-Request change on Account Number SMS Feature-TZ
 ### Changed
 * [THD-8264](https://oneacrefund.atlassian.net/browse/THD-8264)USSD Repayment Balance check Issue

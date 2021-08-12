@@ -62,7 +62,7 @@ describe('avocadoServices',()=>{
             avocadoEligibility.mockReturnValue({'balance': balance, 'possibleTrees': possibleTree});
             avocadoTreesOrdering.start(account, country,lang);
             expect(sayText).toHaveBeenCalledWith(`You have paid ${balance}`+
-            `, so you are qualified to order up to ${possibleTree}`+
+            `, and you are qualified to order up to ${possibleTree}`+
             ' trees.  Please remember, new avocado clients must order at least 3 trees. How many would you like to order? Reply with the number of trees you want to order\n99) Return to main menu');
         });
         it('should display prepayment not satified if the possible nuber of tree is less than 3',()=>{
@@ -104,9 +104,9 @@ describe('avocadoServices',()=>{
         var mockRow = {save: jest.fn()};
         mockTable.createRow.mockReturnValue(mockRow);
         var requestBundles = [{
-            'bundleId': '-3217',
+            'bundleId': '-5620',
             'bundleQuantity': quantity,
-            'inputChoices': [-13392]
+            'inputChoices': [-16824]
         }];
         beforeAll(()=>{
             state.vars.orderedNumber = quantity;

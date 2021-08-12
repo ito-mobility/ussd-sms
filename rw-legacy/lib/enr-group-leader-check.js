@@ -4,22 +4,16 @@
 */
 
 module.exports = function(client, glus_id, an_table_name, glus_table_name){
-    client = an_table.queryRows({vars: {'account_number': client}}).next(); //assumes that this client has been saved already
     if(!glus_id) {
         client.vars.group_leader = 1;
         client.save();
         return true;
     }
     var an_table = project.getOrCreateDataTable(an_table_name);
-    client = an_table.queryRows({vars : {'account_number' : client}}).next();//assumes that this client has been saved already
-    if(!glus_id) {
-        client.vars.group_leader = 1;
-        client.save();
-        return true;
-    }
+    client = an_table.queryRows({vars: {'account_number': client}}).next();//assumes that this client has been saved already
     var glus_table = project.getOrCreateDataTable(glus_table_name);
-    var group = glus_table.queryRows({vars : {'glus_id' : glus_id}}).next();
-    var group_leader = an_table.queryRows({vars : {'glus' : glus_id, 'group_leader' : 1}})
+    glus_table.queryRows({vars: {'glus_id': glus_id}}).next();
+    var group_leader = an_table.queryRows({vars: {'glus': glus_id, 'group_leader': 1}});
     state.vars.needs_name = false; 
     // assign client to be a group leader if there are no other group leaders in the group; otherwise, assign to be member
     if(group_leader.count() < 1){

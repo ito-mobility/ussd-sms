@@ -14,7 +14,7 @@ module.exports = {
         '4) Maize Harvest'
     },
     'thanks_for_enrolling': {
-        'en': 'Congratulations $name for enrolling for the $training! You will receive communication from your Field Officer on the next steps.',
+        'en': 'Congratulations $name for enrolling for the $training demo training! You will receive communication from your Field Officer on the next steps.',
         'sw': 'Hongera $name kwa kujiandikisha kwa $training! Utapokea mawasiliano kutoka kwa Afisa wako kwa hatua zifuatazo.'
     },
     'enrollment_msg_to_fo': {

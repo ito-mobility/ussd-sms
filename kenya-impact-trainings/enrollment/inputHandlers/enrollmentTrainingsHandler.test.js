@@ -36,7 +36,7 @@ describe('enrollmentTrainingsHandler', () => {
         expect(project.sendMessage).toHaveBeenCalledWith({'content': 'Hi Agent Name. Farmer Name Farmer surname, a farmer in your site of phone number 0789009890 has enrolled for the Maize Intercrop training. Add them to the list of farmers attending your next ExpoFarm training.', 'to_number': '+254718992515'});
         expect(project.sendMessage).toHaveBeenCalledWith({'content': 'Hi Agent Name. Farmer Name Farmer surname, a farmer in your site of phone number 0789009890 has enrolled for the Maize Intercrop training. Add them to the list of farmers attending your next ExpoFarm training.', 'to_number': '+25416587447'});
         expect(project.sendMessage).toHaveBeenCalledWith({'content': 'Hi Agent Name. Farmer Name Farmer surname, a farmer in your site of phone number 0789009890 has enrolled for the Maize Intercrop training. Add them to the list of farmers attending your next ExpoFarm training.', 'to_number': '+254750855113'});
-        expect(sayText).toHaveBeenCalledWith('Congratulations Farmer Name Farmer surname for enrolling for the Maize Intercrop! You will receive communication from your Field Officer on the next steps.');
+        expect(sayText).toHaveBeenCalledWith('Congratulations Farmer Name Farmer surname for enrolling for the Maize Intercrop demo training! You will receive communication from your Field Officer on the next steps.');
         expect(stopRules).toHaveBeenCalled();
     });
 

@@ -35,11 +35,6 @@ module.exports = {
                     '$training_name': selected_training,
                 }, lang);
 
-                // show a confirmation to the farmer
-                global.sayText(getMessage('thanks_for_enrolling', {
-                    '$name': farmer_firstName + ' ' + farmer_surName,
-                    '$training': selected_training
-                }, lang));
 
                 // save client to the data table
                 var impactTrainingsClientsTable = project.getOrCreateDataTable(service.vars.impact_tr_enr_table_name);
@@ -47,12 +42,23 @@ module.exports = {
                     farmer_phone: farmer_phone
                 }});
 
-                if(farmerCursor.hasNext) {
+                if(farmerCursor.hasNext()) {
                     var farmerRow = farmerCursor.next();
                     farmerRow.vars.selected_trainings = (farmerRow.vars.selected_trainings ? farmerRow.vars.selected_trainings : '') + selected_training + ', ';
                     farmerRow.vars.enrolled = '1';
                     farmerRow.save();
+                } else {
+                    // show a technical error message
+                    sayText(getMessage('farmer_not_found', {}, lang));
+                    return global.stopRules();
                 }
+
+                // show a confirmation to the farmer
+                global.sayText(getMessage('thanks_for_enrolling', {
+                    '$name': farmer_firstName + ' ' + farmer_surName,
+                    '$training': selected_training
+                }, lang));
+                
                 // send the sms to Makandi and the FO
                 makandiTeamPhones.forEach(function(phone) {
                     project.sendMessage({
@@ -63,7 +69,7 @@ module.exports = {
                 //end the session
                 global.stopRules();
             } else {
-                global.sayText('impact_trainings_menu', {}, lang);
+                global.sayText(getMessage('impact_trainings_menu', {}, lang));
                 global.promptDigits(handlerName);
             }
         };

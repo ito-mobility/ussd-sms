@@ -116,8 +116,8 @@ module.exports = {
         'ki': 'Hitamo igihingwa:~B'
     },
     'survey_question': {
-        'en': '$FEEDBACK~B$TEXT~B$OPT1~B$OPT2~B$OPT3~B$OPT4~B5) Ntabyo nzi',
-        'ki': '$FEEDBACK~B$TEXT~B$OPT1~B$OPT2~B$OPT3~B$OPT4~B5) Ntabyo nzi'
+        'en': '$FEEDBACK~B$TEXT~B$OPT1~B$OPT2~B$OPT3~B$OPT4~B$OPT5~B',
+        'ki': '$FEEDBACK~B$TEXT~B$OPT1~B$OPT2~B$OPT3~B$OPT4~B$OPT5~B'
     },
     'invalid_input': {
         'en': 'Please try again',
@@ -212,12 +212,12 @@ module.exports = {
         'ki': 'Nomero ya konti yakiriwe',
     },
     'cor_get_balance': {
-        'en': 'Hello $CLIENT_NAME~BCredit:$CREDIT~BPaid:$PAID~BBalance:$BALANCE~B$HEALTHY_PATHAccurate as of $DAY_NAME $DAYNR $MONTH',
-        'ki': 'Muraho $CLIENT_NAME~BIdeni ryose:$CREDIT~BAyishyuwe:$PAID~BIdeni risigaye:$BALANCE~B$HEALTHY_PATHAmakuru yafashwe $DAY_NAME $DAYNR $MONTH',
+        'en': 'Hello $CLIENT_NAME~BCredit:$CREDIT~BPaid:$PAID~BBalance:$BALANCE~BLast season outstanding balance:$LAST_BALANCE~B$HEALTHY_PATHAccurate as of $DAY_NAME $DAYNR $MONTH',
+        'ki': 'Muraho $CLIENT_NAME~BIdeni ryose:$CREDIT~BAyishyuwe:$PAID~BIdeni risigaye:$BALANCE~BIdeni risigaye mu gihembwe gishize:$LAST_BALANCE~B$HEALTHY_PATHAmakuru yafashwe $DAY_NAME $DAYNR $MONTH',
     },
     'cor_get_balance_overpaid': {
-        'en': 'Hello $CLIENT_NAME~BCredit:$CREDIT~BPaid:$PAID~BBalance:$BALANCE~BOverpaid amount: $OVERPAID~B$HEALTHY_PATHAccurate as of $DAY_NAME $DAYNR $MONTH',
-        'ki': 'Muraho $CLIENT_NAME~BIdeni ryose:$CREDIT~BAyishyuwe:$PAID~BIdeni risigaye:$BALANCE~BAmafaranga arenga: $OVERPAID~B$HEALTHY_PATHAmakuru yafashwe $DAY_NAME $DAYNR $MONTH',
+        'en': 'Hello $CLIENT_NAME~BCredit:$CREDIT~BPaid:$PAID~BBalance:$BALANCE~BOverpaid amount: $OVERPAID~BLast season outstanding balance:$LAST_BALANCE~B$HEALTHY_PATHAccurate as of $DAY_NAME $DAYNR $MONTH',
+        'ki': 'Muraho $CLIENT_NAME~BIdeni ryose:$CREDIT~BAyishyuwe:$PAID~BIdeni risigaye:$BALANCE~BAmafaranga arenga: $OVERPAID~BIdeni risigaye mu gihembwe gishize:$LAST_BALANCE~B$HEALTHY_PATHAmakuru yafashwe $DAY_NAME $DAYNR $MONTH',
     },
     'external_splash': {
         'en': 'Welcome to TUBURA. Please select your region:~B$GEO_MENU',
@@ -311,7 +311,7 @@ module.exports = {
         'en': 'Please enter your account number to finalize your order',
         'ki': 'Andika nomero ya Konti yawe wemeze neza ibyo watumije',
     },
-    'invalid_input': {
+    'invalid_input_ext': {
         'en': 'Invalid selection - please try again~B1)Continue~B99)Exit',
         'ki': 'Ibyo wahisemo ntibibashije kuboneka~B1) Gukomeza~B99) Kuvamo',
     },
@@ -759,8 +759,8 @@ module.exports = {
         'ki': 'Imifuka y\'ibigori bidahunguye ugurisha(hakoreshwa umufuka munini w\'ibiro 100)'
     },
     'pshops_main_splash': {
-        'en': 'Welcome to the PShop Client portal. Please enter your Account Number\n0: to locate your Agrodealer partner',
-        'ki': 'Murakaza neza ku iduka. Injizamo konti yawe y\'umuhinzi\n0: Kubona umufatanyabikorwa ukwegereye',
+        'en': 'Welcome to the PShop Client portal. Please enter your Account Number\n0: to locate your Agrodealer partner\n1. Register new client',
+        'ki': 'Murakaza neza ku iduka. Injizamo konti yawe y\'umuhinzi\n0: Kubona umufatanyabikorwa ukwegereye\n1. Iyandikishe nk\'umukiriya mushya',
     },
     'incorrect_account_number': {
         'en': 'Incorrect input. Please enter your Account Number',

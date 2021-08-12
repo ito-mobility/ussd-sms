@@ -6,12 +6,12 @@
 module.exports = function(vid){
     // save number of demographic questions
     var demo_table = project.getOrCreateDataTable('demo_table');
-    var demo_cursor = demo_table.queryRows({'vars' : {  'survey_type' : state.vars.survey_type}});
+    var demo_cursor = demo_table.queryRows({'vars': {  'survey_type': state.vars.survey_type}});
     var num_demo = demo_cursor.count();
-
+    var valid;
     // load the rows of village table that match the input vid
-    var village_table = project.getOrCreateDataTable("VillageInfo");
-    var village_cursor = village_table.queryRows({vars: {'villageid' : vid}});
+    var village_table = project.getOrCreateDataTable('VillageInfo');
+    var village_cursor = village_table.queryRows({vars: {'villageid': vid}});
     village_cursor.limit(1); // replace with checks
 
     // return true if the input vid is in the village table
@@ -31,7 +31,7 @@ module.exports = function(vid){
             village.vars.sedo_pn = contact.phone_number;
         }
         village.save();
-        var valid = true;
+        valid = true;
         // if demographic questions have already been answered, bypass them using step
         if(village.vars.demo_complete){
             state.vars.step = num_demo + 1;
@@ -39,7 +39,7 @@ module.exports = function(vid){
 
     }
     else{
-        var valid = false;
+        valid = false;
     }
     return valid;
-}
+};

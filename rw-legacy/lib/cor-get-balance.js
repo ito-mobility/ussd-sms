@@ -122,6 +122,7 @@ module.exports = function(client, lang){
     */
     // SeasonId: number, CountryId: number, DistrictId: number,
     var mostRecentSeason = client.BalanceHistory[0];
+    var previousSeason = client.BalanceHistory[1] || {Balace: 0};
     var hpd = {
         countryId: client.CountryId,
         districtId: client.DistrictId
@@ -139,5 +140,7 @@ module.exports = function(client, lang){
         '$DAY_NAME': day_name,
         '$MONTH': month,
         '$DAYNR': day_num,
-        '$HEALTHY_PATH': healthyPathMessage};
+        '$HEALTHY_PATH': healthyPathMessage,
+        '$LAST_BALANCE': previousSeason.Balance > 0 ? previousSeason.Balance : 0,
+    };
 };

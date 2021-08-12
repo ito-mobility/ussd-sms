@@ -66,7 +66,8 @@ try{
             '$lastTransactionAmount': contact.vars.lastTransactionAmount,
             '$lastTransactionId': contact.vars.lastTransactionId,
             '$accountnumber': contact.vars.accountnumber,
-            '$paid': paid
+            '$paid': paid,
+            '$seasonName': BalanceHistory.SeasonName
         }, 'ki');
 
         transactionLog = getMessage('mm_receipt_rw_paid', {
@@ -74,7 +75,8 @@ try{
             '$lastTransactionAmount': contact.vars.lastTransactionAmount,
             '$lastTransactionId': contact.vars.lastTransactionId,
             '$accountnumber': contact.vars.accountnumber,
-            '$paid': paid
+            '$paid': paid,
+            '$seasonName': BalanceHistory.SeasonName
         }, 'en');
     }
     var mmReceiptLabel = project.getOrCreateLabel('MM receipt');

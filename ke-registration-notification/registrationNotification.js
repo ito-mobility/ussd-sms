@@ -2,11 +2,23 @@ var translator = require('../utils/translator/translator');
 var translations = require('./translations/index');
 var Log = require('../logger/elk/elk-logger');
 
-try {
-    var lang = contact.vars.lang;
-    if (lang === 'en-ke') {
-        lang = 'en';
+var config = {
+    langs: {
+        'tz': {
+            'en': 'en',
+            'sw': 'sw-tz',
+            'default': 'sw-tz',
+        },
+        'ke': {
+            'en-ke': 'en',
+            'sw': 'sw-ke',
+            'default': 'sw-ke',
+        }
     }
+};
+try {
+    var lang = config.langs[project.vars.country][contact.vars.lang] || config.langs[project.vars.country]['default'];
+
     var getMessage = translator(translations, lang);
     var messageContent = getMessage('registration-notification', {
         '$Name': contact.vars.firstName,
@@ -28,7 +40,7 @@ try {
         data: {
             TAG: 'RegistrationNotificationSMSError',
             exception: ex, 
-            country: 'KE',
+            country: project.vars.country,
             vars: contact.vars,
             phoneNumber: contact.phone_number
         }

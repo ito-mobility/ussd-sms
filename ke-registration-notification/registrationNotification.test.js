@@ -24,6 +24,7 @@ describe('Registration Notification SMS', () => {
             }
         };
         project.vars.repayments_sms_route = '12345';
+        project.vars.country = 'ke';
     });
 
     beforeEach(() => {
@@ -33,7 +34,7 @@ describe('Registration Notification SMS', () => {
     it('sends an sms to the registered client', () => {
         contact.vars.lang = 'en';
         require('./registrationNotification');
-        expect(project.sendMessage).toHaveBeenCalledWith({'content': 'Hello John, thank you for joining One Acre Fund! Begin paying toward your loan now by making a payment via MPESA with your Account Number (0132345432). Your FO will follow up with you.',
+        expect(project.sendMessage).toHaveBeenCalledWith({'content': 'Jambo John, Asante kwa kujiunga na OAF! Tafadhali anza kulipia mkopo wako sasa kupitia Mpesa. Nambari ya akaunti yako ya malipo ni (0132345432). Mwalimu wa nyanjani atakuelekeza pia.',
             'to_number': '0755432334',
             'route_id': '12345',
             'message_type': 'sms'

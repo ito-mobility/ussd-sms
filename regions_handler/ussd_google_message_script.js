@@ -6,7 +6,7 @@ function send_ussd_response(external_phone_number,external_IssueLevel1,external_
 }
 
 function kenyan_send_ussd_response(phone_number,IssueLevel1,IssueLevel2Ans,IssueLevel3Ans,payroll_id,creation_date){
-    var kenyan_appscript_url = 'https://script.google.com/macros/s/AKfycbw5dbxkDFpAg8Q0YFnzY8NFpcJcLVzLlAhnHrgKhsF9orMRZXN4/exec';
+    var kenyan_appscript_url = 'https://script.google.com/macros/s/AKfycbx3C83G0wH00ThfbUEKTmit332ln4SkCPRqgahC7cgbvezetBSY/exec';
 
     //construct the final data to be passed to the google sheet and make a post request to google spreedsheet.
     var JSONdata = JSON.stringify({

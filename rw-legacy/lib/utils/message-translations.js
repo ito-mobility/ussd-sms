@@ -212,12 +212,12 @@ module.exports = {
         'ki': 'Nomero ya konti yakiriwe',
     },
     'cor_get_balance': {
-        'en': 'Hello $CLIENT_NAME~BCredit:$CREDIT~BPaid:$PAID~BBalance:$BALANCE~B$HEALTHY_PATHAccurate as of $DAY_NAME $DAYNR $MONTH',
-        'ki': 'Muraho $CLIENT_NAME~BIdeni ryose:$CREDIT~BAyishyuwe:$PAID~BIdeni risigaye:$BALANCE~B$HEALTHY_PATHAmakuru yafashwe $DAY_NAME $DAYNR $MONTH',
+        'en': 'Hello $CLIENT_NAME~BCredit:$CREDIT~BPaid:$PAID~BBalance:$BALANCE~BLast season outstanding balance:$LAST_BALANCE~B$HEALTHY_PATHAccurate as of $DAY_NAME $DAYNR $MONTH',
+        'ki': 'Muraho $CLIENT_NAME~BIdeni ryose:$CREDIT~BAyishyuwe:$PAID~BIdeni risigaye:$BALANCE~BIdeni risigaye mu gihembwe gishize:$LAST_BALANCE~B$HEALTHY_PATHAmakuru yafashwe $DAY_NAME $DAYNR $MONTH',
     },
     'cor_get_balance_overpaid': {
-        'en': 'Hello $CLIENT_NAME~BCredit:$CREDIT~BPaid:$PAID~BBalance:$BALANCE~BOverpaid amount: $OVERPAID~B$HEALTHY_PATHAccurate as of $DAY_NAME $DAYNR $MONTH',
-        'ki': 'Muraho $CLIENT_NAME~BIdeni ryose:$CREDIT~BAyishyuwe:$PAID~BIdeni risigaye:$BALANCE~BAmafaranga arenga: $OVERPAID~B$HEALTHY_PATHAmakuru yafashwe $DAY_NAME $DAYNR $MONTH',
+        'en': 'Hello $CLIENT_NAME~BCredit:$CREDIT~BPaid:$PAID~BBalance:$BALANCE~BOverpaid amount: $OVERPAID~BLast season outstanding balance:$LAST_BALANCE~B$HEALTHY_PATHAccurate as of $DAY_NAME $DAYNR $MONTH',
+        'ki': 'Muraho $CLIENT_NAME~BIdeni ryose:$CREDIT~BAyishyuwe:$PAID~BIdeni risigaye:$BALANCE~BAmafaranga arenga: $OVERPAID~BIdeni risigaye mu gihembwe gishize:$LAST_BALANCE~B$HEALTHY_PATHAmakuru yafashwe $DAY_NAME $DAYNR $MONTH',
     },
     'external_splash': {
         'en': 'Welcome to TUBURA. Please select your region:~B$GEO_MENU',
@@ -340,8 +340,8 @@ module.exports = {
         'ki': 'Nomero iranga umuyobozi w\'itsinda wanditse siyo. Ongera ugerageze',
     },
     'enr_reg_complete': {
-        'en': 'Thank you for enrolling with TUBURA! Your account number is $ACCOUNT_NUMBER. Please save this! 1) Continue Ordering',
-        'ki': 'Murakoze kwiyandikisha, $NAME. Bwira umuhinzi nimero ya konti ya TUBURA: $ACCOUNT_NUMBER. Subiza 1) Gutumiza',
+        'en': 'Thank you for enrolling with TUBURA! Your account number is $ACCOUNT_NUMBER. Please save this! 1) Continue Ordering\n2) Order avocadoes',
+        'ki': 'Murakoze kwiyandikisha, $NAME. Bwira umuhinzi nimero ya konti ya TUBURA: $ACCOUNT_NUMBER. Subiza 1) Gutumiza\n2 Gutumiza avoka',
     },
     'enr_bad_input_increment': {
         'en': 'invalid increment~B1)Continue~B99)Exit',
@@ -440,8 +440,8 @@ module.exports = {
         'ki': 'Niwatenze ubwishyu busabwa kugirango utumize. Urasaba kubutanga kugirango kugirango ubashe gutumiza',
     },
     'enr_order_period_finished': {
-        'en': 'order period finished',
-        'ki': 'enr_order_period_finished',
+        'en': 'order period finished. try again next season',
+        'ki': 'gutumiza byararangiye. uzagerageze igihembwe gitaha',
     },
     'chx_confirm': {
         'en': 'enter number of chickens to confirm',

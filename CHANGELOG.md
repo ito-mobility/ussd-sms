@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file. 
 
 ## New Version
+## v2.1.2
+### Added
+* [ESWFA-209](https://oneacrefund.atlassian.net/browse/ESWFA-209) KE: USSD Farmer Training Enrollment 
 ### Changed
 * [ESWFA-197](https://oneacrefund.atlassian.net/browse/ESWFA-197) USSD Services-Special Request - USSD Request for Avocado-RW
 * [THD-7443](https://oneacrefund.atlassian.net/browse/THD-7443)Mobile Enrollment-Request change on Account Number SMS Feature-TZ

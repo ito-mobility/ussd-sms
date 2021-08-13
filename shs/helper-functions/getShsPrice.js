@@ -4,15 +4,19 @@
  * @returns price of the shs unit | 20000 if no match
  */
 module.exports = function getShsPrice(currentCreditCycle) {
-    var shsPricesTable = project.initDataTableById(service.vars.shsPricesTableId);
-    var shsCursor = shsPricesTable.queryRows({
-        vars: {
-            credit_cycle_name: currentCreditCycle
+    if(project.vars.country === 'RW'){
+        var shsPricesTable = project.initDataTableById(service.vars.shsPricesTableId);
+        var shsCursor = shsPricesTable.queryRows({
+            vars: {
+                credit_cycle_name: currentCreditCycle
+            }
+        });
+        if(shsCursor.hasNext()) {
+            var shsRow = shsCursor.next();
+            return parseInt(shsRow.vars.shs_price);
         }
-    });
-    if(shsCursor.hasNext()) {
-        var shsRow = shsCursor.next();
-        return parseInt(shsRow.vars.shs_price);
+        return 20000;
+    } else {
+        return null;
     }
-    return 20000;
 };

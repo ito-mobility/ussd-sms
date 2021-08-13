@@ -312,8 +312,8 @@ module.exports = {
         'ki': 'Andika nomero ya Konti yawe wemeze neza ibyo watumije',
     },
     'invalid_input_ext': {
-        'en': 'Invalid selection - please try again~B1)Continue~B99)Exit',
-        'ki': 'Ibyo wahisemo ntibibashije kuboneka~B1) Gukomeza~B99) Kuvamo',
+        'en': 'Invalid input - please try again',
+        'ki': 'Mwibeshye - Ongera ugerageze',
     },
     'account_number_not_found': {
         'en': 'account number not found pleas try again',

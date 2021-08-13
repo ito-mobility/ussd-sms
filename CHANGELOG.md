@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file. 
 
 ## New Version
+## v2.1.2
+### Added
+* [ESWFA-209](https://oneacrefund.atlassian.net/browse/ESWFA-209) KE: USSD Farmer Training Enrollment 
 ### Changed
 * [ESWFA-197](https://oneacrefund.atlassian.net/browse/ESWFA-197) USSD Services-Special Request - USSD Request for Avocado-RW
 * [THD-7443](https://oneacrefund.atlassian.net/browse/THD-7443)Mobile Enrollment-Request change on Account Number SMS Feature-TZ
@@ -27,6 +30,38 @@ for an activation code when the one I have is about to expire or unlock code whe
 * [ESWFA-199](https://oneacrefund.atlassian.net/browse/ESWFA-199) USSD Services-Upgrade USSD for PShop farmers to get OAFIDs and Account Numbers at the shop-RW
 ### Changed
 * [THD-8085](https://oneacrefund.atlassian.net/browse/THD-8085)Updating Kenya Field Staff USSD menu
+
+### Changed
+* [THD-6616](https://oneacrefund.atlassian.net/browse/THD-6616) Re: Urgent - Government Services USSD Survey Update
+### Changed
+* [ESWFA-192](https://oneacrefund.atlassian.net/browse/ESWFA-192) B22A USSD change request_Tester pack
+### Added
+* [ESWFA-186](https://oneacrefund.atlassian.net/browse/ESWFA-186) BU Enrollment UAT Requested changes
+* [ESWFA-45](https://oneacrefund.atlassian.net/browse/ESWFA-45) As a Client I want to be able to check and see what I owe OAF  and my performance against healthy path using USSD 
+* [ESWFA-44](https://oneacrefund.atlassian.net/browse/ESWFA-44) As a Client, I want to receive an account number after registration so that I can use it 
+* [ESWFA-43](https://oneacrefund.atlassian.net/browse/ESWFA-43) As a FO/GL , I want to place orders for clients that are in my site/group
+* [ESWFA-42](https://oneacrefund.atlassian.net/browse/ESWFA-42) As an FO/GL, I want to register  clients via USSD so that we can enroll in current season
+## V2.1.0
+* [ESWFA-196](https://oneacrefund.atlassian.net/browse/ESWFA-196) Fix Rwanda ussd
+## v2.0.9
+### Fixed
+* [ESWFA-156](https://oneacrefund.atlassian.net/browse/ESWFA-156) GSU USSD survey update request
+## v2.0.8
+* [SER-582](https://oneacrefund.atlassian.net/browse/SER-582) As a payment stakeholder, I want to know when message sent by Telerivet fails for any reason
+## v2.0.7
+* [ESWFA-190](https://oneacrefund.atlassian.net/browse/ESWFA-190) RW: Wrong Repayment Info on USSD 
+## v2.0.6
+* [ESWFA-182](https://oneacrefund.atlassian.net/browse/ESWFA-182) As a Client, I want to immediately continue ordering after registration instead of starting over
+## v2.0.5
+### Changed
+* [THD-4442](https://oneacrefund.atlassian.net/browse/THD-4442) Auto SMS is not working - Update the season name to 21A+B
+## v2.0.4
+### Added
+* [ESWFA-173](https://oneacrefund.atlassian.net/browse/ESWFA-173) SMS notifications for registrations on Field Tech App
+* [ESWFA-175](https://oneacrefund.atlassian.net/browse/ESWFA-175) Show all played SBCC 
+episodes and top tips in a call variable in ELK
+*[ESWFA-174](https://oneacrefund.atlassian.net/browse/ESWFA-174)Optimize the query for checking if the client is a GL in the table
+
 
 ### Changed
 * [THD-6616](https://oneacrefund.atlassian.net/browse/THD-6616) Re: Urgent - Government Services USSD Survey Update

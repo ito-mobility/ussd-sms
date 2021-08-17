@@ -1491,8 +1491,8 @@ var FOLocatorConfirmSuccessText = function(){
     else {sayText('Utapokea ujumbe kutoka One Acre Fund ulio na jina na nambari ya simu ya agenti wetu. Piga simu ukiwa na swali lolote kwa 080 0723355');}
 };
 var FOLocatorFarmerSMS = function(){
-    if (GetLang()){return 'Thanks for contacting One Acre Fund. We will call you back within 3 days, between Monday and Friday, to help you register with One Acre Fund'}
-    else {return 'Asante kwa kufikia ofisi ya huduma ya One Acre Fund. Tutakupigia simu ndani ya siku tatu kwanzia Jumatatu hadi Ijumaa ili kukuwezesha kujisajili.';}
+    if (GetLang()){return 'Thanks for contacting One Acre Fund. we will call you back within 3 days on 080030100 from Monday to Friday, to help you register with One Acre Fund'}
+    else {return 'Asante kwa kufikia ofisi ya huduma ya One Acre Fund. tutakupigia ndani ya siku 3 kwa 080030100 kuanzia Jumatatu hadi Ijumaa, ili kukuwezesha kujisajili.';}
 };
 var FOLocatorFOSMS = function(){
     return 'Tafadahli wasiliana na '+contact.phone_number+ ' ili ajiandikishe na One Acre Fund';
@@ -2051,7 +2051,7 @@ addInputHandler('FOLocRegion', function(input) {
         // create a zendesk ticket
         var reason = 'A new client wants help registering to One Acre Fund';
         var sub = 'Call back requested for: ' + reason +' phone number: '+ contact.phone_number;
-        var create_zd_ticket = require('ext/zd-tr/lib/create-ticket');
+        var create_zd_ticket = require('../zd-legacy/lib/create-ticket');
         var tags = ['province', 'region', 'field officer', 'FO locator'];
         create_zd_ticket(contact.phone_number, sub, contact.phone_number, tags);
 

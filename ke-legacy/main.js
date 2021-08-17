@@ -1445,8 +1445,14 @@ var CallMeBackFOLOcatorConfirmText = function(){
 
 };
 var FOLocatorRegionText = function (){
-    if (GetLang()){sayText('To learn more we will connect you with a staff near you. Select Province\n1) Central\n2) Nyanza\n3) Rift Valley\n4) Western\n0)  My province is not in the list');}
-    else {sayText('Kwa maelezo zaidi tutakuelekeza kwa mfanya kazi aliye karibu nawe. Chagua wilaya.\n1) Central\n2) Nyanza\n3) Rift Valley\n4) Western\n0) Wilaya yangu haipo hapa');}
+    if (GetLang()){sayText('Select your region/province\n1) Central\n2) Nyanza\n3) Rift Valley\n4) Western\n0)  My province is not in the list');}
+    else {sayText('Chagua Mkoa wako au eneo lako\n1) Central\n2) Nyanza\n3) Rift Valley\n4) Western\n0) Wilaya yangu haipo hapa');}
+    state.vars.fo_locator_regions = JSON.stringify({
+        1: 'Central',
+        2: 'Nyanza',
+        3: 'Rift Valley',
+        4: 'Western'
+    })
 };
 var LocationNotKnownText = function(){
     if (GetLang()){sayText('Sorry OAF does not work in your area');}
@@ -1456,6 +1462,10 @@ var FOLocatorCountyText = function(LocMenu){
     if (GetLang()){sayText('Which county are you in?\n'+LocMenu+'\n0) My county is not listed');}
     else {sayText('Chagua Kata yako\n'+LocMenu+'\n#) Kata yangu haiko kwenye orodha');}
 };
+var getRegionNotFoundText = function() {
+    if (GetLang()){sayText('thank you for contacting us but sorry OAF does not operate in your region currently');}
+    else {sayText('asante kwa kutufikia samahani, shirika letu la One Acre Fund haliko kwenye eneo lako');}
+}
 var FOLocatorSubCountyText = function(LocMenu){
     if (GetLang()){sayText('Which sub county are you in?\n'+LocMenu+'\n0) My subcounty is not listed');}
     else {sayText('Chagua Kataa Ndogo yako\n'+LocMenu+'\n#) Kataa Ndogo yangu haiko kwenye orodha');}
@@ -1481,8 +1491,8 @@ var FOLocatorConfirmSuccessText = function(){
     else {sayText('Utapokea ujumbe kutoka One Acre Fund ulio na jina na nambari ya simu ya agenti wetu. Piga simu ukiwa na swali lolote kwa 080 0723355');}
 };
 var FOLocatorFarmerSMS = function(){
-    if (GetLang()){return state.vars.FOName+ ' is your One Acre Fund contact person. Their number is '+state.vars.FOPN;}
-    else {return state.vars.FOName+' ndiye afisa wa nyanjani wa One Acre Fund. Nambari yake ya simu ni '+state.vars.FOPN;}
+    if (GetLang()){return 'Thanks for contacting One Acre Fund. We will call you back within 3 days, between Monday and Friday, to help you register with One Acre Fund'}
+    else {return 'Asante kwa kufikia ofisi ya huduma ya One Acre Fund. Tutakupigia simu ndani ya siku tatu kwanzia Jumatatu hadi Ijumaa ili kukuwezesha kujisajili.';}
 };
 var FOLocatorFOSMS = function(){
     return 'Tafadahli wasiliana na '+contact.phone_number+ ' ili ajiandikishe na One Acre Fund';
@@ -2011,303 +2021,14 @@ addInputHandler('PaymentAmount', function(PaymentAmount) {
         promptDigits('PaymentAmount', {submitOnHash: true, maxDigits: 5, timeout: 5});
     }
 });
-addInputHandler('FOLocRegion', function(Region) {
+addInputHandler('FOLocRegion', function(input) {
     LogSessionID();
     InteractionCounter('FOLocRegion');
-    LocationNotKnown(Region);
-    if (Region ==1 || Region == 2 || Region == 3 || Region == 4){
-        var LocTable = project.getOrCreateDataTable('FO_Locator_Counties');
-        var CountyList = LocTable.queryRows({vars: {'regionid': Region}});
-        var CountyArray = [];
-        while (CountyList.hasNext()) {
-            var CountyRow = CountyList.next();
-            var Location = {
-                'Name': CountyRow.vars.countyname,
-                'ID': CountyRow.vars.countyid,
-                'Menu': CountyRow.vars.countyid.substring(2)
-            };
-            CountyArray.push(Location);
-        }
-        CountyArray.sort(function(a, b){
-            return a.Menu-b.Menu;
-        });
-        state.vars.LocArray = JSON.stringify(CountyArray);
-        var LocMenu = '';
-        for (var i = MenuCount; i < CountyArray.length; i++) {
-            var MenuText =LocMenu + CountyArray[i].Menu+ ') '+ CountyArray[i].Name+'\n';
-            if(MenuText.length < 65){LocMenu = MenuText;}
-            else{
-                MenuCount = i;
-                state.vars.MenuCount = i;
-                state.vars.MenuNext = true;
-                if (GetLang()){LocMenu= LocMenu+'N) Next';}
-                else {LocMenu= LocMenu+'n) Ukurasa Ufwatao';}
-                i = 9999;
-            }
-        }
-        state.vars.LocMenu = LocMenu;
-        FOLocatorCountyText(state.vars.LocMenu);
-        promptDigits('FOLocCounty', {submitOnHash: true, maxDigits: 2, timeout: 5});
-    }
-    else{
-        FOLocatorRegionText();
-        promptDigits('FOLocRegion', {submitOnHash: true, maxDigits: 1, timeout: 5});
-    }
-});
-addInputHandler('FOLocCounty', function(County) {
-    LogSessionID();
-    InteractionCounter('FOLocCounty');
-    LocationNotKnown(County);
-    var NextSelected = FOLocatorNextSelect(County);
-    if (state.vars.MenuNext && NextSelected){
-        var LocMenu = LocationNext();
-        FOLocatorCountyText(LocMenu);
-        promptDigits('FOLocCounty', {submitOnHash: true, maxDigits: 2, timeout: 5});
-    }
-    else {
-        var  LocValid = false;
-        var CountyArray = JSON.parse(state.vars.LocArray);
-        var CountyID = '';
-        for (var i = 0; i < CountyArray.length; i++) {
-            if (CountyArray[i].Menu == County) {
-                LocValid = true;
-                console.log('FoLocation Valid');
-                CountyID = CountyArray[i].ID;
-            }
-        }
-        if (LocValid){
-            LocMenu = '' ;
-            var LocTable = project.getOrCreateDataTable('FO_Locator_SubCounties');
-            var SubCountyList = LocTable.queryRows({vars: {'countyid': CountyID}});
-            var SubCountyArray = [];
-            while (SubCountyList.hasNext()) {
-                var SubCountyRow = SubCountyList.next();
-                var Location = {
-                    'Name': SubCountyRow.vars.subcountyname,
-                    'ID': SubCountyRow.vars.subcountyid,
-                    'Menu': SubCountyRow.vars.subcountyid.substring(CountyID.length+1)
-                };
-                SubCountyArray.push(Location);
-            }
-            SubCountyArray.sort(function(a, b){return a.Menu-b.Menu;});
-            state.vars.LocArray = JSON.stringify(SubCountyArray);
-            LocMenu = '';
-            MenuCount = 0;
-            for ( i = MenuCount; i < SubCountyArray.length; i++) {
-                var MenuText = LocMenu + SubCountyArray[i].Menu+ ') '+ SubCountyArray[i].Name+'\n';
-                if(MenuText.length < 65){LocMenu = MenuText;}
-                else{
-                    MenuCount = i;
-                    state.vars.MenuCount = i;
-                    state.vars.MenuNext = true;
-                    if (GetLang()){LocMenu = LocMenu+'N) Next';}
-                    else {LocMenu= LocMenu+'n) Ukurasa Ufwatao';}
-                    i = 9999;
-                }
-            }
-            state.vars.LocMenu = LocMenu;
-            FOLocatorSubCountyText(state.vars.LocMenu);
-            promptDigits('FOLocSubCounty', {submitOnHash: true, maxDigits: 2, timeout: 5});
-        }
-        else {
-            FOLocatorCountyText(state.vars.LocMenu);
-            promptDigits('FOLocCounty', {submitOnHash: true, maxDigits: 2, timeout: 5});
-        }
-    }
-});
-addInputHandler('FOLocSubCounty', function(SubCounty) {
-    LogSessionID();
-    InteractionCounter('FOLocSubCounty');
-    LocationNotKnown(SubCounty);
-    var NextSelected = FOLocatorNextSelect(SubCounty);
-    if (state.vars.MenuNext &&  NextSelected){
-        var LocMenu = LocationNext();
-        FOLocatorSubCountyText(LocMenu);
-        promptDigits('FOLocSubCounty', {submitOnHash: true, maxDigits: 2, timeout: 5});
-    }
-    else {
-        var LocValid = false;
-        var SubCountyArray = JSON.parse(state.vars.LocArray);
-        var SubCountyID = '';
-        for (var i = 0; i < SubCountyArray.length; i++) {
-            if (SubCountyArray[i].Menu == SubCounty) {
-                LocValid = true;
-                SubCountyID = SubCountyArray[i].ID;
-                state.vars.SubCountyID = SubCountyArray[i].ID;
-            }
-        }
-        if (LocValid){
-            LocMenu = '';
-            var LocTable = project.getOrCreateDataTable('FO_Locator_Wards');
-            var WardList = LocTable.queryRows({vars: {'subcountyid': SubCountyID}});
-            var WardArray = [];
-            while (WardList.hasNext()) {
-                var WardRow = WardList.next();
-                var Location = {
-                    'Menu': WardRow.vars.wardid.substring(SubCountyID.length+1),
-                    'Name': WardRow.vars.wardname,
-                    'ID': WardRow.vars.wardid
-                };
-                WardArray.push(Location);
-            }
-            WardArray.sort(function(a, b){return a.Menu-b.Menu;});
-            state.vars.LocArray = JSON.stringify(WardArray);
-            LocMenu = '';
-            MenuCount = 0;
-            for (var j = MenuCount; j < WardArray.length; j++) {
-                var MenuText =LocMenu + WardArray[j].Menu+ ') ' + WardArray[j].Name+'\n';
-                if(MenuText.length < 65){LocMenu = MenuText;}
-                else{
-                    MenuCount = j;
-                    state.vars.MenuCount = j;
-                    state.vars.MenuNext = true;
-                    if (GetLang()){LocMenu= LocMenu+'N) Next';}
-                    else {LocMenu = LocMenu+'n) Ukurasa Ufwatao';}
-                    j = 9999;
-                }
-            }
-            state.vars.LocMenu = LocMenu;
-            FOLocatorWardText(state.vars.LocMenu);
-            promptDigits('FOLocWard', {submitOnHash: true, maxDigits: 2, timeout: 5});
-        }
-        else {
-            FOLocatorSubCountyText(state.vars.LocMenu);
-            promptDigits('FOLocSubCounty', {submitOnHash: true, maxDigits: 2, timeout: 5});
-        }
-    }
-});
-addInputHandler('FOLocWard', function(Ward) {
-    LogSessionID();
-    InteractionCounter('FOLocWard');
-    LocationNotKnown(Ward);
-    var LocValid = false;
-    var NextSelected = FOLocatorNextSelect(Ward);
-    if (state.vars.MenuNext && NextSelected){
-        var LocMenu = LocationNext();
-        FOLocatorWardText(LocMenu);
-        promptDigits('FOLocWard', {submitOnHash: true, maxDigits: 2, timeout: 5});
-    }
-    else {
-        var WardArray = JSON.parse(state.vars.LocArray);
-        var LocID = '';
-        for (var j = 0; j < WardArray.length; j++) {
-            if (WardArray[j].Menu == Ward) {
-                LocValid = true;
-                LocID = WardArray[j].ID;
-                state.vars.FOLocatorWardName = WardArray[j].Name;
-            }
-        }
-        if (LocValid || Ward.toLowerCase() == 'a'|| Ward =='*'){
-            LocMenu = '';
-            var LocTable = project.getOrCreateDataTable('FO_Locator_Sites');
-            if (Ward.toLowerCase() == 'a'|| Ward =='*'){
-                var SiteList = LocTable.queryRows({vars: {'subcountyid': state.vars.SubCountyID}});
-            }
-            else{SiteList = LocTable.queryRows({vars: {'wardid': LocID}});}
-            var SiteArray = [];
-            while (SiteList.hasNext()) {
-                var SiteRow = SiteList.next();
-                var menu = '';
-                if (Ward.toLowerCase() == 'a'|| Ward =='*'){menu =SiteRow.vars.siteid.substring(SiteRow.vars.subcountyid.length+1).replace('.', '');}
-                else{menu =SiteRow.vars.siteid.substring(SiteRow.vars.wardid.length+1);}
-                var Location = {
-                    'Menu': menu,
-                    'Name': SiteRow.vars.sitename,
-                    'ID': SiteRow.vars.siteid
-                };
-                SiteArray.push(Location);
-            }
-            SiteArray.sort(function(a, b){return a.Menu-b.Menu;});
-            state.vars.LocArray = JSON.stringify(SiteArray);
-            LocMenu = '';
-            MenuCount = 0;
-            for (var i = MenuCount; i < SiteArray.length; i++) {
-                var MenuText =LocMenu + SiteArray[i].Menu+ ') ' + SiteArray[i].Name+'\n';
-                if(MenuText.length < 65){LocMenu = MenuText;}
-                else{
-                    MenuCount = i;
-                    state.vars.MenuCount = i;
-                    state.vars.MenuNext = true;
-                    if (GetLang()){LocMenu = LocMenu+'N) Next';}
-                    else {LocMenu= LocMenu+'n) Ukurasa Ufwatao';}
-                    i = 9999;
-                }
-            }
-            state.vars.LocMenu = LocMenu;
-            FOLocatorSiteText(state.vars.LocMenu);
-            promptDigits('FOLocSite', {submitOnHash: true, maxDigits: 2, timeout: 5});
-        }
-        else{
-            FOLocatorWardText(state.vars.LocMenu);
-            promptDigits('FOLocWard', {submitOnHash: true, maxDigits: 2, timeout: 5});
-        }
-    }
-});
-addInputHandler('FOLocSite', function(Site) {
-    LogSessionID();
-    InteractionCounter('FOLocSite');
-    var LocValid = false;
-    if(Site == 0 || Site == '#'){
-        var reason = 'Site not known to non client on FO Locator';
-        var sub = 'Call back requested for: ' + reason +' phone number: '+ contact.phone_number;
-        var create_zd_ticket = require('ext/zd-tr/lib/create-ticket');
-        var tags = ['site', 'field officer', 'site locator'];
-        if(create_zd_ticket(contact.phone_number, sub, contact.phone_number, tags)){
-            console.log('created_ticket!');
-            CallMeBackFOLOcatorConfirmText();
-            hangUp();
-        }
-        else{
-            console.log('create_ticket failed on ' + contact.phone_number);
-            FOLocatorSiteText(state.vars.LocMenu);
-            promptDigits('FOLocSite', {submitOnHash: true, maxDigits: 2, timeout: 5});
-        }
-
-        stopRules();
-    }
-    var SiteID = '';
-    var NextSelected = FOLocatorNextSelect(Site);
-    if (state.vars.MenuNext && NextSelected){
-        var LocMenu = LocationNext();
-        FOLocatorSiteText(LocMenu);
-        promptDigits('FOLocSite', {submitOnHash: true, maxDigits: 2, timeout: 5});
-    }
-    else {
-        var SiteArray = JSON.parse(state.vars.LocArray);
-        for (var i = 0; i < SiteArray.length; i++) {
-            if (SiteArray[i].Menu == Site) {
-                SiteID = SiteArray[i].ID;
-                LocValid = true;
-                state.vars.SiteName = SiteArray[i].Name;
-                state.vars.FOLocatorSiteName = SiteArray[i].Name;
-            }
-        }
-        if (LocValid){
-            console.log('Seaching site with ID '+SiteID);
-            var table = project.getOrCreateDataTable('FO_Locator_Sites');
-            var cursor = table.queryRows({vars: {'siteid': SiteID}});
-            cursor.limit(1);
-            console.log('Number of results: '+cursor.count());
-            var row = cursor.next();
-            state.vars.FOName = row.vars.foname;
-            state.vars.FOPN = row.vars.fophonenumber;
-            console.log('Results found and put in state:');
-            console.log(state.vars.FOName);
-            console.log(state.vars.FOPN);
-            FOLocatorConfirmText();
-            promptDigits('FOLocConfrim', {submitOnHash: true, maxDigits: 2, timeout: 5});
-        }
-        else {
-            FOLocatorSiteText(state.vars.LocMenu);
-            promptDigits('FOLocSite', {submitOnHash: true, maxDigits: 2, timeout: 5});
-        }
-    }
-});
-addInputHandler('FOLocConfrim', function(Confirm) {
-    LogSessionID();
-    InteractionCounter('FOLocConfrim');
-    if (Confirm == '1'){
-        // Please use scheduled message function for PUSH SMSes from the USSD service to make sure that the traffic pops up in the dashboard here: https://telerivet.com/p/0c6396c9/message_stats?cumulative=false&field=count&rollup=day&groups=main.series.service%2Cmain.series.type%2Cmain.series.direction&start_date=6.4.2020&end_date=6.5.2020 This is used for budgetting
+    LocationNotKnown(input);
+    var regions = JSON.parse(state.vars.fo_locator_regions)
+    var selected_region = regions[input];
+    if (selected_region){
+        // send a message to the farmer OK.
         var FarmerSMSContent = FOLocatorFarmerSMS();
         project.scheduleMessage({
             message_type: 'service',
@@ -2317,32 +2038,35 @@ addInputHandler('FOLocConfrim', function(Confirm) {
             vars: {content: FarmerSMSContent}
         });
 
-        var FOSMSContent = FOLocatorFOSMS();
-        project.scheduleMessage({
-            message_type: 'service',
-            to_number: state.vars.FOPN,
-            start_time_offset: 0,
-            service_id: 'SVc758c8b7ad90dd27',
-            vars: {content: FOSMSContent}
-        });
-
+        // save the client details
         var ProspectTable = project.getOrCreateDataTable('FO_Locator_Prospects');
         var ProspectRow = ProspectTable.createRow({
             vars: {
                 ProspectPN: contact.phone_number,
-                SiteName: state.vars.FOLocatorSiteName,
-                WardName: state.vars.FOLocatorWardName,
-                FOName: state.vars.FOName,
-                FOPhoneNumber: state.vars.FOPN
+                Region: selected_region,
             }
         });
         ProspectRow.save();
-        FOLocatorConfirmSuccessText();
-        hangUp();
+
+        // create a zendesk ticket
+        var reason = 'A new client wants help registering to One Acre Fund';
+        var sub = 'Call back requested for: ' + reason +' phone number: '+ contact.phone_number;
+        var create_zd_ticket = require('ext/zd-tr/lib/create-ticket');
+        var tags = ['province', 'region', 'field officer', 'FO locator'];
+        create_zd_ticket(contact.phone_number, sub, contact.phone_number, tags);
+
+        // show a popup to the client OK
+        sayText(FOLocatorFarmerSMS());
+
+        global.stopRules();
+    } else if(input == 0) {
+        // tell client OAF doesn't operate in their region
+        getRegionNotFoundText();
+        global.stopRules();
     }
     else{
-        FOLocatorConfirmDeclineText();
-        hangUp();
+        FOLocatorRegionText();
+        promptDigits('FOLocRegion', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
 });
 addInputHandler('JITTUAccNum', function(JITTUAccNum) {

@@ -16,6 +16,14 @@ module.exports = function(feedback){
     var question = survey_table.queryRows({'vars' : {'questionid' : state.vars.question_id}}).next();
     console.log('1 q is ' + state.vars.question_number + ' id is ' + state.vars.question_id);
     // accounting for survey questions with fewer options
+    if(!question) {
+        state.vars.crop = null
+        sayText(msgs('invalid_input_ext', {}, lang));
+        promptDigits('survey_response', {   'submitOnHash' : false, 
+        'maxDigits'    : project.vars.max_digits_for_input,
+        'timeout'      : project.vars.timeout_length});
+        return true;
+    };
     var num_opts = question.vars.numoptions;
     var opt3 = '';
     var opt4 = '';
@@ -37,7 +45,7 @@ module.exports = function(feedback){
                                             '$OPT2' : '2) ' + question.vars.opt2,
                                             '$OPT3' : opt3,
                                             '$OPT4' : opt4,
-                                            '$OPT5' : opt5}, lang));
+                                            '$OPT5' : opt5}, lang) + msgs('back_stop', {}, lang));
     console.log('3 q is ' + state.vars.question_number + ' id is ' + state.vars.question_id);
     promptDigits('survey_response', {   'submitOnHash' : false, 
                                         'maxDigits'    : project.vars.max_digits_for_input,

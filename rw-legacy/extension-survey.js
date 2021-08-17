@@ -542,7 +542,7 @@ addInputHandler('demo_question', function(input){
         state.vars.step = state.vars.step > 1 ?  state.vars.step - 1 : state.vars.step;
         // var question = question_cursor.next();
         var prev_question = demo_table.queryRows({'vars' : {'question_id' : state.vars.survey_type + state.vars.step}}).next();
-        sayText(msgs(prev_question.vars.msg_name, {}, lang));
+        sayText(msgs(prev_question.vars.msg_name, {}, lang) + msgs('back_stop', {}, lang));
         promptDigits('demo_question', {'submitOnHash' : false, 
         'maxDigits'    : project.vars.max_digits_for_input,
         'timeout'      : timeout_length});
@@ -567,7 +567,7 @@ addInputHandler('demo_question', function(input){
                 var question = question_cursor.next();
                 // display text and prompt user to select their choice
                 state.vars.current_msg_name = question.vars.msg_name;
-                sayText(msgs(question.vars.msg_name, {}, lang));
+                sayText(msgs(question.vars.msg_name, {}, lang) + msgs('back_stop', {}, lang));
                 promptDigits('demo_question', {     'submitOnHash' : false, 
                                                     'maxDigits'    : project.vars.max_digits_for_input,
                                                     'timeout'      : timeout_length});
@@ -609,7 +609,7 @@ addInputHandler('crop_demo_question', function(input){
         state.vars.step = state.vars.step > 1 ?  state.vars.step - 1 : state.vars.step;
         var question_cursor = demo_table.queryRows({'vars' : {  'question_id' : state.vars.survey_type + state.vars.step}});
         var question = question_cursor.next();
-        sayText(msgs(question.vars.msg_name, {}, lang));
+        sayText(msgs(question.vars.msg_name, {}, lang) + msgs('back_stop', {}, lang));
         promptDigits('crop_demo_question', {'submitOnHash' : false, 
         'maxDigits'    : project.vars.max_digits_for_input,
         'timeout'      : timeout_length});
@@ -662,7 +662,7 @@ addInputHandler('crop_demo_question', function(input){
                 var question = question_cursor.next();
                 state.vars.step = state.vars.step + 1;
                 state.vars.current_msg_name = question.vars.msg_name
-                sayText(msgs(question.vars.msg_name, {}, lang));
+                sayText(msgs(question.vars.msg_name, {}, lang) + msgs('back_stop', {}, lang));
                 promptDigits('crop_demo_question', {'submitOnHash' : false, 
                                                     'maxDigits'    : project.vars.max_digits_for_input,
                                                     'timeout'      : timeout_length});
@@ -748,7 +748,7 @@ addInputHandler('survey_response', function(input){
             }
             // report the closing message with the number correct
             sayText(msgs('closing_message', {   '$FEEDBACK'    : feedback,
-                                                '$NUM_CORRECT' : state.vars.num_correct}, lang));
+                                                '$NUM_CORRECT' : state.vars.num_correct - 0 + 1}, lang));
         }
         else{
             console.log('>>>>>>>>>>>>>>>missed ===<>>>>>>>>>>>>>' + input);

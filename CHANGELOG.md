@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file. 
 
 ## New Version
+## v2.1.3
+### Changed
+* [ESWFA-225](https://oneacrefund.atlassian.net/browse/ESWFA-225) Rwanda Sedo fix 
 ## v2.1.2
 ### Added
 * [ESWFA-209](https://oneacrefund.atlassian.net/browse/ESWFA-209) KE: USSD Farmer Training Enrollment 

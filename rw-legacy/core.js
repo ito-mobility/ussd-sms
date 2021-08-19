@@ -399,7 +399,7 @@ addInputHandler('cor_menu_select', function (input) {
         else if (client.vars.registered == 1) {
             // if client does not have a glvv id entered, prompt them to enter it before continuing
             var glvv_check = client.vars.glus || state.vars.glus;
-            if (glvv_check == null || glvv_check == 0) {
+            if (!state.vars.client_GroupId && (glvv_check == null || glvv_check == 0)) {
                 sayText(msgs('enr_missing_glvv', {}, lang));
                 promptDigits('enr_glvv_id', { 'submitOnHash': false, 'maxDigits': max_digits_for_glus, 'timeout': timeout_length });
                 return null;

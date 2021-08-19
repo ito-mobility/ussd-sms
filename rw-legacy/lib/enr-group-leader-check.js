@@ -4,11 +4,11 @@
 */
 
 module.exports = function(client, glus_id, an_table_name, glus_table_name){
-    if(!glus_id) {
-        client.vars.group_leader = 1;
-        client.save();
-        return true;
-    }
+    // if(!glus_id) {
+    //     client.vars.group_leader = 1;
+    //     client.save();
+    //     return true;
+    // }
     var an_table = project.getOrCreateDataTable(an_table_name);
     client = an_table.queryRows({vars: {'account_number': client}}).next();//assumes that this client has been saved already
     var glus_table = project.getOrCreateDataTable(glus_table_name);

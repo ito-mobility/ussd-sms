@@ -28,9 +28,16 @@ module.exports = function getBundles() {
         districtsBundles.push(row.vars);
     }
     var siteBundlesIds = getBundlesIdSBySite(state.vars.client_SiteId, state.vars.client_site);
+    console.log('dist bds: =====> ' + JSON.stringify(districtsBundles));
+    console.log('site ids bds: =====> ' + JSON.stringify(siteBundlesIds));
     var siteBundles = districtsBundles.filter(function(districtBundle) {
-        return siteBundlesIds['BID_' + districtBundle.bundleId] == 1;
+        var bundleId = districtBundle.bundleId;
+        if(bundleId < 0) {
+            bundleId = 'n' + (bundleId * -1); // replace a negative sign with "n" since telerivet columns can only have Alpha Num
+        }
+        return siteBundlesIds['bid_' + bundleId] == 1;
     });
+    console.log('site bds: =====> ' + JSON.stringify(siteBundles));
     return siteBundles;
 };
 

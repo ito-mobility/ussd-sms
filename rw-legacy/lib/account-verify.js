@@ -31,6 +31,7 @@ module.exports = function(account_number){
             state.vars.client_site = client.SiteName;
             state.vars.client_id = client.ClientId;
             state.vars.client_SiteId = client.SiteId;
+            state.vars.client_GroupId = client.GroupId;
             console.log('name: ' + state.vars.client_name);
             console.log('district: ' + state.vars.client_district);
             console.log('site: ' + state.vars.client_site);

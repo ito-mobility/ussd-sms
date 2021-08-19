@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file. 
 
 ## New Version
+## v2.1.4
+### Changed
+* [ESWFA-213](https://oneacrefund.atlassian.net/browse/ESWFA-213) Setup client/GL Referal program on Telerivet
 ## v2.1.3
 ### Changed
 * [ESWFA-225](https://oneacrefund.atlassian.net/browse/ESWFA-225) Rwanda Sedo fix 

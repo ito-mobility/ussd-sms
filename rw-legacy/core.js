@@ -63,10 +63,11 @@ if(env === 'prod'){
     service.vars.rw_reg_client_table_id = 'DT41914a4d2dc6a29f';
     service.vars.groupCodeTableId = project.vars.dev_groupCodeTableId;
     service.vars.endEnrollmentTableId = project.vars.dev_EnrollmentEndTableId;
-    service.vars.bundles_table = 'DT92be9913918ab014'
+    service.vars.bundles_table = 'DT92be9913918ab014';
 }
 
 var client_table = project.initDataTableById(service.vars['21a_client_data_id']);
+service.vars.bundles_site_configuration_table = service.vars.bundles_site_configuration_table || project.vars[env + '_sites_bundle_table_id']
 // console.log('###Env Info###');
 // console.log(JSON.stringify(service.vars));
 // console.log('### End Env Info###');

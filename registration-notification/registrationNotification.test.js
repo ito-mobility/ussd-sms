@@ -32,7 +32,7 @@ describe('Registration Notification SMS', () => {
     });
 
     it('sends an sms to the registered client', () => {
-        contact.vars.lang = 'en';
+        contact.vars.lang = 'en-usa';
         require('./registrationNotification');
         expect(project.sendMessage).toHaveBeenCalledWith({'content': 'Jambo John, Asante kwa kujiunga na OAF! Tafadhali anza kulipia mkopo wako sasa kupitia Mpesa. Nambari ya akaunti yako ya malipo ni (0132345432). Mwalimu wa nyanjani atakuelekeza pia.',
             'to_number': '0755432334',

@@ -25,6 +25,7 @@ module.exports = function (clientJSON, lang) {
     var fullUrl = service.vars.server_name + registrationEndpoint;
     var opts = { headers: {} };
     opts.headers['Authorization'] = 'Token ' + service.vars.roster_api_key;
+    opts.headers['X-OAF-Lang'] = lang;
     opts.method = 'POST';
     opts.data = clientJSON;
 

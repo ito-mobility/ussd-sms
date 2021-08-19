@@ -314,6 +314,7 @@ describe('clientRegistration', () => {
                     'district': client.DistrictId,
                     'site': client.SiteId,
                     'new_client': '1',
+                    'referrer_account_number': 123456789,
                     'registering_phone_number': contact.phone_number,
                     'groupId': groupInfo.GroupId
                 }

@@ -1,6 +1,7 @@
 // fetch districts and set the districtsMenu as a state variable
 var translations = require('../translations/index.js');
 var translator = require('../../utils/translator/translator');
+var notifyELK = require('../../notifications/elk-notification/elkNotification');
 
 var getMessage = translator(translations, state.vars.reg_lang);
 var handlerName = 'pshps_enr_dist_handler';
@@ -9,6 +10,7 @@ module.exports = {
     handlerName: handlerName,
     getHandler: function(onDistrictValidated) {
         return function(input) {
+            notifyELK();
             var lang = state.vars.reg_lang;
             var districtsMenuScreens = JSON.parse(state.vars.districtsMenuScreens);
             var districtsMenuOptionValues = JSON.parse(state.vars.districtsMenuOptionValues); // {1: districtId, 2: districtId, ...}

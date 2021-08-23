@@ -1,6 +1,8 @@
 state.vars.reg_lang = 'en';
 const groupHandler = require('./groupHandler');
 
+jest.mock('../../notifications/elk-notification/elkNotification');
+
 describe('group input handler', () => {
     beforeAll(() => {
         state.vars.groupsMenuScreens = JSON.stringify({'1': 'Screen 1', '2': 'Screen 2', '3': 'Screen 3'});

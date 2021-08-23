@@ -21,6 +21,8 @@ var registerClient = require('./utils/registerClient');
 
 
 jest.mock('./utils/OnValidatedFactory');
+jest.mock('../notifications/elk-notification/elkNotification');
+
 
 describe('pshop registration', () => {
     it('should prompt for national id on start', () => {

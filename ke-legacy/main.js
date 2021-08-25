@@ -1446,7 +1446,7 @@ var CallMeBackFOLOcatorConfirmText = function(){
 
 };
 var FOLocatorRegionText = function (){
-    if (GetLang()){sayText('Select your region/province\n1) Central\n2) Nyanza\n3) Rift Valley\n4) Western\n0)  My province is not in the list');}
+    if (GetLang()){sayText('Select your region/province\n1) Central\n2) Nyanza\n3) Rift Valley\n4) Western\n0) My region/province is not in the list');}
     else {sayText('Chagua Mkoa wako au eneo lako\n1) Central\n2) Nyanza\n3) Rift Valley\n4) Western\n0) Wilaya yangu haipo hapa');}
     state.vars.fo_locator_regions = JSON.stringify({
         1: 'Central',
@@ -1456,8 +1456,8 @@ var FOLocatorRegionText = function (){
     })
 };
 var LocationNotKnownText = function(){
-    if (GetLang()){sayText('Sorry OAF does not work in your area');}
-    else {sayText('Samahani, OAF haiko kwenye eneo lako');}
+    if (GetLang()){sayText('Thank you for contacting us, but One Acre Fund does not currently work in your area.');}
+    else {sayText('Samahani, One Acre Fund haiko kwenye eneo lako');}
 };
 var FOLocatorCountyText = function(LocMenu){
     if (GetLang()){sayText('Which county are you in?\n'+LocMenu+'\n0) My county is not listed');}
@@ -1492,8 +1492,8 @@ var FOLocatorConfirmSuccessText = function(){
     else {sayText('Utapokea ujumbe kutoka One Acre Fund ulio na jina na nambari ya simu ya agenti wetu. Piga simu ukiwa na swali lolote kwa 080 0723355');}
 };
 var FOLocatorFarmerSMS = function(){
-    if (GetLang()){return 'Thanks for contacting One Acre Fund. we will call you back within 3 days on 080030100 from Monday to Friday, to help you register with One Acre Fund'}
-    else {return 'Asante kwa kufikia ofisi ya huduma ya One Acre Fund. tutakupigia ndani ya siku 3 kwa 080030100 kuanzia Jumatatu hadi Ijumaa, ili kukuwezesha kujisajili.';}
+    if (GetLang()){return 'Thanks for contacting One Acre Fund. we will call you back within 3 days on 080030 from Monday to Friday, to help you register with One Acre Fund'}
+    else {return 'Asante kwa kufikia ofisi ya huduma ya One Acre Fund. tutakupigia ndani ya siku 3 kwa 080030 kuanzia Jumatatu hadi Ijumaa, ili kukuwezesha kujisajili.';}
 };
 var FOLocatorFOSMS = function(){
     return 'Tafadahli wasiliana na '+contact.phone_number+ ' ili ajiandikishe na One Acre Fund';
@@ -1630,11 +1630,11 @@ var StaffTabletRosterText = function(){
 };
 
 var StaffIssueSuccessText = function(){
-    sayText('Thank you for contacting ITO Mobile team. You will receive an email from our zendesk support desk, please follow the instructions to fix the issue. ITO service team will contact you through 0800301100 after your response to the email.');
+    sayText('Thank you for contacting ITO Mobile team. You will receive an email from our zendesk support desk, please follow the instructions to fix the issue. ITO service team will contact you through 080030 after your response to the email.');
 };
 
 var StaffDirectSuccessText = function(){
-    sayText('Thank you for contacting ITO Mobile team. We will contact you through 0800301100 ');
+    sayText('Thank you for contacting ITO Mobile team. We will contact you through 080030 ');
 };
 
 var StaffFDSuccessText = function(){

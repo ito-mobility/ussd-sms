@@ -65,7 +65,8 @@ if(env === 'prod'){
     service.vars.endEnrollmentTableId = project.vars.dev_EnrollmentEndTableId;
     service.vars.bundles_table = 'DT92be9913918ab014'
 }
-
+service.vars.avocados_bundle_id = service.vars.avocados_bundle_id || project.vars[env + '_avocado_bundle_id'];
+service.vars.avocados_input_choices = service.vars.avocados_input_choices || project.vars[env + '_avocados_input_choices'];
 var client_table = project.initDataTableById(service.vars['21a_client_data_id']);
 // console.log('###Env Info###');
 // console.log(JSON.stringify(service.vars));

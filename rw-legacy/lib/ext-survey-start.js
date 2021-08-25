@@ -28,9 +28,8 @@ module.exports = function(){
     state.vars.step = 1;
                             
     // display crop survey menu
-    sayText(msgs('survey_start', {}, lang));
     var menu = populate_menu('crop_menu', lang);
-    sayText(menu, lang);
+    sayText(msgs('survey_start', {'$menu': menu}, lang));
     promptDigits(next_step, {   'submitOnHash' : false, 
                                         'maxDigits'    : project.vars.max_digits_for_input,
                                         'timeout'      : timeout_length});

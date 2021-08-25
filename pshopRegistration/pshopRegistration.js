@@ -19,7 +19,11 @@ var getSitesMenu = require('./utils/getSitesMenu');
 var getGroupsMenu = require('./utils/getGroupsMenu');
 var registerClient = require('./utils/registerClient');
 
+var notifyELK = require('../notifications/elk-notification/elkNotification');
+
+
 function start(lang) {
+    notifyELK();
     var getMessage = translator(translations, lang);
     state.vars.reg_lang = lang;
     global.sayText(getMessage('enter_nid', {}, lang));

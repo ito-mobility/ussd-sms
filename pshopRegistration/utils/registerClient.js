@@ -56,6 +56,7 @@ module.exports = function registerClient() {
     }
     // get the account number
     var accountNumber =  registeredClient.AccountNumber;
+    var globalClientId = registeredClient.GlobalClientId;
     // save the client in the data table
     var pshopsClientsTable = project.initDataTableById(service.vars.pshopsClientsTableId);
     var row = pshopsClientsTable.createRow({
@@ -67,8 +68,9 @@ module.exports = function registerClient() {
             'account_number': accountNumber,
             'district_name': state.vars.selected_district_name,
             'sector_name': state.vars.sector_name,
-            'group_name': state.vars.selected_district_name,
-            'site_name': state.vars.selected_site_name
+            'group_name': state.vars.selected_group_name,
+            'site_name': state.vars.selected_site_name,
+            'global_client_id': globalClientId
         }
     });
     row.save();

@@ -1,6 +1,7 @@
 // fetch sites and set the sitesMenu as a state variable
 var translations = require('../translations/index.js');
 var translator = require('../../utils/translator/translator');
+var notifyELK = require('../../notifications/elk-notification/elkNotification');
 
 var getMessage = translator(translations, state.vars.reg_lang);
 var handlerName = 'pshps_enr_sites_handler';
@@ -9,6 +10,7 @@ module.exports = {
     handlerName: handlerName,
     getHandler: function(onSiteValidated) {
         return function(input) {
+            notifyELK();
             var lang = state.vars.reg_lang;
             var sitesMenuScreens = JSON.parse(state.vars.sitesMenuScreens);
             var sitesMenuOptionValues = JSON.parse(state.vars.sitesMenuOptionValues); // {1: siteId, 2: siteId, ...}

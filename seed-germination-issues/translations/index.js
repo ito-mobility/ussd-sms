@@ -45,17 +45,23 @@ module.exports = {
         'en-ke': 'When did you plant the seeds? Include date, Month and year. (dd/mm/yyyy)',
         'sw': 'Ulipanda mbegu yako tarehe gani? (dd/mm/yyyy)'
     },
+    'severity_title': {
+        'en-ke': 'What is the severity of the germination issue?',
+        'sw': 'Ni kiwango gani cha mbegu ambayo haikumea?'
+    },
     'severity': {
-        'en-ke': 'What is the severity of the germination issue?\n' +
-        '1. Low (0-25% crops did not germinate)' +
-        '2. Medium(26-50%  crops did not germinate)\n' +
-        '3. High(51-75% crops did not germinate)\n' +
-        '4. Very high(76-100% crops did not germinate)',
-        'sw': 'Ni kiwango gani cha mbegu ambayo haikumea?' +
-        '1. Kiasi cha chini(0-25%) haijamea\n' +
-        '2. Kiasi cha kadiri (25-50%) haijamea\n' +
-        '3. Kiasi cha juu (51-75%) haijamea\n' +
-        '4. Kiasi cha juu zaidi (76-100%) haijamea'
+        'en-ke': {
+            '0-25%': 'Low (0-25% crops did not germinate)',
+            '26-50%': 'Medium(26-50%  crops did not germinate)', 
+            '51-75%': 'High(51-75% crops did not germinate)',
+            '76-100%': 'Very high(76-100% crops did not germinate)'
+        },
+        'sw': {
+            '0-25%': 'Kiasi cha chini(0-25%) haijamea',
+            '26-50%': 'Kiasi cha kadiri (25-50%) haijamea',
+            '51-75%': 'Kiasi cha juu (51-75%) haijamea',
+            '76-100%': 'Kiasi cha juu zaidi (76-100%) haijamea'
+        }
     },
     'phone_prompt': {
         'en-ke': 'Please provide your phone number so we can follow up with you',

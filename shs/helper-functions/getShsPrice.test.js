@@ -8,6 +8,7 @@ describe('shs price', () => {
         service.vars.shsPricesTableId = 'XXX-shsPricesTableId-XXX';
         jest.spyOn(tableMock, 'queryRows').mockReturnValue(cursorMock);
         jest.spyOn(project, 'initDataTableById').mockReturnValue(tableMock);
+        project.vars.country = 'RW';
     });
 
 
@@ -23,5 +24,11 @@ describe('shs price', () => {
         jest.spyOn(cursorMock, 'hasNext').mockReturnValueOnce(false);
         var result = getShsPrice('22A');
         expect(result).toEqual(20000);
+    });
+
+    it('Should return null if the country is not RW', () => {
+        project.vars.country = 'KE';
+        var result = getShsPrice('22A');
+        expect(result).toEqual(null);
     });
 });

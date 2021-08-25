@@ -1,5 +1,6 @@
 state.vars.reg_lang = 'en';
 const districtHandler = require('./districtHandler');
+jest.mock('../../notifications/elk-notification/elkNotification');
 
 describe('district input handler', () => {
     beforeAll(() => {

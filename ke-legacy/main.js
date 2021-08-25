@@ -38,8 +38,8 @@ var contactCallCenter = require('../contact-call-center/contactCallCenter');
 var shs = require('../shs/shs');
 var slackLogger = require('../slack-logger/index');
 var Log = require('../logger/elk/elk-logger');
-var kenyaImpactTrainings = require('../kenya-impact-trainings/kenya-impact-trainings');
-var TrainingTriggeredText = require('../kenya-impact-trainings/utils/TrainingTriggeredText');
+var kenyaImpactTrainings = require('../kenya-impact-trainings/impact-trainings');
+var TrainingTriggeredText = require('../kenya-impact-trainings/IPP-DUKA/utils/TrainingTriggeredText');
 var logger = new Log();
 
 var dukaLocator = require('../duka-locator/index');
@@ -73,6 +73,7 @@ service.vars.warehouseStockTableId = project.vars[env + '_warehouseStockTableId'
 service.vars.districtWarehouseTableId = project.vars[env+ '_districtWarehouseTableId'];
 service.vars.shs_reg_endpoint = project.vars[env+'_shs_reg_endpoint'];
 service.vars.shs_apikey = project.vars[env+'_shs_api_key'];
+service.vars.impact_tr_enr_table_name = env + '_Impact training Enrollment Data'
 
 if(env == 'prod'){
     service.vars.JiTEnrollmentTableId = 'DT52cebb451097ac25';
@@ -1770,7 +1771,7 @@ addInputHandler('NonClientMenu', function(input) {
         promptDigits('FOLocRegion', {submitOnHash: true, maxDigits: 8, timeout: 5});
     }
     else if(sessionMenu[input-1].option_name == 'trainings'){
-        kenyaImpactTrainings.start( GetLang() ? 'en' : 'sw', 'TrainingSelect');
+        kenyaImpactTrainings.start( GetLang() ? 'en' : 'sw');
     }
     else if(sessionMenu[input-1].option_name == 'locate_oaf_duka') {
         dukaLocator.startDukaLocator({lang: GetLang() ? 'en' : 'sw'});
@@ -1840,8 +1841,7 @@ addInputHandler('MainMenu', function(SplashMenu){
         justInTime.start(client.AccountNumber, 'KE',state.vars.lang);
     }
     else if(sessionMenu[SplashMenu-1].option_name == 'trainings'){
-        TrainingMenuText();
-        promptDigits('TrainingSelect', {submitOnHash: true, maxDigits: 2, timeout: 5});
+        kenyaImpactTrainings.start( GetLang() ? 'en' : 'sw');
     }
     else if(sessionMenu[SplashMenu-1].option_name == 'transaction_history'){
         transactionHistory.start(client.AccountNumber, 'ke',state.vars.main_menu,'MainMenu');

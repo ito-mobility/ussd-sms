@@ -89,7 +89,7 @@ module.exports = {
     },
     'fp_gender': {
         'en': 'What is the Farmer Promoter\'s gender? ~B1) Male~B2) Female',
-        'ki': 'Igitsina y\'umujyanama w\'ubuhinzi ~B1) Gabo ~B2) Gore'
+        'ki': 'Igitsina cy\'umujyanama w\'ubuhinzi ~B1) Gabo ~B2) Gore'
     },
     'fp_age': {
         'en': 'What is the Farmer Promoter\'s Age?',
@@ -112,8 +112,8 @@ module.exports = {
         'ki': 'Umujyanama w\'ubuhinzi yahawe amahugurwa inshuro zingahe muri iki gihembwe?'
     },
     'survey_start': {
-        'en': 'Choose a crop:~B',
-        'ki': 'Hitamo igihingwa:~B'
+        'en': 'Choose a crop:~B$menu~B9999: End survey',
+        'ki': 'Hitamo igihingwa:~B$menu~B9999: Soza igenzura'
     },
     'survey_question': {
         'en': '$FEEDBACK~B$TEXT~B$OPT1~B$OPT2~B$OPT3~B$OPT4~B$OPT5~B',
@@ -125,7 +125,7 @@ module.exports = {
     },
     'closing_message': {
         'en': 'Thank you for answering the questions. You answered $NUM_CORRECT out of 10 correctly.',
-        'ki': 'Murakoze gusubiza ibibazo. Mubibazo mwakoze mubashyije gusubiza $NUM_CORRECT kuri 10 neza. Twigire Muhizi izifashisha ibisubizo mukunoza imikorere.'
+        'ki': 'Murakoze gusubiza ibibazo. Mubibazo mwakoze mubashije gusubiza $NUM_CORRECT kuri 10 neza. Twigire Muhizi izifashisha ibisubizo mukunoza imikorere.'
     },
     'fp_trained': {
         'en': 'Did the FP receive training this season on how to plant this crop?~B1) Yes~B2) No',
@@ -165,11 +165,15 @@ module.exports = {
     },
     'fp_tenure_tra': {
         'en': 'How many years have you been a Farmer Promoter?',
-        'ki': 'Umaze igihe kingana iki uri umujyanama ?'
+        'ki': 'Umaze igihe kingana iki uri umujyanama?'
     },
     'fp_tr_num': {
-        'en': 'What is your trainer number?',
-        'ki': 'Andika nimero y\'ugiye ku guhugura'
+        'en': 'What is your trainer number?\n9999: End survey',
+        'ki': 'Andika nimero y\'ugiye ku guhugura\n9999: Soza igenzura'
+    },
+    'back_stop': {
+        'en': '\n0000: Go back\n:9999: End survey',
+        'ki': '\n0000: Subira inyuma\n9999: Soza igenzura'
     },
     'crop_type_menu': {
         'en': 'Which crop?~B $CropType',
@@ -312,8 +316,8 @@ module.exports = {
         'ki': 'Andika nomero ya Konti yawe wemeze neza ibyo watumije',
     },
     'invalid_input_ext': {
-        'en': 'Invalid selection - please try again~B1)Continue~B99)Exit',
-        'ki': 'Ibyo wahisemo ntibibashije kuboneka~B1) Gukomeza~B99) Kuvamo',
+        'en': 'Invalid input - please try again',
+        'ki': 'Mwibeshye - Ongera ugerageze',
     },
     'account_number_not_found': {
         'en': 'account number not found pleas try again',
@@ -760,7 +764,7 @@ module.exports = {
     },
     'pshops_main_splash': {
         'en': 'Welcome to the PShop Client portal. Please enter your Account Number\n0: to locate your Agrodealer partner\n1. Register new client',
-        'ki': 'Murakaza neza ku iduka. Injizamo konti yawe y\'umuhinzi\n0: Kubona umufatanyabikorwa ukwegereye\n1. Iyandikishe nk\'umukiriya mushya',
+        'ki': 'Murakaza neza ku iduka. Injizamo konti yawe y\'umuhinzi\n0: Kubona umufatanyabikorwa ukwegereye\n1. Andika umukiriya mushya',
     },
     'incorrect_account_number': {
         'en': 'Incorrect input. Please enter your Account Number',

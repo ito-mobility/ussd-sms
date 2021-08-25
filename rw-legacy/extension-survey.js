@@ -108,8 +108,11 @@ addInputHandler('ext_main_splash', function(input){
             return null;
         }
         else if (input == 44 && state.vars.input_menu_loc == 0) {
-            sayText(msgs('invalid_input_ext', {}, lang));
-            promptDigits('invalid_input', { 'submitOnHash': false, 'maxDigits': max_digits_for_input, 'timeout': timeout_length });
+            state.vars.input_menu_loc = state.vars.input_menu_loc + 1;
+            var menu = JSON.parse(state.vars.input_menu)[state.vars.input_menu_loc]
+            state.vars.current_menu_str = menu;
+            sayText(menu);
+            promptDigits('ext_main_splash', { 'submitOnHash': false, 'maxDigits': max_digits_for_input, 'timeout': timeout_length });
             return null;
         }
     }
@@ -141,7 +144,7 @@ addInputHandler('ext_main_splash', function(input){
         testerPack.startTesterPack({lang: lang});
     }
     else{
-        sayText(msgs('invalid_input', {}, lang));
+        sayText(msgs('invalid_input_ext', {}, lang));
         promptDigits('ext_main_splash', { 'submitOnHash'   : false, 
                                             'maxDigits'    : max_digits_for_input,
                                             'timeout'      : timeout_length});
@@ -161,7 +164,8 @@ addInputHandler('fp_menu_handler', function(input){
                                     });
     }
     else{
-        sayText(msgs('fp_enter_id', {}, lang));
+        var menu = populate_menu('extension_fp_menu', lang);
+        sayText(menu);
         promptDigits('fp_menu_handler', { 'submitOnHash'   : false, 
                                             'maxDigits'    : max_digits_for_input,
                                             'timeout'      : timeout_length});
@@ -211,7 +215,7 @@ inputHandlers['fp_enter_id'] =  function(input){
     }
     }
     else{
-        sayText(msgs('invalid_input', {}, lang));
+        sayText(msgs('invalid_input_ext', {}, lang));
         promptDigits('fp_enter_id', {   'submitOnHash' : false,
                                         'maxDigits'    : max_digits_for_vid,
                                         'timeout'      : timeout_length 
@@ -291,13 +295,13 @@ inputHandlers['ext_first_name_handler'] = function(input){
         return null;
     }
     else{
-    srvySessionManager.save(contact.phone_number,state.vars,'ext_first_name_handler',input);
-    state.vars.firstN = input;
-    sayText(msgs('ext_farmer_name_2',{},lang));
-    promptDigits('ext_last_name_handler', {   'submitOnHash' : false,
-    'maxDigits'    : 16,
-    'timeout'      : timeout_length 
-});
+        srvySessionManager.save(contact.phone_number,state.vars,'ext_first_name_handler',input);
+        state.vars.firstN = input;
+        sayText(msgs('ext_farmer_name_2',{},lang));
+        promptDigits('ext_last_name_handler', {'submitOnHash' : false,
+            'maxDigits'    : 16,
+            'timeout'      : timeout_length 
+        });
     }
 
 };
@@ -319,10 +323,10 @@ inputHandlers['ext_last_name_handler'] = function(input){
         state.vars.lastN = input;
         sayText(msgs('ext_farmer_gender',{},lang));
         promptDigits('gender_input_handler', {   'submitOnHash' : false,
-        'maxDigits'    : 16,
-        'timeout'      : timeout_length 
-    });
-        }
+            'maxDigits': 16,
+            'timeout': timeout_length 
+        });
+    }
 
 };
 
@@ -339,14 +343,14 @@ inputHandlers['gender_input_handler'] = function(input){
         stopRules();
     }
     else if(input == 1 ){
-        srvySessionManager.save(contact.phone_number,state.vars,'gender_input_handler',input); 
-        state.vars.gender = input;
-        sayText(msgs('ext_farmer_phone',{},lang));
-        promptDigits('ext_phone_input_handler', {   'submitOnHash' : false,
-        'maxDigits'    : 10,
-        'timeout'      : timeout_length 
-    });
-        }
+            srvySessionManager.save(contact.phone_number,state.vars,'gender_input_handler',input); 
+            state.vars.gender = input;
+            sayText(msgs('ext_farmer_phone',{},lang));
+            promptDigits('ext_phone_input_handler', {   'submitOnHash' : false,
+            'maxDigits'    : 10,
+            'timeout'      : timeout_length 
+        });
+    }
     else if(input == 2 ){
         srvySessionManager.save(contact.phone_number,state.vars,'gender_input_handler',input); 
         state.vars.gender = input;
@@ -354,8 +358,8 @@ inputHandlers['gender_input_handler'] = function(input){
         promptDigits('ext_phone_input_handler', {   'submitOnHash' : false,'maxDigits'    : 10,'timeout'      : timeout_length });
         }
     else{
-        sayText(msgs('invalid_entry',{},lang));
-        promptDigits('invalid_input', {   'submitOnHash' : false,'maxDigits'    : 10,'timeout'      : timeout_length });
+        sayText(msgs('invalid_input_ext',{},lang));
+        promptDigits('gender_input_handler', {   'submitOnHash' : false,'maxDigits'    : 10,'timeout'      : timeout_length });
 
     }
 
@@ -385,8 +389,8 @@ inputHandlers['ext_phone_input_handler']  =  function(input){
         promptDigits('extension_questions', {   'submitOnHash' : false,'maxDigits'    : 2,'timeout'      : timeout_length });
     }
     else{
-        sayText(msgs('invalid_entry',{},lang));
-        promptDigits('invalid_input', {   'submitOnHash' : false,'maxDigits'    : 1,'timeout'      : timeout_length });
+        sayText(msgs('invalid_input_ext',{},lang));
+        promptDigits('ext_phone_input_handler', {   'submitOnHash' : false,'maxDigits'    : 1,'timeout'      : timeout_length });
 
     }
 };
@@ -413,8 +417,8 @@ inputHandlers['extension_questions'] = function(input){
     }
     // The input should be 1 or 2 here
     else if(!(input == 1 || input == 2)){
-        sayText(msgs('invalid_entry',{},lang));
-        promptDigits('invalid_input', {   'submitOnHash' : false,'maxDigits'    : 1,'timeout'      : timeout_length });
+        sayText(msgs('invalid_input_ext',{},lang));
+        promptDigits('extension_questions', {   'submitOnHash' : false,'maxDigits'    : 1,'timeout'      : timeout_length });
     }
         
     else if(!answerCorrect(input)){
@@ -489,7 +493,7 @@ addInputHandler('sedo_enter_id', function(input){
                                             'timeout'      : timeout_length});
     }
     else{
-        sayText(msgs('invalid_input', {}, lang));
+        sayText(msgs('invalid_input_ext', {}, lang));
         promptDigits('sedo_enter_id', {     'submitOnHash' : false, 
                                             'maxDigits'    : max_digits_for_sedo_id,
                                             'timeout'      : timeout_length});
@@ -519,7 +523,7 @@ addInputHandler('sedo_enter_vid', function(input){
         }
     }
     else{
-        sayText(msgs('invalid_input', {}, lang));
+        sayText(msgs('invalid_input_ext', {}, lang));
         promptDigits('sedo_enter_vid', {    'submitOnHash' : false, 
                                             'maxDigits'    : max_digits_for_vid,
                                             'timeout'      : timeout_length});
@@ -538,7 +542,7 @@ addInputHandler('demo_question', function(input){
         state.vars.step = state.vars.step > 1 ?  state.vars.step - 1 : state.vars.step;
         // var question = question_cursor.next();
         var prev_question = demo_table.queryRows({'vars' : {'question_id' : state.vars.survey_type + state.vars.step}}).next();
-        sayText(msgs(prev_question.vars.msg_name, {}, lang));
+        sayText(msgs(prev_question.vars.msg_name, {}, lang) + msgs('back_stop', {}, lang));
         promptDigits('demo_question', {'submitOnHash' : false, 
         'maxDigits'    : project.vars.max_digits_for_input,
         'timeout'      : timeout_length});
@@ -563,7 +567,7 @@ addInputHandler('demo_question', function(input){
                 var question = question_cursor.next();
                 // display text and prompt user to select their choice
                 state.vars.current_msg_name = question.vars.msg_name;
-                sayText(msgs(question.vars.msg_name, {}, lang));
+                sayText(msgs(question.vars.msg_name, {}, lang) + msgs('back_stop', {}, lang));
                 promptDigits('demo_question', {     'submitOnHash' : false, 
                                                     'maxDigits'    : project.vars.max_digits_for_input,
                                                     'timeout'      : timeout_length});
@@ -581,14 +585,14 @@ addInputHandler('demo_question', function(input){
             }
         }
         else{
-            sayText(msgs('invalid_input', {}, lang));
+            sayText(msgs('invalid_input_ext', {}, lang));
             promptDigits('demo_question', {   'submitOnHash' : false, 
                                                     'maxDigits'    : project.vars.max_digits_for_input,
                                                     'timeout'      : timeout_length});
         }
     }
     else{
-        sayText(msgs('invalid_input', {}, lang));
+        sayText(msgs('invalid_input_ext', {}, lang));
         promptDigits('demo_question', {   'submitOnHash' : false, 
                                             'maxDigits'    : project.vars.max_digits_for_input,
                                             'timeout'      : timeout_length});
@@ -605,7 +609,7 @@ addInputHandler('crop_demo_question', function(input){
         state.vars.step = state.vars.step > 1 ?  state.vars.step - 1 : state.vars.step;
         var question_cursor = demo_table.queryRows({'vars' : {  'question_id' : state.vars.survey_type + state.vars.step}});
         var question = question_cursor.next();
-        sayText(msgs(question.vars.msg_name, {}, lang));
+        sayText(msgs(question.vars.msg_name, {}, lang) + msgs('back_stop', {}, lang));
         promptDigits('crop_demo_question', {'submitOnHash' : false, 
         'maxDigits'    : project.vars.max_digits_for_input,
         'timeout'      : timeout_length});
@@ -658,7 +662,7 @@ addInputHandler('crop_demo_question', function(input){
                 var question = question_cursor.next();
                 state.vars.step = state.vars.step + 1;
                 state.vars.current_msg_name = question.vars.msg_name
-                sayText(msgs(question.vars.msg_name, {}, lang));
+                sayText(msgs(question.vars.msg_name, {}, lang) + msgs('back_stop', {}, lang));
                 promptDigits('crop_demo_question', {'submitOnHash' : false, 
                                                     'maxDigits'    : project.vars.max_digits_for_input,
                                                     'timeout'      : timeout_length});
@@ -673,14 +677,14 @@ addInputHandler('crop_demo_question', function(input){
             }
         }
         else{
-            sayText(msgs('invalid_input', {}, lang));
+            sayText(msgs('invalid_input_ext', {}, lang));
             promptDigits('crop_demo_question', {   'submitOnHash' : false, 
                                                     'maxDigits'    : project.vars.max_digits_for_input,
                                                     'timeout'      : timeout_length});
         }
     }
     else{
-        sayText(msgs('invalid_input', {}, lang));
+        sayText(msgs('invalid_input_ext', {}, lang));
         promptDigits('crop_demo_question', {   'submitOnHash' : false, 
                                                 'maxDigits'    : project.vars.max_digits_for_input,
                                                 'timeout'      : timeout_length});
@@ -710,6 +714,7 @@ addInputHandler('survey_response', function(input){
         state.vars.question_id = String(state.vars.crop + 'Q' + state.vars.question_number);
         call.vars.status = String('Q' + state.vars.question_number);
         // ask the survey question
+        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>' + input);
         ask();
     }
     else{
@@ -743,9 +748,11 @@ addInputHandler('survey_response', function(input){
             }
             // report the closing message with the number correct
             sayText(msgs('closing_message', {   '$FEEDBACK'    : feedback,
-                                                '$NUM_CORRECT' : state.vars.num_correct}, lang));
+                                                '$NUM_CORRECT' : state.vars.num_correct - 0 + 1}, lang));
         }
         else{
+            console.log('>>>>>>>>>>>>>>>missed ===<>>>>>>>>>>>>>' + input);
+
             // set question id in correct format, then increment the question number
             state.vars.question_id = String(state.vars.crop + 'Q' + state.vars.question_number);
             state.vars.question_number = state.vars.question_number + 1;

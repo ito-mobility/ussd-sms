@@ -1,5 +1,6 @@
 var translator = require('../../utils/translator/translator');
 var translations = require('../translations/index');
+var createMenu = require('../../shared/createMenu');
 
 var handlerName = 'rsgi_date';
 module.exports = {
@@ -15,7 +16,11 @@ module.exports = {
             var getMessage = translator(translations, lang);
             if(isValidDate) {
                 state.vars.planting_date = input.trim();
-                var severityPrompt = getMessage('severity', {}, lang);
+                var severityMenus = createMenu(getMessage('severity', {}, lang), getMessage('next_option', {}, lang), getMessage('severity_title', {}, lang));
+                state.vars.current_severity_screen = '1';
+                var severityPrompt = severityMenus.screens['1'];
+                state.vars.severity_screens = JSON.stringify(severityMenus.screens);
+                state.vars.severity_options = JSON.stringify(severityMenus.optionValues);
                 global.sayText(severityPrompt);
                 global.promptDigits(severityInputHandler.handlerName);
             } else {

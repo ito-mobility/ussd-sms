@@ -1,6 +1,8 @@
 state.vars.reg_lang = 'en';
 const sectorHandler = require('./sectorHandler');
 
+jest.mock('../../notifications/elk-notification/elkNotification');
+
 describe('sector input handler', () => {
     beforeAll(() => {
         state.vars.sectorsMenuScreens = JSON.stringify({'1': 'Screen 1', '2': 'Screen 2', '3': 'Screen 3'});

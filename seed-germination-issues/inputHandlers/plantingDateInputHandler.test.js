@@ -14,13 +14,11 @@ describe('planting date input handler', () => {
         handler('26/01/2021');
         expect(state.vars.planting_date).toEqual('26/01/2021');
         expect(sayText).toHaveBeenCalledWith('What is the severity of the germination issue?\n' +
-        '1) Low (0-25% crops did not germinate)\n' +
-        '2) Medium(26-50%  crops did not germinate)\n' +
+        '1) Low (0-25 percent crops did not germinate)\n' +
         '77) Next');
         expect(promptDigits).toHaveBeenCalledWith(severityInputHandler.handlerName);
-        expect(state.vars.severity_screens).toEqual('{"1":"What is the severity of the germination issue?\\n' + 
-        '1) Low (0-25% crops did not germinate)\\n2) Medium(26-50%  crops did not germinate)\\n' + 
-        '77) Next","2":"3) High(51-75% crops did not germinate)\\n4) Very high(76-100% crops did not germinate)\\n"}');
+        expect(state.vars.severity_screens).toEqual('{"1":"What is the severity of the germination issue?\\n1) Low (0-25 percent crops did not germinate)\\n77) Next",' +
+         '"2":"2) Medium (26-50 percent crops did not germinate)\\n3) High (51-75 percent crops did not germinate)\\n77) Next","3":"4) Very high (76-100 percent crops did not germinate)\\n"}');
         expect(state.vars.severity_options).toEqual('{"1":"0-25%","2":"26-50%","3":"51-75%","4":"76-100%"}');
         expect(state.vars.current_severity_screen).toEqual('1');
     });

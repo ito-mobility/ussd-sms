@@ -51,16 +51,16 @@ module.exports = {
     },
     'severity': {
         'en-ke': {
-            '0-25%': 'Low (0-25% crops did not germinate)',
-            '26-50%': 'Medium(26-50%  crops did not germinate)', 
-            '51-75%': 'High(51-75% crops did not germinate)',
-            '76-100%': 'Very high(76-100% crops did not germinate)'
+            '0-25%': 'Low (0-25 percent crops did not germinate)',
+            '26-50%': 'Medium (26-50 percent crops did not germinate)', 
+            '51-75%': 'High (51-75 percent crops did not germinate)',
+            '76-100%': 'Very high (76-100 percent crops did not germinate)'
         },
         'sw': {
-            '0-25%': 'Kiasi cha chini(0-25%) haijamea',
-            '26-50%': 'Kiasi cha kadiri (25-50%) haijamea',
-            '51-75%': 'Kiasi cha juu (51-75%) haijamea',
-            '76-100%': 'Kiasi cha juu zaidi (76-100%) haijamea'
+            '0-25%': 'Kiasi cha chini (asilimia 0-25) haijamea',
+            '26-50%': 'Kiasi cha kadiri (asilimia 25-50) haijamea',
+            '51-75%': 'Kiasi cha juu (asilimia 51-75) haijamea',
+            '76-100%': 'Kiasi cha juu zaidi (asimilia 76-100) haijamea'
         }
     },
     'phone_prompt': {

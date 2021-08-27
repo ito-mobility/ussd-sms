@@ -17,7 +17,7 @@ module.exports = function(client, lang){
     var currentRepaymentSeasonDetails = client.BalanceHistory.filter(function(seasonDetails) {
         return seasonDetails.SeasonName == project.vars.current_repayment_season_name;
     });
-    currentRepaymentSeasonDetails = currentRepaymentSeasonDetails.length > 0 ? currentRepaymentSeasonDetails : client.BalanceHistory[0];
+    currentRepaymentSeasonDetails = currentRepaymentSeasonDetails.length > 0 ? currentRepaymentSeasonDetails : [client.BalanceHistory[0]];
     for (var i = 0; i < currentRepaymentSeasonDetails.length; i++) {
         if (currentRepaymentSeasonDetails[i].Balance >= 0){    
             paid = currentRepaymentSeasonDetails[i].TotalCredit-currentRepaymentSeasonDetails[i].Balance;
@@ -120,9 +120,21 @@ module.exports = function(client, lang){
         console.log(error);
     }
     */
+    if(client.BalanceHistory.length === 0) {
+        return {'$CLIENT_NAME': client.ClientName,
+            '$PAID': 0,
+            '$BALANCE': 0,
+            '$CREDIT': 0,
+            '$DAY_NAME': day_name,
+            '$MONTH': month,
+            '$DAYNR': day_num,
+            '$HEALTHY_PATH': '',
+            '$LAST_BALANCE': 0,
+        };
+    }
     // SeasonId: number, CountryId: number, DistrictId: number,
     var mostRecentSeason = client.BalanceHistory[0];
-    var previousSeason = client.BalanceHistory[1] || {Balace: 0};
+    var previousSeason = client.BalanceHistory[1] || {Balance: 0};
     var hpd = {
         countryId: client.CountryId,
         districtId: client.DistrictId

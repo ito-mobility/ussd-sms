@@ -13,7 +13,7 @@ module.exports = {
     },
     'lot_code': {
         'en-ke': 'Please enter the seed lot code on the seed packet you have purchased. This code is on the packet of the seed and is usually comprised of letters and numbers. Press 0 if you cannot find the code.',
-        'sw': 'Tafadhali ingiza nambari ya mbegu kwenye pakiti ya mbegu uliyonunua. Nambari hii iko kwenye pakiti ya mbegu na kawaida huwa na herufi na nambari. Bonyeza 0 ikiwa huwezi kupata nambari.'
+        'sw': 'Tafadhali ingiza nambari ya mbegu kwenye pakiti ya mbegu uliyonunua. Nambari hii iko kwenye pakiti  ya mbegu na kawaida huwa na herufi na nambari. Bonyeza 0 ikiwa huwezi kupata nambari.'
     },
     'next_option': {
         'sw': '77) Endelea',

@@ -107,6 +107,7 @@ const inputHandlers = {}
 clientRegistration.registerHandlers();
 marketAccess.registerHandlers();
 shs.registerHandlers()
+groupRepaymentsModule.registerGroupRepaymentHandlers({lang: lang, main_menu: state.vars.current_menu_str, main_menu_handler: 'cor_menu_select'});
 
 global.main = function () {
     sayText(msgs('cor_enr_main_splash',{},lang));
@@ -280,12 +281,7 @@ addInputHandler('cor_menu_select', function (input) {
     var selection = get_menu_option(input, state.vars.splash);
     state.vars.selected_core_input = input;
     
-    if (selection === null || selection === undefined) {
-        sayText(msgs('invalid_input', {}, lang));
-        promptDigits('invalid_input', { 'submitOnHash': false, 'maxDigits': max_digits_for_input, 'timeout': timeout_length });
-        return null;
-    }
-    else if(selection === 'cor_get_repayments'){
+    if(selection === 'cor_get_repayments'){
         transactionHistory.start(state.vars.account_number,'rw',state.vars.current_menu_str,'cor_menu_select');            
     }
     else if(selection === 'cor_market_access'){
@@ -502,15 +498,11 @@ addInputHandler('cor_menu_select', function (input) {
         shs.start(state.vars.client_json, 'RW', lang || 'ki', state.vars.isGroupLeader, state.vars.current_menu_str, 'cor_menu_select')
     }
     else {
-        var current_menu = msgs(selection, {}, lang);
-        state.vars.current_menu_str = current_menu;
-        sayText(current_menu);
-        promptDigits(selection, { 'submitOnHash': false, 'maxDigits': max_digits_for_input, 'timeout': timeout_length });
-        return null;
+        // sayText(msgs('invalid_input', {}, lang));
+        sayText(state.vars.current_menu_str);
+        promptDigits('cor_menu_select');
     }
 });
-
-groupRepaymentsModule.registerGroupRepaymentHandlers({lang: lang, main_menu: state.vars.current_menu_str, main_menu_handler: 'cor_menu_select'});
 
 // If the number of persons in a group is more than 30 ask them to try again
 addInputHandler('market_people_in_group', function(input){

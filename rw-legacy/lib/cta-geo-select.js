@@ -9,10 +9,12 @@ module.exports = function(sel, branch){
         return branch;
     }
     else if(sel >= Object.keys(branch).length || sel < 0){
+        console.log(sel + ' ' + JSON.stringify({branch: branch}));
         throw 'ERROR: Geo selection not in keys';
     }
     else {
-        console.log(sel + " : " + Object.keys(branch)[sel]);
+        console.log(sel + ' : ' + Object.keys(branch)[sel]);
         return branch[Object.keys(branch)[sel]];
     }
-}
+};
+

@@ -24,8 +24,8 @@ module.exports = [
         'en-ke': 'Report Seed Germination Issue',
         'sw': 'Ripoti shida ya kumea kwa mbegu',
         'option_name': 'report_seed_quality',
-        'end_date': project.vars.end_report_seed_quality || service.vars.end_report_seed_quality,
-        'start_date': project.vars.start_report_seed_quality || service.vars.start_report_seed_quality
+        'start_date': service.vars.start_report_seed_quality || project.vars[service.vars.seedQualityIssuesStart],
+        'end_date': service.vars.end_report_seed_quality || project.vars[service.vars.seedQualityIssuesEnd]
     },
     {
         'en-ke': 'Contact Call center',

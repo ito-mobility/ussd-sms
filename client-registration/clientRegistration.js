@@ -213,6 +213,7 @@ function saveClientInRoster(){
                     'new_client': '1',
                     'gl_interested': groupLeaderInterested,
                     'gl_phone_number': contact.phone_number,
+                    'referrer_account_number': state.vars.referrer_account_number,
                 }
             });
             row.save();

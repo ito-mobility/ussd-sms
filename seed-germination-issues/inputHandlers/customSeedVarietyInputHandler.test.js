@@ -17,12 +17,19 @@ describe.each(['en-ke', 'sw'])('custom seed variety input handler using (%s)', (
         const handler = customSeedVarietyInputHandler.getHandler(lang);
         const seedVariety = 'variety1';
         const messages = {
-            'en-ke': 'Please enter the seed lot code on the seed packet you have purchased. This code is on the packet of the seed and is usually comprised of letters and numbers. Press 0 if you cannot find the code.',
-            'sw': 'Tafadhali ingiza nambari ya mbegu kwenye pakiti ya mbegu uliyonunua. Nambari hii iko kwenye pakiti ya mbegu na kawaida huwa na herufi na nambari. Bonyeza 0 ikiwa huwezi kupata nambari.'
+            'en-ke': 'Please enter the seed lot code on the seed packet you have purchased. This code is on the packet of ...\n77) Next',
+            'sw': 'Tafadhali ingiza nambari ya mbegu kwenye pakiti ya mbegu uliyonunua. Nambari hii iko kwenye pakiti  ...\n77) Endelea'
+        };
+
+        var screens = {
+            'sw': '{"1":"Tafadhali ingiza nambari ya mbegu kwenye pakiti ya mbegu uliyonunua. Nambari hii iko kwenye pakiti  ...\\n77) Endelea","2":"ya mbegu na kawaida huwa na herufi na nambari. Bonyeza 0 ikiwa huwezi kupata nambari."}',
+            'en-ke': '{"1":"Please enter the seed lot code on the seed packet you have purchased. This code is on the packet of ...\\n77) Next","2":"the seed and is usually comprised of letters and numbers. Press 0 if you cannot find the code."}'
         };
         handler(seedVariety);
         expect(state.vars.rsgi_seed_variety).toEqual(seedVariety);
         expect(promptDigits).toHaveBeenCalledWith(lotCodeInputHandler.handlerName);
         expect(sayText).toHaveBeenCalledWith(messages[lang]);
+        expect(state.vars.lot_code_screens).toEqual(screens[lang]);
+        expect(state.vars.current_lot_code_screen).toEqual(1);
     });
 });

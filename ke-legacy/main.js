@@ -3472,6 +3472,7 @@ addInputHandler('registrationHandler', function(input){
     LogSessionID();
     InteractionCounter('registrationHandler');
     if(input == 0){
+        var client =  JSON.parse(state.vars.client)
         clientRegistration.start(client.AccountNumber,'ke',state.vars.lang);
     }
     else{

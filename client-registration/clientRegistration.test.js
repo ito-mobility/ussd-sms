@@ -397,6 +397,7 @@ describe('clientRegistration', () => {
                     'district_name': client.DistrictName,
                     'site_name': client.SiteName,
                     'new_client': '1',
+                    'referrer_account_number': 123456789,
                     'gl_phone_number': contact.phone_number,
                     'gl_interested': state.vars.groupLeader
                 }
@@ -415,6 +416,7 @@ describe('clientRegistration', () => {
                     'first_name': client.FirstName,
                     'last_name': client.LastName,
                     'district': client.DistrictId,
+                    'referrer_account_number': 123456789,
                     'site': client.SiteId,
                     'district_name': client.DistrictName,
                     'site_name': client.SiteName,

@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ## v2.1.4
 ### Changed
 * [ESWFA-213](https://oneacrefund.atlassian.net/browse/ESWFA-213) Setup client/GL Referal program on Telerivet
+### Changed
+* [ESWFA-231](https://oneacrefund.atlassian.net/browse/ESWFA-231) Fix seed germination reporting issues
 ## v2.1.3
 ### Changed
 * [ESWFA-225](https://oneacrefund.atlassian.net/browse/ESWFA-225) Rwanda Sedo fix 

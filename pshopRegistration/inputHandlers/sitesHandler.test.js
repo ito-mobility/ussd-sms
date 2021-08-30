@@ -1,6 +1,8 @@
 state.vars.reg_lang = 'en';
 const siteHandler = require('./sitesHandler');
 
+jest.mock('../../notifications/elk-notification/elkNotification');
+
 describe('site input handler', () => {
     beforeAll(() => {
         state.vars.sitesMenuScreens = JSON.stringify({'1': 'Screen 1', '2': 'Screen 2', '3': 'Screen 3'});

@@ -1,6 +1,7 @@
 // fetch groups and set the groupsMenu as a state variable
 var translations = require('../translations/index.js');
 var translator = require('../../utils/translator/translator');
+var notifyELK = require('../../notifications/elk-notification/elkNotification');
 
 var getMessage = translator(translations, state.vars.reg_lang);
 var handlerName = 'pshps_enr_grp_handler';
@@ -9,6 +10,7 @@ module.exports = {
     handlerName: handlerName,
     getHandler: function(onGroupValidated) {
         return function(input) {
+            notifyELK();
             var lang = state.vars.reg_lang;
             var groupsMenuScreens = JSON.parse(state.vars.groupsMenuScreens);
             var groupsMenuOptionValues = JSON.parse(state.vars.groupsMenuOptionValues); // {1: groupId, 2: groupId, ...}

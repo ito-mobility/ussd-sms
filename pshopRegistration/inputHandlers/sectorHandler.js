@@ -1,6 +1,7 @@
 // fetch sectors and set the sectorsMenu as a state variable
 var translations = require('../translations/index.js');
 var translator = require('../../utils/translator/translator');
+var notifyELK = require('../../notifications/elk-notification/elkNotification');
 
 var getMessage = translator(translations, state.vars.reg_lang);
 var handlerName = 'pshps_enr_sect_handler';
@@ -9,6 +10,7 @@ module.exports = {
     handlerName: handlerName,
     getHandler: function(onSectorValidated) {
         return function(input) {
+            notifyELK();
             var lang = state.vars.reg_lang;
             var sectorsMenuScreens = JSON.parse(state.vars.sectorsMenuScreens);
             var sectorsMenuOptionValues = JSON.parse(state.vars.sectorsMenuOptionValues); // {1: sectorId, 2: sectorId, ...}

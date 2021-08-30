@@ -15,7 +15,13 @@ module.exports = {
             }
             state.vars.rsgi_seed_variety = input;
             var lotCodePrompt = getMessage('lot_code', {}, lang);
-            global.sayText(lotCodePrompt);
+            var lotCodePromptMenu1 = {
+                1: lotCodePrompt.slice(0, 100) + '...' + '\n' + getMessage('next_option', {}, lang), 
+                2: lotCodePrompt.slice(100)
+            };
+            state.vars.lot_code_screens = JSON.stringify(lotCodePromptMenu1);
+            state.vars.current_lot_code_screen = 1;
+            global.sayText(lotCodePromptMenu1[1]);
             global.promptDigits(lotCodeInputHandler.handlerName);
         };
     }

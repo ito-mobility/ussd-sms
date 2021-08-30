@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file. 
 
 ## New Version
+### Changed
+* [ESWFA-231](https://oneacrefund.atlassian.net/browse/ESWFA-231) Fix seed germination reporting issues
 ## v2.1.3
 ### Changed
 * [ESWFA-225](https://oneacrefund.atlassian.net/browse/ESWFA-225) Rwanda Sedo fix 

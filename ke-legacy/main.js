@@ -21,7 +21,8 @@ service.vars.topUpStart = env + '_start_top_up';
 service.vars.topUpEnd = env + '_end_top_up';
 service.vars.seed_germination_issues_table = env + '_seed_germination_issues';
 service.vars.sbccTable = env + '_SBCC';
-service.vars.current_enrollment_season_name = project.vars[env + '_current_enrollment_season']
+service.vars.current_enrollment_season_name = service.vars.current_enrollment_season_name || project.vars[env + '_current_enrollment_season']
+service.vars.last_season_name = service.vars.last_season_name || project.vars[env + '_last_season_name']
 
 var notifyELK = require('../notifications/elk-notification/elkNotification');
 var transactionHistory = require('../transaction-history/transactionHistory');
@@ -90,8 +91,8 @@ else{
 var MenuCount = 0;
 var LocArray='';
 var ClientAccNum = '';
-var CurrentSeasonName = '2021, Long Rain';
-var LastSeason = '2020, Long Rain';
+var CurrentSeasonName = service.vars.current_enrollment_season_name;
+var LastSeason = service.vars.last_season_name;
 var client = '';
 var JITBundleOptions =[
     {'nameEN': '0.5 acre maize',

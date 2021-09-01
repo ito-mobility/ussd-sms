@@ -41,4 +41,11 @@ module.exports = [
         'end_date': project.vars.end_sbcc,
         'start_date': project.vars.start_sbcc
     },
+    {
+        'en-ke': 'Forgot account number',
+        'sw': 'Nimesahau nambari yangu ya akaunti',
+        'option_name': 'forgot_account_number',
+        'end_date': project.vars.end_find_oaf_contact,
+        'start_date': project.vars.start_find_oaf_contact
+    },
 ];

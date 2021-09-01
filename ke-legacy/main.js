@@ -277,17 +277,6 @@ var TriggerTraining = function (ServiceID){
     }
 };
 
-var LocationNotKnown = function (Location){
-    if (Location == '#'|| Location == '0'){
-        LocationNotKnownText();
-        hangUp();
-    }
-};
-
-var FOLocatorNextSelect = function(Location){
-    if (Location == 'n' || Location == 'N' || Location =='00'){console.log('Fo locator Next selected');return true;}
-    else {return false;}
-};
 var ValNationalID = function(input){
     var NumChar = input.length;
     if (NumChar == 7 || NumChar == 8){return true;}
@@ -299,7 +288,7 @@ var GetPrepaymentAmount = function(client){
 };
 var FAWActive = function (districtname){
     var Table = project.getOrCreateDataTable('FAW Districts');
-    var Cursor = Table.queryRows({vars: {'districtname': districtname, 'active': '1'}});
+    var Cursor = Table.queryRows({vars: {'districtname': districtname, 'active': 1}});
     if (Cursor.count()>0){return true;}
     else {return false;}
 };
@@ -1067,7 +1056,7 @@ var TrainingMenuText = function (){
     var trainingsScreens = trainingsMenu.screens;
     state.vars.trainings_options = JSON.stringify(trainingsOptions);
     state.vars.trainings_screens = JSON.stringify(trainingsScreens);
-    state.vars.current_trainings_screens = '1';
+    state.vars.current_trainings_screens = 1;
     sayText(trainingsScreens[state.vars.current_trainings_screens]);
 };
 
@@ -1439,12 +1428,7 @@ var JITEOrdeCloseText = function(){
     if (GetLang()){sayText('Thanks for enrolling with One Acre Fund through Just in Time.');}
     else {sayText('Asante kwa kujisajili na One acre Fund kupitia Just in Time.');}
 };
-// FO Locator
-var CallMeBackFOLOcatorConfirmText = function(){
-    if (GetLang()){sayText('Thank you for your interest to join One Acre Fund. We will be calling you back in 24 hours');}
-    else {sayText('Asante kwa kuonesha nia ya kujisajili na OAF. Utapokea simu kwa muda usio zidi masaa ishirini na nne (24hrs)');}
 
-};
 var FOLocatorRegionText = function (){
     if (GetLang()){sayText('Select your region/province\n1) Central\n2) Nyanza\n3) Rift Valley\n4) Western\n0) My region/province is not in the list');}
     else {sayText('Chagua Mkoa wako au eneo lako\n1) Central\n2) Nyanza\n3) Rift Valley\n4) Western\n0) Wilaya yangu haipo hapa');}
@@ -1459,44 +1443,10 @@ var LocationNotKnownText = function(){
     if (GetLang()){sayText('Thank you for contacting us, but One Acre Fund does not currently work in your area.');}
     else {sayText('Samahani, One Acre Fund haiko kwenye eneo lako');}
 };
-var FOLocatorCountyText = function(LocMenu){
-    if (GetLang()){sayText('Which county are you in?\n'+LocMenu+'\n0) My county is not listed');}
-    else {sayText('Chagua Kata yako\n'+LocMenu+'\n#) Kata yangu haiko kwenye orodha');}
-};
-var getRegionNotFoundText = function() {
-    if (GetLang()){sayText('thank you for contacting us but sorry OAF does not operate in your region currently');}
-    else {sayText('asante kwa kutufikia samahani, shirika letu la One Acre Fund haliko kwenye eneo lako');}
-}
-var FOLocatorSubCountyText = function(LocMenu){
-    if (GetLang()){sayText('Which sub county are you in?\n'+LocMenu+'\n0) My subcounty is not listed');}
-    else {sayText('Chagua Kataa Ndogo yako\n'+LocMenu+'\n#) Kataa Ndogo yangu haiko kwenye orodha');}
-};
-var FOLocatorWardText = function(LocMenu){
-    if (GetLang()){sayText('Which Ward are you in?\n'+LocMenu+'\na) Go to OAF Sites\n0) My ward is not listed');}
-    else {sayText('Chagua Wadi yako\n'+LocMenu+'\na) Chagua OAF site\n#) Wadi yangu haiko kwenye orodha');}
-};
-var FOLocatorSiteText = function(LocMenu){
-    if (GetLang()){sayText('Which ONE ACRE FUND site are you in?\n'+LocMenu+'\n0) My site is not listed');}
-    else {sayText('Chagua site yako\n'+LocMenu+'\n#) Site yangu haiko kwenye orodha');}
-};
-var FOLocatorConfirmText = function(){
-    if (GetLang()){sayText('Your field officer is '+ state.vars.FOName+ '.Do you want to reach out to the field officer\n1) Yes\n2) No - exit menu');}
-    else {sayText('Ungependa kuwasiliana na Afisa wetu wa nyanjani?\n1) Yes\n2) No - exit menu');}
-};
-var FOLocatorConfirmDeclineText = function(){
-    if (GetLang()){sayText('Thank you.');}
-    else {sayText('Asante');}
-};
-var FOLocatorConfirmSuccessText = function(){
-    if (GetLang()){sayText('One Acre Fund contact person details have been sent to you. If you have any questions call our toll free line at 080 0723355');}
-    else {sayText('Utapokea ujumbe kutoka One Acre Fund ulio na jina na nambari ya simu ya agenti wetu. Piga simu ukiwa na swali lolote kwa 080 0723355');}
-};
+
 var FOLocatorFarmerSMS = function(){
-    if (GetLang()){return 'Thanks for contacting One Acre Fund. we will call you back within 3 days on 080030 from Monday to Friday, to help you register with One Acre Fund'}
+    if (GetLang()){return 'Thank you for contacting us. We will call you back within 3 days on 080030, between Monday and Friday, to help you register with One Acre Fund'}
     else {return 'Asante kwa kufikia ofisi ya huduma ya One Acre Fund. tutakupigia ndani ya siku 3 kwa 080030 kuanzia Jumatatu hadi Ijumaa, ili kukuwezesha kujisajili.';}
-};
-var FOLocatorFOSMS = function(){
-    return 'Tafadahli wasiliana na '+contact.phone_number+ ' ili ajiandikishe na One Acre Fund';
 };
 // INSURANCE
 var InsuranceMenuText = function(){
@@ -1701,16 +1651,16 @@ addInputHandler('SplashMenu', function(SplashMenu) {
     LogSessionID();
     InteractionCounter('SplashMenu');
     ClientAccNum = SplashMenu;
-    if (SplashMenu == '99'){
+    if (SplashMenu == 99){
         ChangeLang();
         SplashMenuText();
         promptDigits('SplashMenu', {submitOnHash: true, maxDigits: 8, timeout: 5});
     }
-    else if (SplashMenu == '0'){
+    else if (SplashMenu == 0){
         NonClientMenuText();
         promptDigits('NonClientMenu', {submitOnHash: true, maxDigits: 2, timeout: 5});
     }
-    else if (SplashMenu == '9'){
+    else if (SplashMenu == 9){
         StaffPayrollText();
         promptDigits('StaffPayRoll', {submitOnHash: true, maxDigits: 5, timeout: 5});
     }
@@ -1792,7 +1742,13 @@ addInputHandler('NonClientMenu', function(input) {
         contactCallCenter.start(GetLang() ? 'en-ke' : 'sw', false);
     } else if (sessionMenu[input-1].option_name === 'sbcc') {
         sbccModule.startSBCC({lang: GetLang() ? 'en' : 'sw', backMenu: NonClientMenuText});
-    } else{
+    }else if (sessionMenu[input-1].option_name === 'forgot_account_number') {
+        if(GetLang()) {
+            global.sayText('If you have forgotten your account number, please contact your field officer.');
+        } else {
+            global.sayText('Tafadhali ongea na mwalimu wako akupe nambari yako ya akaunti');
+        }
+    }else{
         NonClientMenuText();
         promptDigits('NonClientMenu', {submitOnHash: true, maxDigits: 2, timeout: 5});
     }
@@ -1823,7 +1779,7 @@ addInputHandler('MainMenu', function(SplashMenu){
             return null;
         }
     }
-    if (sessionMenu == '99'){
+    if (sessionMenu == 99){
         ChangeLang();
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 8, timeout: 5});
@@ -2024,7 +1980,6 @@ addInputHandler('PaymentAmount', function(PaymentAmount) {
 addInputHandler('FOLocRegion', function(input) {
     LogSessionID();
     InteractionCounter('FOLocRegion');
-    LocationNotKnown(input);
     var regions = JSON.parse(state.vars.fo_locator_regions)
     var selected_region = regions[input];
     if (selected_region){
@@ -2050,19 +2005,28 @@ addInputHandler('FOLocRegion', function(input) {
 
         // create a zendesk ticket
         var reason = 'A new client wants help registering to One Acre Fund';
-        var sub = 'Call back requested for: ' + reason +' phone number: '+ contact.phone_number;
+        var description = 'Call back requested for: ' + reason +'\nphone number: '+ contact.phone_number + '\n Region/Province: ' + selected_region;
         var create_zd_ticket = require('../zd-legacy/lib/create-ticket');
         var tags = ['province', 'region', 'field officer', 'FO locator'];
-        create_zd_ticket(contact.phone_number, sub, contact.phone_number, tags);
+        var ticketDetails = {
+            assignee_email: service.vars.zendeskCEemail,
+            tags: tags,
+            call_category: reason,
+            description: description,
+            account_number: 'N/A',
+            customFields: [
+                {'id': '360021031460', 'value': selected_region},
+            ],
+            
+        }
+        create_zd_ticket(ticketDetails, contact.phone_number);
 
         // show a popup to the client OK
         sayText(FOLocatorFarmerSMS());
-
         global.stopRules();
     } else if(input == 0) {
-        // tell client OAF doesn't operate in their region
-        getRegionNotFoundText();
-        global.stopRules();
+        LocationNotKnownText();
+        global.stopRules()
     }
     else{
         FOLocatorRegionText();
@@ -2073,7 +2037,7 @@ addInputHandler('JITTUAccNum', function(JITTUAccNum) {
     LogSessionID();
     InteractionCounter('JITTUAccNum');
     var JITEOrder = JITECheckPreviousAccNum(JITTUAccNum);
-    if (JITTUAccNum == '1'){
+    if (JITTUAccNum == 1){
         var client = JSON.parse(state.vars.client);
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
@@ -2119,7 +2083,7 @@ addInputHandler('JITTUAccNum', function(JITTUAccNum) {
 addInputHandler('JITTUBundleSelect', function(BundleSelect){
     LogSessionID();
     InteractionCounter('JITTUBundleSelect');
-    if (BundleSelect =='9'){
+    if (BundleSelect ==9){
         var client = JSON.parse(state.vars.client);
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
@@ -2154,7 +2118,7 @@ addInputHandler('JITTUBundleSelect', function(BundleSelect){
 addInputHandler('JITTUVarietySelect', function(VarietySelected) {
     LogSessionID();
     InteractionCounter('JITTUVarietySelect');
-    if (VarietySelected == '9'){
+    if (VarietySelected == 9){
         var client = JSON.parse(state.vars.client);
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
@@ -2189,12 +2153,12 @@ addInputHandler('JITTUConfirm', function(Confirm){
     LogSessionID();
     InteractionCounter('JITTUConfirm');
     var bundleSelected = JSON.parse(state.vars.bundleselect);
-    if (Confirm == '9'){
+    if (Confirm == 9){
         var client = JSON.parse(state.vars.client);
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
-    else if(Confirm == '1'){
+    else if(Confirm == 1){
         var JIT_client = JSON.parse(state.vars.JIT_client);
         var warehousename = JITgetWarehouse(JIT_client.DistrictName);
         JITTUCreateOrder(JIT_client,bundleSelected, state.vars.variety);
@@ -2209,7 +2173,7 @@ addInputHandler('JITTUConfirm', function(Confirm){
 addInputHandler('ContinueToJITTUBundleSelect', function(Continue) {
     LogSessionID();
     InteractionCounter('ContJITTUBundle');
-    if(Continue =='2') {
+    if(Continue ==2) {
         JIT_client = JSON.parse(state.vars.JIT_client);
         var orderoverview = JITTURetrieveOrders(JIT_client.AccountNumber);
         JITTUOrderOverviewSMS(orderoverview, JIT_client.AccountNumber, contact.phone_number);
@@ -2227,7 +2191,7 @@ addInputHandler('ContinueToJITTUBundleSelect', function(Continue) {
 addInputHandler('ViewJITOrder', function(JITTU_accNum) {
     LogSessionID();
     InteractionCounter('ViewJITOrder');
-    if (JITTU_accNum == '1'){
+    if (JITTU_accNum == 1){
         var client = JSON.parse(state.vars.client);
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 8, timeout: 5});
@@ -2242,7 +2206,7 @@ addInputHandler('ViewJITOrder', function(JITTU_accNum) {
 addInputHandler('JITEAccNum', function(JITE_AccNum){
     LogSessionID();
     InteractionCounter('JITEAccNum');
-    if (JITE_AccNum == '0'){
+    if (JITE_AccNum == 0){
         JITEFirstNameText();
         promptDigits('JITEFirstName', {submitOnHash: true, maxDigits: 10, timeout: 5});
     }
@@ -2326,7 +2290,7 @@ addInputHandler('JITENationalID', function(JITE_NationalID){
 addInputHandler('JITEBundleSelect', function(JITE_BundleSelect){
     LogSessionID();
     InteractionCounter('JITEBundleSelect');
-    if (JITE_BundleSelect =='9'){
+    if (JITE_BundleSelect ==9){
         var client = JSON.parse(state.vars.client);
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
@@ -2358,7 +2322,7 @@ addInputHandler('JITEBundleSelect', function(JITE_BundleSelect){
 addInputHandler('JITEVarietySelect', function(JITE_VarSelect){
     LogSessionID();
     InteractionCounter('JITEVarietySelect');
-    if (JITE_VarSelect == '9'){
+    if (JITE_VarSelect == 9){
         var client = JSON.parse(state.vars.client);
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
@@ -2390,7 +2354,7 @@ addInputHandler('JITEVarietySelect', function(JITE_VarSelect){
 addInputHandler('JITEConfirm', function(Confirm){
     LogSessionID();
     InteractionCounter('JITEConfirm');
-    if (Confirm == '9'){
+    if (Confirm == 9){
         var client = JSON.parse(state.vars.client);
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
@@ -2421,7 +2385,7 @@ addInputHandler('FAWOrder', function(Order){
     LogSessionID();
     InteractionCounter('FAWOrder');
     var client = JSON.parse(state.vars.client);
-    if (Order =='9'){
+    if (Order ==9){
 
         if (state.vars.FAWAllowcancel){
             FAWCancelOrderText();
@@ -2462,7 +2426,7 @@ addInputHandler('FAWCancelAmount', function(input){
     InteractionCounter('FAWCanAm');
     var client = JSON.parse(state.vars.client);
     var CancelAmount = input;
-    if (input =='9'){
+    if (input ==9){
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
@@ -2483,13 +2447,13 @@ addInputHandler('FAWConfirm', function(confirm){
     LogSessionID();
     InteractionCounter('FAWConfirm');
     var client = JSON.parse(state.vars.client);
-    if (confirm == '1'){
+    if (confirm == 1){
         FAWCreateOrder (client, state.vars.FAWOrder);
         FAWSuccessText(state.vars.FAWOrder);
         FAWSuccessSMS(state.vars.FAWOrder);
         promptDigits('BackToMain', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
-    else if (confirm == '9'){
+    else if (confirm == 9){
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
@@ -2498,11 +2462,11 @@ addInputHandler('SolarMenu', function(Menu){
     LogSessionID();
     InteractionCounter('SolarMenu');
     var client = JSON.parse(state.vars.client);
-    if (Menu =='9'){
+    if (Menu ==9){
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
-    else if (Menu =='1'){
+    else if (Menu ==1){
         if (EnrolledAndQualified(client)){
             if (SHSValidateReg(client, CurrentSeasonName)){
                 SHSSerialText();
@@ -2518,7 +2482,7 @@ addInputHandler('SolarMenu', function(Menu){
             promptDigits('ReportIssueOrBackToMain', {submitOnHash: true, maxDigits: 1, timeout: 5});
         }
     }
-    else if (Menu =='2'){
+    else if (Menu ==2){
         var SerialList = GetSerialForClient(client.AccountNumber);
         if (SerialList.length == 1){
             var SHSDetail = GetSHSDetails(client.AccountNumber, SerialList[0].SerialNumber);
@@ -2542,7 +2506,7 @@ addInputHandler('SolarMenu', function(Menu){
             promptDigits('SerialCode', {submitOnHash: true, maxDigits: 10, timeout: 5});
         }
     }
-    else if(Menu =='99'){
+    else if(Menu ==99){
         CallMeBackText();
         state.vars.issuetype = 'SHS';
         promptDigits('CallBackPN', {submitOnHash: true, maxDigits: 10, timeout: 5});
@@ -2553,11 +2517,11 @@ addInputHandler('SerialRegister', function(Serial){
     LogSessionID();
     InteractionCounter('SerialRegister');
     var client = JSON.parse(state.vars.client);
-    if (Serial =='9'){
+    if (Serial ==9){
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
-    else if (Serial =='99'){
+    else if (Serial ==99){
         CallMeBackText();
         state.vars.issuetype = 'SHS';
         promptDigits('CallBackPN', {submitOnHash: true, maxDigits: 10, timeout: 5});
@@ -2610,7 +2574,7 @@ addInputHandler('SerialType', function(Type){
     LogSessionID();
     InteractionCounter('SerialRegister');
     var client = JSON.parse(state.vars.client);
-    if (Type =='9'){
+    if (Type ==9){
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
@@ -2671,11 +2635,11 @@ addInputHandler('SerialCode', function(Serial){
     LogSessionID();
     InteractionCounter('SerialCode');
     var client = JSON.parse(state.vars.client);
-    if (Serial =='9'){
+    if (Serial ==9){
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
-    else if (Serial =='99'){
+    else if (Serial ==99){
         CallMeBackText();
         state.vars.issuetype = 'SHS';
         promptDigits('CallBackPN', {submitOnHash: true, maxDigits: 10, timeout: 5});
@@ -2697,7 +2661,7 @@ addInputHandler('ReportIssueOrBackToMain', function(Input){
     InteractionCounter('ReportIssue');
     state.vars.issuetype = 'SHS';
     var client = JSON.parse(state.vars.client);
-    if (Input =='99'){
+    if (Input ==99){
         CallMeBackText();
         promptDigits('CallBackPN', {submitOnHash: true, maxDigits: 10, timeout: 5});
     }
@@ -2711,11 +2675,11 @@ addInputHandler('CallBackPN', function(Input){
     InteractionCounter('CallBackPN');
     var create_zd_ticket = require('ext/zd-tr/lib/create-ticket');
     var client = JSON.parse(state.vars.client);
-    if (Input =='9'){
+    if (Input ==9){
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
-    else if (Input =='1'){
+    else if (Input ==1){
         var sub = 'Call back requested for: ' + state.vars.issuetype +' account number : '+ client.AccountNumber+ 'With phonenumber: '+ contact.phone_number;
         var tags = ['kenya', state.vars.issuetype, 'SerialCode'];
         if(create_zd_ticket(client.AccountNumber, sub, contact.phone_number, tags)){
@@ -2748,11 +2712,11 @@ addInputHandler('InsuranceMenu', function(input) {
     LogSessionID();
     InteractionCounter('InsuranceMenu');
     var client = JSON.parse(state.vars.client);
-    if (input =='9'){
+    if (input ==9){
         MainMenuText (client);
         promptDigits('MainMenu', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
-    else if (input == '1') {
+    else if (input == 1) {
         HospitalRegionText();
         promptDigits('HospitalRegion', {submitOnHash: true, maxDigits: 1, timeout: 5});
     }
@@ -2779,7 +2743,7 @@ addInputHandler('HospitalRegion', function(input) {
 addInputHandler('HospitalTown', function(input) {
     LogSessionID();
     InteractionCounter('HospitalTown');
-    if (state.vars.MenuNext && input == '0'){
+    if (state.vars.MenuNext && input == 0){
         state.vars.LocMenuText = LocationNext();
         sayText(state.vars.LocMenuText);
         promptDigits('HospitalTown', {submitOnHash: true, maxDigits: 2, timeout: 5});

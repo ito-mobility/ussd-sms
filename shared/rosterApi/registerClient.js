@@ -10,6 +10,7 @@ module.exports = function registerClient(clientJSON) {
     var opts = { headers: {} };
     opts.headers['Authorization'] = 'Token ' + service.vars.roster_api_key;
     opts.headers['Content-Type'] = 'application/json';
+    opts.headers['X-OAF-Lang'] = state.vars.lang;
     opts.method = 'POST';
     opts.data = JSON.stringify(clientJSON);
     try {

@@ -35,7 +35,7 @@ describe('Register client', () => {
             {'data': 
                 '{"districtId":1404,"siteId":4,"groupId":20,"firstName":"Tyrion","lastName":"Lanyster","nationalIdNumber":"1123341232","phoneNumber":"0787334524"}',
             'headers': {
-                'Authorization': 'Token undefined', 'Content-Type': 'application/json'},
+                'Authorization': 'Token undefined', 'Content-Type': 'application/json', 'X-OAF-Lang': 'en'},
             'method': 'POST'
             });
         expect(result).toEqual({});

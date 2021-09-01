@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file. 
 
 ## New Version
+## v2.1.4
+### Changed
+* [ESWFA-213](https://oneacrefund.atlassian.net/browse/ESWFA-213) Setup client/GL Referal program on Telerivet
 ### Changed
 * [ESWFA-231](https://oneacrefund.atlassian.net/browse/ESWFA-231) Fix seed germination reporting issues
 ## v2.1.3

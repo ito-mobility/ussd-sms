@@ -112,6 +112,7 @@ module.exports = {
                             'new_client': '1',
                             'registering_phone_number': contact.phone_number,
                             'groupId': clientJSON.groupId,
+                            'referrer_account_number': state.vars.referrer_account_number
                         }
                     });
                     row.save();
@@ -146,6 +147,7 @@ module.exports = {
 
     start: function (account, country,lang) {
         notifyELK();
+        state.vars.referrer_account_number = account;
         state.vars.account = account;
         state.vars.country = country;
         state.vars.reg_lang = lang;
@@ -211,6 +213,7 @@ function saveClientInRoster(){
                     'new_client': '1',
                     'gl_interested': groupLeaderInterested,
                     'gl_phone_number': contact.phone_number,
+                    'referrer_account_number': state.vars.referrer_account_number,
                 }
             });
             row.save();

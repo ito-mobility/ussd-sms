@@ -60,7 +60,7 @@ describe('ChickenServices', () => {
         const menu = populateMenu(lang,140,false);
         console.log(menu);
         expect(typeof menu).toEqual('string');
-        expect(menu).toMatch('1) Join One Acre Fund\n2) Find Training\n3) Find OAF Duka');
+        expect(menu).toMatch('1) Join One Acre Fund\n2) View Farming Trainings\n3) Find OAF Duka');
 
     });
     it('should not return an option that doesn\'t satisfy the date condition',()=>{
@@ -70,7 +70,7 @@ describe('ChickenServices', () => {
         const menu = populateMenu(lang,140,false);
         console.log(menu);
         expect(typeof menu).toEqual('string');
-        expect(menu).toMatch('1) Find Training\n2) Find OAF Duka');
+        expect(menu).toMatch('1) View Farming Trainings\n2) Find OAF Duka');
 
     });
     it('should return an object of all the options if the character is greater than 140 satisfy the date condition',()=>{        
@@ -79,7 +79,7 @@ describe('ChickenServices', () => {
         const menu = populateMenu(lang,140,true);
         console.log(menu);
         expect(typeof menu).toEqual('object');
-        expect(JSON.stringify(menu)).toMatch("{\"0\":\"1) Make a payment\\n2) Check balance\\n3) Training\\n4) View transaction history\\n5) FAW Pesticide Order\\n6) Solar\\n7) Insurance\\n77)Next page\",\"1\":\"44)Previous page\\n8)Contact Call center\\n9) Locate an OAF duka\\n\"}");
+        expect(JSON.stringify(menu)).toMatch('{"0":"1) Make a payment\\n2) Check balance\\n3) Training\\n4) View transaction history\\n5) Prepayment amount\\n6) FAW Pesticide Order\\n7) Solar\\n77)Next page","1":"44)Previous page\\n8)Insurance\\n9) Contact Call center\\n10) Locate an OAF duka\\n"}');
 
     });
     it('should return an object of only options that satisfy the date condition if the character is greater than 140',()=>{        
@@ -87,8 +87,7 @@ describe('ChickenServices', () => {
         const menu = populateMenu(lang,140,true);
         console.log(menu);
         expect(typeof menu).toEqual('object');
-        expect(JSON.stringify(menu)).toMatch("{\"0\":\"1) Make a payment\\n2) Check balance\\n3) Training\\n4) View transaction history\\n5) FAW Pesticide Order\\n6) Solar\\n7) Insurance\\n77)Next page\",\"1\":\"44)Previous page\\n8)Contact Call center\\n9) Locate an OAF duka\\n\"}");
-
+        expect(JSON.stringify(menu)).toMatch('{"0":"1) Make a payment\\n2) Check balance\\n3) Training\\n4) View transaction history\\n5) Prepayment amount\\n6) FAW Pesticide Order\\n7) Solar\\n77)Next page","1":"44)Previous page\\n8)Insurance\\n9) Contact Call center\\n10) Locate an OAF duka\\n"}');
     });
     it('should not show enroll/topUp if the site is locked according to the dates',()=>{
         const mockCursor = { next: jest.fn(), 
@@ -103,8 +102,7 @@ describe('ChickenServices', () => {
         state.vars.isGroupLeader = true;
         var populateMenu = require('./populateMenu');
         const menu = populateMenu(lang,140,true);
-        expect(JSON.stringify(menu)).toMatch('{"0":"1) Make a payment\\n2) Check balance\\n3) JiT Top up\\n4) Training\\n5) View transaction history\\n6) FAW Pesticide Order\\n7) Solar\\n8) Insurance\\n77)Next page","1":"44)Previous page\\n9)Contact Call center\\n10) Locate an OAF duka\\n"}');
-
+        expect(JSON.stringify(menu)).toMatch('{"0":"1) Make a payment\\n2) Check balance\\n3) JiT Top up\\n4) Training\\n5) View transaction history\\n6) Prepayment amount\\n7) FAW Pesticide Order\\n77)Next page","1":"44)Previous page\\n8)Solar\\n9) Insurance\\n10) Contact Call center\\n11) Locate an OAF duka\\n"}');
     });
 
 });

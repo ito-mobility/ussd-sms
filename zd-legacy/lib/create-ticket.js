@@ -7,14 +7,14 @@ var country_opts = {
     'ke': '../dat/ke-config',
     'tz': '../dat/tz-config'
 };
-
-module.exports = function (account_number, call_category, phone_number, tags){
+// account_number, call_category, customFields, description, tags
+module.exports = function(ticketDetails, phone_number){
     if((!project.vars.zd_user) || (!project.vars.zd_api_key)){
         throw 'project variables zd_user and zd_api_key not defined. please define';
     }
     console.log(country_opts[project.vars.country]);
     var opts = require(country_opts[project.vars.country]);
-    var dat = opts.data_packer(account_number, call_category, phone_number, tags);
+    var dat = opts.data_packer(ticketDetails);
     console.log(dat);
     var response = httpClient.request(opts.url + '/tickets.json', {
         method: 'POST',
@@ -25,7 +25,7 @@ module.exports = function (account_number, call_category, phone_number, tags){
     if(response.status < 300){
         console.log('okay!' + response.status);
         if(opts.update_table){
-            opts.table_updater(account_number, call_category, phone_number, JSON.parse(response.content).ticket.id);
+            opts.table_updater(ticketDetails, JSON.parse(response.content).ticket.id, phone_number);
         }
         return true;
     }

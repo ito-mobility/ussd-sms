@@ -7,7 +7,8 @@ var CurrentSeasonName = '2020, Long Rain';
 var chosenMenu;
 var IsPrePayTrialDistrict= function(districtName){
     console.log('districtName:' + districtName);
-    return districtName === 'Kipkelion' || districtName === 'Chwele';
+    // un-comment the code below if there is a requirement to limit prepayment to some districts
+    return true; // districtName === 'Kipkelion' || districtName === 'Chwele';
 };
 var SHSActive = function (districtname){
     var Table = project.getOrCreateDataTable('SHS Districts');

@@ -12,6 +12,7 @@ var config = {
         'ke': {
             'en-ke': 'en',
             'sw': 'sw-ke',
+            'en': 'en',
             'default': 'sw-ke',
         }
     }

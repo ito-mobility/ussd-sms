@@ -2017,6 +2017,7 @@ addInputHandler('FOLocRegion', function(input) {
             account_number: 'N/A',
             customFields: [
                 {'id': '360021031460', 'value': selected_region},
+                {'id': '360010566873', 'value': contact.phone_number},
             ],
             
         }
@@ -3161,6 +3162,7 @@ addInputHandler('registrationHandler', function(input){
     LogSessionID();
     InteractionCounter('registrationHandler');
     if(input == 0){
+        var client =  JSON.parse(state.vars.client)
         clientRegistration.start(client.AccountNumber,'ke',state.vars.lang);
     }
     else{

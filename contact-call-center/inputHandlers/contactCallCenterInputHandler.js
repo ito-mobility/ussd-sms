@@ -25,7 +25,14 @@ module.exports = {
                 }
                 else{
                     var ticketTags = [menu_options[input], 'kenya', 'CallBackUSSD'];
-                    if(create_zd_ticket(client.AccountNumber, sub, contact.phone_number, ticketTags)){
+                    var ticketDetails = {
+                        account_number: client.AccountNumber,
+                        assignee_email: service.vars.zendeskCEemail || 'kenya.bizops@oneacrefund.org',
+                        tags: ticketTags,
+                        call_category: sub,
+                        description: sub,   
+                    };
+                    if(create_zd_ticket(ticketDetails, contact.phone_number)){
                         console.log('created_ticket!');
                         global.sayText(getMessage('call_back_confirm', {}, lang));
                         global.stopRules();

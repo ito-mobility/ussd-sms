@@ -7,7 +7,7 @@ module.exports = [
         'start_date': project.vars.start_find_oaf_contact
     },
     {
-        'en-ke': 'Find Training',
+        'en-ke': 'View Farming Trainings',
         'sw': 'Pata Mafunzo',
         'option_name': 'trainings',
         'end_date': project.vars.end_training_non_client,
@@ -28,7 +28,7 @@ module.exports = [
         'start_date': project.vars.start_report_seed_quality || service.vars.start_report_seed_quality
     },
     {
-        'en-ke': 'Contact Call center',
+        'en-ke': 'Customer Support',
         'sw': 'Wasiliana na Huduma ya wateja',
         'option_name': 'contact_call_center',
         'end_date': project.vars.end_contact_call_center,
@@ -40,5 +40,12 @@ module.exports = [
         'option_name': 'sbcc',
         'end_date': project.vars.end_sbcc,
         'start_date': project.vars.start_sbcc
+    },
+    {
+        'en-ke': 'Forgot account number',
+        'sw': 'Nimesahau nambari yangu ya akaunti',
+        'option_name': 'forgot_account_number',
+        'end_date': project.vars.end_find_oaf_contact,
+        'start_date': project.vars.start_find_oaf_contact
     },
 ];

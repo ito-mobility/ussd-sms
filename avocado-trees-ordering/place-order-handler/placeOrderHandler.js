@@ -1,4 +1,4 @@
-var handlerName = 'place_chicken_order';
+var handlerName = 'place_avocado_order';
 var notifyELK = require('../../notifications/elk-notification/elkNotification');
 var createTranslator = require('../../utils/translator/translator');
 var translations = require('../translations');

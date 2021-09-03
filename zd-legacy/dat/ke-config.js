@@ -62,20 +62,24 @@ var create_user = function(account_number){
 }
 */
 
-var data_packer = function(account_number, call_category, phone_number, tags){
-    phone_number = parseInt(String(phone_number).replace('-','')) || null;
+/**
+ * Configurations for Kenya Zendesk ticket creation
+ * @param {Object} ticketDetails {call_category, account_number!, description, customFields, assignee_email}
+ * @returns Stringified object of the request
+ */
+// account_number, call_category, customFields, description, tags
+var data_packer = function(ticketDetails){
     try{
         return JSON.stringify({
             'ticket': {
-                'subject': call_category,
-                'raw_subject': call_category,
-                'requester_id': find_user(account_number),
+                'subject': ticketDetails.call_category,
+                'raw_subject': ticketDetails.call_category,
+                'requester_id': find_user(ticketDetails.account_number),
                 'status': 'new',
-                'description': 'USSD request for call back\nAccount number : ' + account_number,
-                'custom_fields': [
-                    {'id': 360010566873, 'value': phone_number},
-                ],
-                'tags': tags
+                'description': ticketDetails.description,
+                'custom_fields': ticketDetails.customFields,
+                'tags': ticketDetails.tags,
+                'assignee_email': ticketDetails.assignee_email,
             }
         });
     }
@@ -85,11 +89,11 @@ var data_packer = function(account_number, call_category, phone_number, tags){
     }
 };
 
-var table_updater = function(account_number, call_category, phone_number, ticket_id){
+var table_updater = function(ticketDetails, ticket_id, phone_number){
     var ticket_table = project.getOrCreateDataTable(opts.ticket_table);
     ticket_table.createRow({vars: {
-        'account_number': account_number,
-        'call_category': call_category,
+        'account_number': ticketDetails.account_number,
+        'call_category': ticketDetails.call_category,
         'phone_number': phone_number,
         'ticket_id': ticket_id
     }});

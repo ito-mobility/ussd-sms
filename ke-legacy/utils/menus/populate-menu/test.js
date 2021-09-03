@@ -60,7 +60,7 @@ describe('ChickenServices', () => {
         const menu = populateMenu(lang,140,false);
         console.log(menu);
         expect(typeof menu).toEqual('string');
-        expect(menu).toMatch('1) Join One Acre Fund\n2) Find Training\n3) Find OAF Duka');
+        expect(menu).toMatch('1) Join One Acre Fund\n2) View Farming Trainings\n3) Find OAF Duka');
 
     });
     it('should not return an option that doesn\'t satisfy the date condition',()=>{
@@ -70,7 +70,7 @@ describe('ChickenServices', () => {
         const menu = populateMenu(lang,140,false);
         console.log(menu);
         expect(typeof menu).toEqual('string');
-        expect(menu).toMatch('1) Find Training\n2) Find OAF Duka');
+        expect(menu).toMatch('1) View Farming Trainings\n2) Find OAF Duka');
 
     });
     it('should return an object of all the options if the character is greater than 140 satisfy the date condition',()=>{        

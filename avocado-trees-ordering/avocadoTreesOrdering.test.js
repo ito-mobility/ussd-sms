@@ -24,7 +24,10 @@ const country = 'RW';
 const lang = 'en';
 
 describe('avocadoServices',()=>{
-    
+    beforeAll(() => {
+        service.vars.avocados_input_choices = JSON.stringify([-16824]);
+        service.vars.avocados_bundle_id = '-5620';
+    });
     beforeEach(() => {
         placeOrderHandler.getHandler.mockReturnValue(mockPlaceOrderHandler);
         confirmOrderHandler.getHandler.mockReturnValue(mockCofrmOrderHandler);
@@ -63,7 +66,7 @@ describe('avocadoServices',()=>{
             avocadoTreesOrdering.start(account, country,lang);
             expect(sayText).toHaveBeenCalledWith(`You have paid ${balance}`+
             `, and you are qualified to order up to ${possibleTree}`+
-            ' trees.  Please remember, new avocado clients must order at least 3 trees. How many would you like to order? Reply with the number of trees you want to order\n99) Return to main menu');
+            ' trees.  Please remember, new avocado clients must order at least 3 trees. How many would you like to order? Reply with the number of trees you want to order');
         });
         it('should display prepayment not satified if the possible nuber of tree is less than 3',()=>{
             avocadoEligibility.mockReturnValue({'balance': balance, 'possibleTrees': 2});

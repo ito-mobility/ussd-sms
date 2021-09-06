@@ -29,7 +29,7 @@ describe('confirm_order_handler', () => {
         confirmOrderHandler('2');
         expect(sayText).toHaveBeenCalledWith(`You have paid ${amount}`+
         `, and you are qualified to order up to ${possibleTree}`+
-        ' trees.  Please remember, new avocado clients must order at least 3 trees. How many would you like to order? Reply with the number of trees you want to order\n99) Return to main menu');
+        ' trees.  Please remember, new avocado clients must order at least 3 trees. How many would you like to order? Reply with the number of trees you want to order');
     });
     it('should show order not finalized  if the input is 3', () => {
         confirmOrderHandler('3');

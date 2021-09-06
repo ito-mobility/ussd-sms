@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 * [ESWFA-213](https://oneacrefund.atlassian.net/browse/ESWFA-213) Setup client/GL Referal program on Telerivet
 ### Changed
 * [ESWFA-231](https://oneacrefund.atlassian.net/browse/ESWFA-231) Fix seed germination reporting issues
+### Changed
+* [ESWFA-232](https://oneacrefund.atlassian.net/browse/ESWFA-232) Prepayment Amount Check for KE - USSD 
 ## v2.1.3
 ### Changed
 * [ESWFA-225](https://oneacrefund.atlassian.net/browse/ESWFA-225) Rwanda Sedo fix 
@@ -14,6 +16,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 * [ESWFA-209](https://oneacrefund.atlassian.net/browse/ESWFA-209) KE: USSD Farmer Training Enrollment 
 ### Changed
+* [ESWFA-211](https://oneacrefund.atlassian.net/browse/ESWFA-211) Re-design the FO locator user flow
 * [ESWFA-197](https://oneacrefund.atlassian.net/browse/ESWFA-197) USSD Services-Special Request - USSD Request for Avocado-RW
 * [THD-7443](https://oneacrefund.atlassian.net/browse/THD-7443)Mobile Enrollment-Request change on Account Number SMS Feature-TZ
 ### Changed

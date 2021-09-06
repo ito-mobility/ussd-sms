@@ -24,14 +24,14 @@ module.exports = function (callInfo) {
         global.stopRules();
     } else {
         var ticketTags = [callInfo.desc, 'kenya', 'CallBackUSSD'];
-        if (
-            create_zd_ticket(
-                callInfo.accountNumber,
-                callInfo.desc,
-                callInfo.phoneNumber,
-                ticketTags
-            )
-        ) {
+        var ticketDetails = {
+            account_number: callInfo.accountNumber,
+            assignee_email: service.vars.zendeskCEemail || 'kenya.bizops@oneacrefund.org',
+            tags: ticketTags,
+            call_category: callInfo.desc,
+            description: callInfo.desc,   
+        };
+        if (create_zd_ticket(ticketDetails, callInfo.phoneNumber)) {
             console.log('created_ticket!');
             global.sayText(getMessage(callInfo.successMsg, {}, callInfo.lang));
             global.stopRules();

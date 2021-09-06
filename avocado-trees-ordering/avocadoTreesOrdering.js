@@ -48,9 +48,9 @@ function onOrderConfirmed(){
 
     //enroll order
     var requestBundles = [{
-        'bundleId': '-5620',
+        'bundleId': service.vars.avocados_bundle_id,
         'bundleQuantity': state.vars.orderedNumber,
-        'inputChoices': [-16824]
+        'inputChoices': JSON.parse(service.vars.avocados_input_choices)
     }];
     var client = JSON.parse(state.vars.client_json);
     var groupId = client.GroupId;
@@ -81,7 +81,8 @@ function onOrderConfirmed(){
         var avocadoCursor = avocado_table.queryRows({'vars': {'account_number': state.vars.account}});
         if(avocadoCursor.hasNext()){
             var avocadoRow = avocadoCursor.next();
-            avocadoRow.vars.avoka_jit = (state.vars.orderedNumber - avocadoRow.vars.a_avokaqty);
+            var a_avokaqty = avocadoRow.vars.a_avokaqty || 0;
+            avocadoRow.vars.avoka_jit = (state.vars.orderedNumber - a_avokaqty);
             avocadoRow.vars.confirmed = '1';
             avocadoRow.save();
         }

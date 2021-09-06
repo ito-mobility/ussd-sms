@@ -31,16 +31,15 @@ module.exports = function(table, acc_nber, client_json){
     if(client_json.BalanceHistory.length > 0){
         client_json.BalanceHistory = client_json.BalanceHistory[0];
     }
+    prepRequired = prepRequired || 0;
     var prepayment_amount = client_json.BalanceHistory.TotalRepayment_IncludingOverpayments - prepRequired;
 
-    if(orderedAvocado == 0){
-        numberOfTreesPossible = prepayment_amount / 500;
-    }
-    else if(orderedAvocado < 10){
-        numberOfTreesPossible = (prepayment_amount - 1000) / 500;
-    }
-    else if(orderedAvocado >= 10){
+    if(orderedAvocado >= 10){
         numberOfTreesPossible = (prepayment_amount - 1500) / 500;
+    } else if(orderedAvocado < 10 && orderedAvocado > 0){
+        numberOfTreesPossible = (prepayment_amount - 1000) / 500;
+    }else {
+        numberOfTreesPossible = prepayment_amount / 500;
     }
     
     return { 

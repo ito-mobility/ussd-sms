@@ -863,5 +863,9 @@ module.exports = {
     'registration_ended': {
         'en': 'Registration ended. Please wait for the next season',
         'ki': 'Kwiyandikisha byararangiye. Mutegereze igihembwe gitaha'
+    },
+    'no_balance_history': {
+        'en': 'No balance history available',
+        'ki': 'Nta makuru y\'ubwishyu yabonetse'
     }
 };

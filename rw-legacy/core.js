@@ -294,8 +294,14 @@ addInputHandler('cor_menu_select', function (input) {
         }
     }
     else if (selection === 'cor_get_balance') { //inelegant
+        var clientDetails = JSON.parse(state.vars.client_json);
+        if(clientDetails.BalanceHistory.length < 1){
+            global.sayText(msgs('no_balance_history'));
+            global.stopRules();
+            return;
+        }
         var get_balance = require('./lib/cor-get-balance');
-        var balance_data = get_balance(JSON.parse(state.vars.client_json), lang);
+        var balance_data = get_balance(clientDetails, lang);
         if(balance_data['$PAID'] > balance_data['$CREDIT']){
             balance_data['$OVERPAID'] = parseInt(balance_data['$PAID']) - parseInt(balance_data['$CREDIT']);
             sayText(msgs('cor_get_balance_overpaid', balance_data, lang));

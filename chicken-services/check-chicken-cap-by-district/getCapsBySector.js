@@ -2,8 +2,8 @@
 // function to return district/sector chicken cap
 /**
  * Takes in district and sector names and returns chicken cap details 
- * @param {String} districtName name of client's district
- * @param {String} sectorName name of the client's sector
+ * @param {String} districtName name of client's district OAF Dictrict name (not Government district)
+ * @param {String} sectorName name of the client's sector (Non-OAF sector) Government sector
  * @returns chicken cap, district name, sector name, delivery window (EN&KI)
  */
 module.exports = function getChickenCap(districtName, sectorName) {
